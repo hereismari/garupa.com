@@ -1,0 +1,58 @@
+@(userForm: Form[User])
+
+@main("Tutorial") {
+    <h1> Formulário </h1>
+
+    @helper.form(action = routes.Application.submit(), args = 'class -> "userForm") {
+        @helper.input(userForm("email")) { (id, name, value, args) =>
+            <input type="email" name="@name" id="@id" class="form-control" placeholder="Digite o e-mail" autofocus @toHtmlArgs(args) >
+        }
+
+        <label for="password">Senha:</label>
+        <input type="password" class="form-control" >
+
+        <br>
+        <label for="mobileOS">Sistema Operacional:</label>
+        <select class="form-control" id="exampleSelect1">
+            <option>Selecione...</option>
+            <option>Android</option>
+            <option>iOS</option>
+            <option>Windows Phone</option>
+        </select>
+
+        <br>
+        <label for="gender">Gênero:</label>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                Masculino
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                Feminino
+            </label>
+        </div>
+
+
+        <br>
+        <input type="submit" class="btn btn-primary" value="Send">
+    }
+
+    <br>
+    <br>
+<!-- Exemplo com AngularJS-->
+    <div ng-app>
+        <h1>Bem-vindo ao Java Play + Bootstrap + AngularJS</h1>
+        <form role="form">
+            <div class="form-group">
+                <label for="sometext">Digite algo:</label>
+                <input id="sometext" class="form-control" ng-model="sometext" autofocus>
+            </div>
+        </form>
+        <div class="alert alert-success" ng-show="sometext">
+            <strong>Você digitou:</strong> {{ sometext }}
+        </div>
+    </div>
+}
