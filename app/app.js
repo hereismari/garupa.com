@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ngAnimate", "ui.router", "door3.css"]);
 
-
-
+var app = angular.module("app", [
+  "ngAnimate", "ui.router", "door3.css"
+]);
