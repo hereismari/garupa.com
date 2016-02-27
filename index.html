@@ -1,21 +1,60 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
 
-  <meta charset="UTR-8">
-  <title>garupa.com</title>
+  <meta charset="utf-8">
+  <title> Garupa </title>
   <link rel="shortcut icon" href="favicon.ico">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="assets/css/flat-ui.css" rel="stylesheet"/>
+  <link href="assets/css/general.css" rel="stylesheet"/>
   
-  <script src='Javascript/'> </script>
-
 </head>
 
 <body>
-  <h1>HELLO WORLD</h1>
+
+  <div ng-app="home" ng-controller="homeController">
+
+    <div id="menu-bar">
+      <span>{{ log-in }}</span>
+    </div>
+
+    <div id="sign-up">
+      
+      <!-- <h1>{{ app_name }}</h1> -->
+       
+       <form>
+
+        <label class="login-field-icon fui-user" for="login-name"></label>
+        <input type="text" id="login-name" placeholder="Email" spellcheck="false">
+        <br>      
+        
+        <label class="login-field-icon fui-lock" for="login-pass"></label>
+        <input type="password" placeholder="Senha" value="">
+        <br><br>
+
+        <a class="btn btn-primary btn-block btn-large">Inscreva-se</a>
+      
+      </form>
+
+    </div>
+    <!--
+    <footer>
+      <h5>
+        <span><a href="#">link 1</a></span>
+        <span><a href="#">link 2</a></span>
+      </h5>
+    </footer>
+    -->
+  </div>
+  
+  <script src="libs/jquery-2.1.3.js"></script>
+  <script src="libs/flat-ui.js"></script>
+  <script src="libs/angular.js"></script>
+  <script src="libs/angular-css.js"></script>
+  <script src="app/views/home.js"></script>
+
 </body>
 
-
 </html>
-

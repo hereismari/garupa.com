@@ -1,0 +1,56 @@
+/* css-general */
+
+@font-face {
+	font-family: 'lato';
+	src: url('../fonts/lato/lato-regular.ttf') format('truetype');
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#menu-bar {
+	width: 100%;
+	margin: 0 auto;
+	height: 40px;
+	border-bottom: 1px solid blue;
+	background-color: rgba(52, 338, 219, 0.85);
+
+	display: none;
+}
+
+#menu-bar span {
+	padding: 5px;
+	margin: 0 100px;
+	background-color: #ffdddd;
+	float: right;
+}
+
+#sign-up {
+	position: relative; 
+	width: 400px;
+	height: 400px;
+	margin: 20% auto;
+	text-align: center;
+}
+
+#sign-up input {
+	margin: 5px 10px;
+	width: 80%;
+	padding: 10px;
+	font-size: 16px;
+	border: none;
+	border-radius: 2px;
+}
+
+#sign-up a.btn {
+	width: 90%;
+	margin: 0 auto;
+}
+
+#sign-up h1 {
+	font-family: lato;
+	font-size: 60pt;
+	color: #4455ff; 
+}
