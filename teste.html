@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>  	
+  	<meta charset="utf-8">
+	<title>garupa.com</title>
+
+	<!--BootStrap references!!!-->
+  <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">        
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.css">
+	
+	<!-- jquery and bootstrap -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+  <!-- bootstrap-switch -->
+	<link rel="stylesheet" href="/home/dell/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css">  
+	<script src="/home/dell/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>
+
+	<!-- Cool fonts and images-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style.css">
+
+	<!-- bootstrap typeahead -->
+	<script src="/home/dell/bootstrap3-typeahead.js"></script>
+	<script src="/home/dell/typeahead.jquery.js"></script>
+	<script src="/home/dell/bloodhound.js"></script>
+	<script src="/home/dell/typeahead.bundle.js"></script> 
+	<script src="/home/dell/typeahead.bundle.min.js"></script>
+	<script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+	<!-- my scipt -->
+	<script src="/home/dell/script.js"></script>
+
+</head>
+
+<body>
+
+	<div class="main-container container" style="background-color:blue">
+		  <div class="row height-100">
+		  	<div class="col-sm-8 col-sm-offset-2 main-column">
+		  		<div class="row">
+		    		<div class="col-sm-10 col-sm-offset-1 search-container-outside">
+			      	<h1 class="text-center login-title"> Ache seu bigu! </h1>
+			      	<div class="col-sm-10 col-sm-offset-1 search-container-inside">
+			      		<div class="row">	
+			         		<form class="form-signin">   			
+			    					<div class="row">
+				    					<div class="col-sm-12 sm-space-down"> 
+				    						<p style="display:inline"> Carona de : </p>
+				    						<input id="switch-onText" type="checkbox" data-on-text="Partida" data-off-text="Destino" data-off-color="warning" name="partida" data-label-text="UFCG">
+				    					</div>
+			          		
+				          		<div class="col-sm-6 sm-space-down">
+				          			<input type="text" class="form-control" placeholder="Bairro" required autofocus>
+				          		</div>
+				          		
+				          		<div class="col-sm-6 sm-space-down">
+				          			<input type="datetime-local" class="form-control" placeholder="Data" required>
+				          		</div>
+				          		
+				          		<div class="col-sm-6 sm-space-down">
+				          			<input type="text" data-provide="typeahead">
+				          		</div>
+
+
+											<div class="col-sm-12 sm-space-down">
+				          			<button class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+				          		</div>
+			          		</div>
+			          <a href="#" class="pull-right need-help"> Need help? </a><span class="clearfix"></span>
+			        </form>
+		      </div>
+		  	</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+    </div>
+</div>
+	
+	<input type="text" data-provide="typeahead" id='product'></input>
+
+	<!-- Ativa o switch -->	
+	<script> $("[name='partida']").bootstrapSwitch(); </script>
+	<script> 
+	var jsonData = [
+  {
+    "id": 1,
+    "name": "Andrew Pougher"
+  },
+  {
+    "id": 2,
+    "name": "Michele Moore"
+  },
+  {
+    "id": 3,
+    "name": "Michele Boob"
+  },
+  {
+    "id": 4,
+    "name": "Michael Moore"
+  },
+  {
+    "id": 5,
+    "name": "George Michael"
+  }
+]
+
+var productNames = new Array();
+var productIds = new Object();
+//$.getJSON( '/getAjaxProducts', null,
+       // function ( jsonData )
+        //{
+            $.each( jsonData, function ( index, product )
+            {
+                productNames.push( product.name );
+                productIds[product.name] = product.id;
+            } );
+            $( '#product' ).typeahead( { source:productNames } );
+       // };
+
+	</script>
+</body>
+</html>
