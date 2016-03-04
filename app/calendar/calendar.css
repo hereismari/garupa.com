@@ -1,0 +1,35 @@
+
+calendar {
+  display: block;
+  text-align: center;
+  min-height: 12em;
+}
+
+calendar .wrapper {
+  display: flex;
+}
+
+calendar .column {
+  flex-grow: 1;
+}
+
+calendar,
+calendar .day {
+  border-bottom-color: #ddd;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+calendar .event {
+  margin: 8px 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+calendar .driver {
+  font-size: 12px;
+}
+
+calendar h5 {
+  color: #eee;
+}

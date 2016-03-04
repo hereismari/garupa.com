@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 
-<html ng-app="app">
+<html ng-app='app'>
 
 <head>
-  <meta charset="UTR-8">
   <title> garupa.com </title>
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel='shortcut icon' href='favicon.ico'>
+  <meta charset='UTF-8'>
+  <base href='/'>
 
+  <script src='libs/jquery-2.1.3.js'></script>
   <script src='libs/angular.min.js'></script>
+  <script src='libs/angular-css.min.js'></script>
   <script src='libs/angular-ui-router.js'></script>
   <script src='libs/angular-animate.min.js'></script>
-  <script src='libs/angular-css.min.js'></script>
-  <script src='libs/jquery-2.1.3.js'></script>
-  <script src="libs/bootstrap/js/flat-ui.min.js"></script>
+  <script src='libs/bootstrap/js/flat-ui.min.js'></script>
   <script src='libs/underscore.js'></script>
   <script src='libs/require.js'></script>
 
-  <link href="libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="libs/bootstrap/css/flat-ui.min.css" rel="stylesheet">
+  <link href='libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet'>
+  <link href='libs/bootstrap/css/flat-ui.min.css' rel='stylesheet'>
+  <link href='libs/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
+  <link href='libs/bootstrap-vert-offset-shim.css' rel='stylesheet'>
 
   <script src='app/app.js'></script>
+  <script src='app/shared/constants.js'></script>
+  <script src='app/shared/filters.js'></script>
+  <script src='app/views/profile.js'></script>
+  <script src='app/calendar/calendar.js'></script>
 </head>
 
-<body>
+<body ng-controller='profile'>
+  <div class='vert-offset-top-4 vert-offset-bottom-4 container' ui-view></div>
 </body>
 
 </html>
