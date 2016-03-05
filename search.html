@@ -36,63 +36,35 @@
 
   <div class="main-container container">
     <div class="row height-100">
+      
       <!-- Search box -->
-      <div class="col-sm-10 col-sm-offset-1 search-container-outside">
+      <div class="col-sm-10 col-sm-offset-1">
         <h1 class="text-center login-title"> Ache seu bigu! </h1>
-        <div class="col-sm-10 col-sm-offset-1 search-container-inside">
-          <div class="row"> 
-            <form class="form-signin">        
-              <div class="row search-container">
-                <div class="row sm-space-down">
-                  <div class="col-sm-8"> 
-                    <p style="display:inline"> Busco Carona para: </p>
-                  </div>
-                  <div clss="col-sm-4 sm-space-down">
-                    <input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" 
-                    data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG">
-                  </div>          
-                </div>
-                  
-                <div class="row sm-space-down">
-                  <div class="col-sm-4">
-                      <p style="display:inline" id="destiny"> Destino: </p>
-                  </div>
-                  <div class="col-sm-8">
-                    <input id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required>
-                  </div>
-                </div>
-
-                <div class="row sm-space-down">
-                  <div class="col-sm-4">
-                    <p style="display:inline"> No dia: </p>
-                  </div>
-                  <div class="col-sm-8">
-                    <input type="text" placeholder="Escolha uma data" id="date">
-                  </div>
-                </div>
-
-                <div class="row sm-space-down">
-                  <div class="col-sm-4">
-                    <p style="display:inline"> Na hora: </p>
-                  </div>
-                  <div class="col-sm-8">
-                    <input id="time" type="text" required>
-                  </div>
-                </div>
-
-                <div class="col-sm-12 sm-space-down">
-                  <button class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
-                </div>
-              </div>
-              <a href="#" class="pull-right need-help"> Need help? </a><span class="clearfix"></span>
-          
-            </form>
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class='col-md-8 col-md-offset-2 search-box'>
+           <form class="form-signin">        
+            <table class='table table-hover table-responsive'>
+              <tr><th> Busco carona para:</th><td><input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG"></td></tr>
+              <tr><th> Destino:  </th><td> <input id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
+              <tr><th> No dia  </th><td> <input type="text" placeholder="Escolha uma data" id="date"> </td></tr>
+              <tr><th> Na hora </th><td> <input id="time" type="text" required> </td></tr>
+            </table>
+            
+            <div class="col-md-12">
+              <button class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+            </div>
+          </div>
+      
+         
+      
+        </form>
           </div>
         </div>
       </div>
+      
+    <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
     </div>
 
-    
 
   </div>
  
