@@ -35,9 +35,8 @@
 <body>
 
   <div class="main-container container">
-    <div class="row height-100">
-      
-      <!-- Search box -->
+    <!-- Search box -->
+    <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
         <h1 class="text-center login-title"> Ache seu bigu! </h1>
         <div class="col-sm-10 col-sm-offset-1">
@@ -49,25 +48,19 @@
               <tr><th> No dia  </th><td> <input type="text" placeholder="Escolha uma data" id="date"> </td></tr>
               <tr><th> Na hora </th><td> <input id="time" type="text" required> </td></tr>
             </table>
-            
-            <div class="col-md-12">
-              <button class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
-            </div>
-          </div>
-      
-         
-      
-        </form>
+              <div class="col-md-12">
+                <button class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+              </div>
+            </form>
           </div>
         </div>
       </div>
+    </div>
       
     <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
-    </div>
-
-
+  
   </div>
- 
+
   <!-- Ativa o switch --> 
   <script> $("[name='partida']").bootstrapSwitch(); </script>
   
