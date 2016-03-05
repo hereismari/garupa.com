@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-#profile-pic .wrapper {
+#profile-pic .action {
   width: 100%;
   bottom: 0px;
 
@@ -18,7 +18,7 @@
   opacity: 0;
 }
 
-#profile-pic:hover .wrapper {
+#profile-pic:hover .action {
   opacity: 1;
 }
 
@@ -28,6 +28,11 @@
 
 table th, table a {
   font-size: 82%;
+}
+
+table th,
+table td:last-child {
+  width: 160px;
 }
 
 table a {
