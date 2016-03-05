@@ -39,40 +39,17 @@
             <form class="form-signin">        
               <div class="row">
                 <div class="col-sm-12 sm-space-down"> 
-                  <p style="display:inline"> Carona para : </p>
-                  <input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" name="partida" data-label-text="UFCG" required>
+                  <p style="display:inline"> Busco Carona para : </p>
+                  <input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" 
+                  id="status-cb" name="partida" data-label-text="UFCG" required>
                 </div>
-              
+
                 <div class="col-sm-12 sm-space-down">
-                  <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('#select-neigh').multiselect({
-                            enableFiltering: true,
-                            filterPlaceholder: 'Buscar...'
-                        });
-                    });
-                  </script>
-                  <div class="btn-group black">
-                    <select id="select-neigh" multiple="multiple" placeholder="Bairros">
-                      <option value="a">Option 1</option>
-                      <option value="b">Option 2</option>
-                      <option value="c">Option 3</option>
-                      <option value="d">Option 4</option>
-                      <option value="e">Option 5</option>
-                      <option value="f">Option 6</option>
-                      <option value="g">Option 7</option>
-                      <option value="h">Option 8</option>
-                      <option value="i">Option 9</option>
-                      <option value="j">Option 10</option>
-                      <option value="k">Option 11</option>
-                      <option value="l">Option 12</option>
-                      <option value="m">Option 13</option>
-                      <option value="n">Option 14</option>
-                    </select>
-                  </div>
+                  <p style="display:inline" id="destiny"> Carona para : </p>
+                  <input id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required>
                 </div>
                 
-                <div class="col-sm-8 col-sm-offset-2 sm-space-down">
+                <div class="col-sm-12 sm-space-down">
                   <input type="datetime-local" class="form-control" placeholder="Data" required>
                 </div>
 
@@ -97,8 +74,18 @@
   <!-- bairros -->
   <script> 
     var jsonData =['Acacio Figueiredo ', 'Alto Branco ', 'Bairro das Cidades ', 'Bela Vista ', 'Bodocongo ', 'Cachoeira ', 'Castelo Branco ', 'Catole ', 'Catole de Ze Ferreira', 'Centenario ', 'Centro ', 'Conjunto Cinza ', 'Dinamerica ', 'Distrito de Catole ', 'Distrito Industrial ', 'Estacao Velha ', 'Estreito ', 'Gloria ', 'Itarare ', 'Jardim Atalaia ', 'Jardim Borborema ', 'Jardim Paulistano ', 'Jardim Verdejante ', 'Jeremias ', 'Jose Pinheiro ', 'Lauritzen ', 'Liberdade ', 'Ligeiro ', 'Louzeiro ', 'Malvinas ', 'Mirante ', 'Monte Castelo ', 'Monte Santo ', 'Mutirao do Serrotao', 'Nova Brasilia ', 'Novo Bodocongo', 'Palmeira ', 'Pedregal ', 'Prata ', 'Presidente Medici ', 'Quarenta ', 'Ramadinha ', 'Sandra Cavalcante ', 'Santa Cruz ', 'Santa Rosa ', 'Santa Terezinha ', 'Santo Antonio ', 'Sao Jose ', 'Sao Jose da Mata ', 'Serrotao ', 'Sitio Estreito ', 'Sitio Lucas ', 'Tambor ', 'Tres Irmas ', 'Universitario ', 'Velame ', 'Vila Cabral '];
-    $( '#neigh' ).typeahead( { source:jsonData, limit : 5} );
+    //$( '#neigh' ).typeahead( { source:jsonData} );
+    $('#neigh').data-source(jsonData);
   </script>
+
+
+  <script>
+   
+    $("#status-cb").click( function(){
+  alert("state changed");
+});
+
+</script>
 
 </body>
 </html>
