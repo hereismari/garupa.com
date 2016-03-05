@@ -8,14 +8,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
     $urlRouterProvider.otherwise('/perfil/dilma');
 
     $stateProvider
-        .state('home', {
-            url: '/',
+        .state('login', {
+            url: "",
             controller: 'loginController',
-            templateUrl: 'app/views/home.html',
+            templateUrl: 'app/views/home.html'
         })
         .state('profile', {
             url: '/perfil/{user_id}',
-            controller: 'profile',
+            controller: 'profile', 
             templateUrl: 'app/views/profile.html',
             css: 'app/views/profile.css'
         });
