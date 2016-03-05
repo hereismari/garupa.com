@@ -34,6 +34,15 @@
 
 <body>
 
+  <!-- Fake data -->
+  <div ng-init="friends = [{name:'John', phone:'555-1276', neigh:'teste', date:'08/03/2016', time:'2:15 AM'},
+                     {name:'Mary', phone:'800-BIG-MARY', neigh:'teste', date:'08/03/2016', time:'2:15 AM'},
+                     {name:'Mike', phone:'555-4321', neigh:'teste', date:'08/03/2016', time:'2:15 AM'},
+                     {name:'Adam', phone:'555-5678', neigh:'teste', date:'08/03/2016', time:'2:15 AM'},
+                     {name:'Julie', phone:'555-8765', neigh:'teste', date:'08/03/2016', time:'2:15 AM'},
+                     {name:'Juliette', phone:'555-5678', neigh:'teste', date:'08/03/2016', time:'2:15 AM'}]"></div>
+
+  <!-- page -->
   <div class="main-container container">
     <!-- Search box -->
     <div class="row">
@@ -44,12 +53,16 @@
            <form class="form-signin">        
             <table class='table table-hover table-responsive'>
               <tr><th> Busco carona para:</th><td><input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG"></td></tr>
-              <tr><th> Destino:  </th><td> <input id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
-              <tr><th> No dia  </th><td> <input type="text" placeholder="Escolha uma data" id="date"> </td></tr>
-              <tr><th> Na hora </th><td> <input id="time" type="text" required> </td></tr>
+              <tr><th> Destino:  </th><td> <input ng-model="search.neigh" id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
+              <tr><th> No dia  </th><td> <input ng-model="search.date" type="text" placeholder="Escolha uma data" id="date"> </td></tr>
+              <tr><th> Na hora </th><td> <input ng-model="search.time" id="time" type="text" required> </td></tr>
             </table>
               <div class="col-md-12">
-                <button class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+                <button ng-click="filter=''" class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+              </div>
+              <div class="col-md-12">
+                <a>Precisao 100%</a>
+                <input type="checkbox" ng-model="strict">
               </div>
             </form>
           </div>
@@ -58,7 +71,20 @@
     </div>
       
     <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
-  
+    <!-- Filter
+    <div class="row" style="background-color:red">
+      <div class="col-md-8 col-md-offset-4">
+        <table class="table-hover table-responsive" id="searchObjResults">
+          <tr><th>Nome</th><th>Telefone</th><th>Bairro</th></tr>
+          <tr ng-repeat="friendObj in friends | filter:search:strict">
+          <td>{{friendObj.name}}</td>
+          <td>{{friendObj.phone}}</td>
+          <td>{{friendObj.neigh}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    -->
   </div>
 
   <!-- Ativa o switch --> 
