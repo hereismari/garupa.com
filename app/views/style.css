@@ -10,6 +10,7 @@ body, html {
 .main-container {
     height: 100%;
     min-height: 100%;
+    background-color: #d1dbd9;
 }
 
 .main-column {
@@ -24,7 +25,7 @@ body, html {
 
 .search-container-outside {
     border-radius: 2%;
-    background-color: green;
+    background-color: #bc1a3a;
     margin-top: 2%;
 }
 

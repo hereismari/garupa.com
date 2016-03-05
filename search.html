@@ -16,9 +16,13 @@
   <script src='libs/underscore.js'></script>
   <script src="libs/bootstrap3-typeahead.js"></script>
   <script src="libs/bootstrap-multiselect.js"></script>
+  <script src="libs/bootstrap-timepicker.min.js"></script>
+  <script src="libs/bootstrap-datepicker.js"></script>
   <script src='libs/require.js'></script>
 
   <link href="libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="libs/bootstrap-timepicker.min.css" rel="stylesheet">
+  <link href="libs/datepicker.css" rel="stylesheet">
   <link href="libs/bootstrap/css/flat-ui.min.css" rel="stylesheet">
   <link href="libs/bootstrap-multiselect.css" rel="stylesheet">
   <script src='app/app.js'></script>
@@ -30,27 +34,50 @@
 
 <body>
 
-  <div class="main-container container" style="background-color:blue">
+  <div class="main-container container">
     <div class="row height-100">
+      <!-- Search box -->
       <div class="col-sm-10 col-sm-offset-1 search-container-outside">
         <h1 class="text-center login-title"> Ache seu bigu! </h1>
         <div class="col-sm-10 col-sm-offset-1 search-container-inside">
           <div class="row"> 
             <form class="form-signin">        
-              <div class="row">
-                <div class="col-sm-12 sm-space-down"> 
-                  <p style="display:inline"> Busco Carona para : </p>
-                  <input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" 
-                  id="status-cb" name="partida" data-label-text="UFCG" required>
+              <div class="row search-container">
+                <div class="row sm-space-down">
+                  <div class="col-sm-8"> 
+                    <p style="display:inline"> Busco Carona para: </p>
+                  </div>
+                  <div clss="col-sm-4 sm-space-down">
+                    <input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" 
+                    data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG">
+                  </div>          
+                </div>
+                  
+                <div class="row sm-space-down">
+                  <div class="col-sm-4">
+                      <p style="display:inline" id="destiny"> Destino: </p>
+                  </div>
+                  <div class="col-sm-8">
+                    <input id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required>
+                  </div>
                 </div>
 
-                <div class="col-sm-12 sm-space-down">
-                  <p style="display:inline" id="destiny"> Carona para : </p>
-                  <input id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required>
+                <div class="row sm-space-down">
+                  <div class="col-sm-4">
+                    <p style="display:inline"> No dia: </p>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" placeholder="Escolha uma data" id="date">
+                  </div>
                 </div>
-                
-                <div class="col-sm-12 sm-space-down">
-                  <input type="datetime-local" class="form-control" placeholder="Data" required>
+
+                <div class="row sm-space-down">
+                  <div class="col-sm-4">
+                    <p style="display:inline"> Na hora: </p>
+                  </div>
+                  <div class="col-sm-8">
+                    <input id="time" type="text" required>
+                  </div>
                 </div>
 
                 <div class="col-sm-12 sm-space-down">
@@ -64,28 +91,32 @@
         </div>
       </div>
     </div>
-  </div>
 
+    
+
+  </div>
+ 
   <!-- Ativa o switch --> 
   <script> $("[name='partida']").bootstrapSwitch(); </script>
-
-</div>
+  
+  <!-- Ativa o time -->
+  <script type="text/javascript"> $('#time').timepicker(); </script>
+  
+  <!-- Ativa a dta -->
+  <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {         
+                $('#date').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            });
+        </script>
 
   <!-- bairros -->
   <script> 
     var jsonData =['Acacio Figueiredo ', 'Alto Branco ', 'Bairro das Cidades ', 'Bela Vista ', 'Bodocongo ', 'Cachoeira ', 'Castelo Branco ', 'Catole ', 'Catole de Ze Ferreira', 'Centenario ', 'Centro ', 'Conjunto Cinza ', 'Dinamerica ', 'Distrito de Catole ', 'Distrito Industrial ', 'Estacao Velha ', 'Estreito ', 'Gloria ', 'Itarare ', 'Jardim Atalaia ', 'Jardim Borborema ', 'Jardim Paulistano ', 'Jardim Verdejante ', 'Jeremias ', 'Jose Pinheiro ', 'Lauritzen ', 'Liberdade ', 'Ligeiro ', 'Louzeiro ', 'Malvinas ', 'Mirante ', 'Monte Castelo ', 'Monte Santo ', 'Mutirao do Serrotao', 'Nova Brasilia ', 'Novo Bodocongo', 'Palmeira ', 'Pedregal ', 'Prata ', 'Presidente Medici ', 'Quarenta ', 'Ramadinha ', 'Sandra Cavalcante ', 'Santa Cruz ', 'Santa Rosa ', 'Santa Terezinha ', 'Santo Antonio ', 'Sao Jose ', 'Sao Jose da Mata ', 'Serrotao ', 'Sitio Estreito ', 'Sitio Lucas ', 'Tambor ', 'Tres Irmas ', 'Universitario ', 'Velame ', 'Vila Cabral '];
-    //$( '#neigh' ).typeahead( { source:jsonData} );
     $('#neigh').data-source(jsonData);
   </script>
-
-
-  <script>
-   
-    $("#status-cb").click( function(){
-  alert("state changed");
-});
-
-</script>
 
 </body>
 </html>
