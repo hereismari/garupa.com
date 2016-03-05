@@ -1,0 +1,35 @@
+
+<div class='row vert-offset-bottom-4'>
+  <div class='col-md-3'>
+    <div id='profile-pic'>
+      <img class='img-responsive' ng-src='{{user.photo_url}}'/>
+      <span class='wrapper'><button class='btn btn-primary btn-block btn-sm'>
+        <i class='fa fa-pencil'></i> &nbsp; Trocar foto </button></span>
+    </div>
+  </div>
+
+  <div class='col-md-8 col-md-offset-1'>
+    <table class='table table-hover table-responsive'>
+      <tr><th> Nome      </th><td> {{user.name}}    </td><td><a><i class='fa fa-pencil'></i> &nbsp; Editar </a></td></tr>
+      <tr><th> Telefone  </th><td> {{user.phone}}   </td><td><a><i class='fa fa-pencil'></i> &nbsp; Editar </a></td></tr>
+      <tr><th> Endereço  </th><td> {{user.address}} </td><td><a><i class='fa fa-pencil'></i> &nbsp; Editar </a></td></tr>
+      <tr><th> Matrícula </th><td> {{user.id}}      </td><td><a><i class='fa fa-pencil'></i> &nbsp; Editar </a></td></tr>
+      <tr><th> Email     </th><td> {{user.email}}   </td><td><a><i class='fa fa-pencil'></i> &nbsp; Editar </a></td></tr>
+      <tr><th> Senha     </th><td> **********       </td><td><a><i class='fa fa-pencil'></i> &nbsp; Editar </a></td></tr>
+    </table>
+  </div>
+</div>
+
+<div class='row vert-offset-bottom-2'>
+  <div class='col-md-12'><calendar user='user'/></div>
+</div>
+
+<div class='row'>
+  <div class='col-md-3 col-md-offset-6'>
+    <button class='btn btn-primary btn-block'> Procurar um Bigu </button>
+  </div>
+
+  <div class='col-md-3'>
+    <button class='btn btn-primary btn-block'> Oferecer um Bigu </button>
+  </div>
+</div>
