@@ -25,12 +25,15 @@
   <script src='app/app.js'></script>
   <script src='app/shared/constants.js'></script>
   <script src='app/shared/filters.js'></script>
-  <script src='app/views/profile.js'></script>
+  <script src='app/shared/users.js'></script>
   <script src='app/calendar/calendar.js'></script>
+  <script src='app/views/profile.js'></script>
+  <script src='app/views/add-friend.js'></script>
 </head>
 
 <body>
-  <div class='container vert-offset-top-4 vert-offset-bottom-4' ui-view></div>
+  <div class='container vert-offset-top-4 vert-offset-bottom-4'>
+    <div class='col-md-10 col-md-offset-1' ui-view></div></div>
 </body>
 
 </html>

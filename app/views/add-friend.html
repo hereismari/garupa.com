@@ -1,0 +1,32 @@
+
+<div class='row'>
+  <div class='col-md-3 col-md-offset-2'>
+    <img class='img-rounded img-responsive' ng-src='{{user.photo_url}}'/>
+  </div>
+
+  <div class='col-md-5 text-justify'>
+    <span>
+      O perfil de <b>{{user.name}}</b> não pode ser acessado, pois você ainda não
+      adicionou este usuário a sua lista de amigos.
+
+      <a class='btn btn-block btn-primary vert-offset-top-2'>
+        <i class='fa fa-user-plus'></i> &nbsp; Requisitar Amizade </a>
+    </span>
+
+    <span>
+      O usuário <b>{{user.name}}</b> convidou você para adicioná-lo a sua lista
+      de amigos. Para ver seu perfil, aceite sua requisição de amizade.
+
+      <a class='btn btn-block btn-primary vert-offset-top-2'>
+        <i class='fa fa-user-plus'></i> &nbsp; Aceitar Amizade </a>
+    </span>
+
+    <span>
+      O perfil de <b>{{user.name}}</b> não pode ser acessado, pois este usuário
+      ainda não lhe adicionou a sua lista de amigos.
+
+      <a class='btn btn-block btn-danger vert-offset-top-2'>
+        <i class='fa fa-user-times'></i> &nbsp; Cancelar Requisição </a>
+    </span>
+  </div>
+</div>

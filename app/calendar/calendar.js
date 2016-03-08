@@ -11,4 +11,4 @@ app.directive('calendar', function() {
               $scope.Way = Way;
         }
     }
-})
+});
