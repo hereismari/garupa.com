@@ -28,6 +28,11 @@
 </head>
 
 <body ng-include="'app/CarpoolOffering/offering.html'">
+
+<input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG">
+
+<!-- Ativa o switch -->
+<script> $("[name='partida']").bootstrapSwitch(); </script>
 </body>
 
 </html>
