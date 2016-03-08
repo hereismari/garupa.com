@@ -4,16 +4,6 @@
 		padding: 0;
 	}
 
-	#nav-bar {
-		width: auto;
-		height: 60px;
-		border-color: #789;
-		display: inline-flex;
-		position: relative;
-		padding: 20px 50px;
-		float: right;
-	}
-
 	.container {
 		width: 400px;
 		height: 1000px;
