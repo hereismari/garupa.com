@@ -1,24 +1,48 @@
 
-<div ng-controller="loginController as login">
-  <div id="menu-bar">
-        <span>{{ log-in }}</span>
-  </div>
+<div ng-controller="homeController">
 
-  <div id="sign-up">
+	<div id="menu-bar">
+		<span> <!-- menu-superior --> </span>
+	</div>
 
-    <form>
+	<section class="container">
 
-      <label class="login-field-icon fui-user" for="login-name"></label>
-      <input type="text" id="login-name" placeholder="Email" spellcheck="false">
-      <br>      
+		<div class="sign-up">  
 
-      <label class="login-field-icon fui-lock" for="login-pass"></label>
-      <input type="password" placeholder="Senha" value="">
-      <br><br>
+			<form name='form-sign-up'>
 
-      <a class="btn btn-primary btn-block btn-large">Inscreva-se</a>
+				<label class="" for="label-email"></label>
+				<input id="label-email" ng-model="form.email" type="text" placeholder="Email" spellcheck="false">
+				<br>      
 
-    </form>
+				<label class="" for="label-passwd"></label>
+				<input id="label-passwd" ng-model="form.password" type="password" placeholder="Senha">
+				<br><br>
 
-  </div>
+				<a class="" ng-click="signUp()"> Sign Up </a>
+
+			</form>
+
+		</div>
+
+		<div class="sign-in">
+
+			<form name='form-sign-in'>
+
+				<label class="" for="user-email"></label>
+				<input name="user-email" ng-model="user.email" type="text" placeholder="Email" spellcheck="false">
+				<br>      
+
+				<label class="" for="user-passwd"></label>
+				<input name="user-passwd" ng-model="user.password" type="password" placeholder="Senha">
+				<br><br>
+
+				<a class="" ng-click="signIn()"> Log In </a>
+
+			</form>
+
+		</div>
+
+	</section>
+
 </div>
