@@ -8,7 +8,6 @@ app.config(function($routeProvider) {
         .when('/', {
             controller: 'homeController',    
             templateUrl: 'app/views/home.html',
-            css: 'app/styles/home.css'
         })
         .otherwise({ redirectTo: '/'});
 });
