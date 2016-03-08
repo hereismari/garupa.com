@@ -14,12 +14,12 @@ app.controller('homeController', function($scope, $location) {
 		password: null
 	};
 
-	#scope.signUp = function() {
+	$scope.signUp = function() {
 		// cadastrar usuario
-	}
+	};
 
 	$scope.signIn = function() {
 		// logar usuario
-	}
+	};
 
 });
