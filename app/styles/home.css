@@ -1,12 +1,27 @@
+	
+	body {
+		margin: 0;
+		padding: 0;
+	}
 
-.container {
-	width: 400px;
-	height: 360px;
-	position: relative;
-	margin: 0 auto 40px;
-	border: 1px solid #CCC;
-	-webkit-perspective: 800px;
-	   -moz-perspective: 800px;
-	     -o-perspective: 800px;
-	        perspective: 800px;
-}
+	#nav-bar {
+		width: auto;
+		height: 60px;
+		border-color: #789;
+		display: inline-flex;
+		position: relative;
+		padding: 20px 50px;
+		float: right;
+	}
+
+	.container {
+		width: 400px;
+		height: 360px;
+		position: relative;
+		margin: 0 auto 40px;
+		border: 1px solid #CCC;
+		-webkit-perspective: 800px;
+		   -moz-perspective: 800px;
+		     -o-perspective: 800px;
+		        perspective: 800px;
+	}

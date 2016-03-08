@@ -1,8 +1,11 @@
 
 <div ng-controller="homeController">
 
-	<div id="menu-bar">
-		<span> <!-- menu-superior --> </span>
+	<div id="nav-bar">
+		<nav>
+			<a href="#/">Cadastar</a> |
+			<a href="#/">Entrar</a>
+		</nav>
 	</div>
 
 	<section class="container">
@@ -11,15 +14,30 @@
 
 			<form name='form-sign-up'>
 
+				<label class="" for="label-name">Nome</label>
+				<input id="label-name" ng-model="form.name" type="text" placeholder="Nome" spellcheck="false">
+				<br>  
+
+				<label for="labe-mat">Matricula</label>
+				<input id="label-mat" ng-model="form.registration" pattern="[0-9]{9}" 
+					type="text" title="Número de matricula incorreto" placeholder="Número de Matrícula" spellcheck="false">
+				<br>
+
+				<label class="" for="label-type">Tipo de usuário</label>
+				<br>
+					<spam> <input type="checkbox" ng-model="form.passengerMode" value="" name="dasdsad"/> Passageiro </spam>
+					<spam> <input type="checkbox" ng-model="form.driverrMode" value=""/> Motorista </spam>
+				<br>
+				
 				<label class="" for="label-email"></label>
 				<input id="label-email" ng-model="form.email" type="text" placeholder="Email" spellcheck="false">
 				<br>      
 
 				<label class="" for="label-passwd"></label>
 				<input id="label-passwd" ng-model="form.password" type="password" placeholder="Senha">
-				<br><br>
+				<br>
 
-				<a class="" ng-click="signUp()"> Sign Up </a>
+				<input type="submit" value="Sign Up" ng-click="signUp()"/>
 
 			</form>
 
@@ -29,15 +47,15 @@
 
 			<form name='form-sign-in'>
 
-				<label class="" for="user-email"></label>
+				<label class="" for="user-email">Email</label>
 				<input name="user-email" ng-model="user.email" type="text" placeholder="Email" spellcheck="false">
 				<br>      
 
-				<label class="" for="user-passwd"></label>
+				<label class="" for="user-passwd">Senha</label>
 				<input name="user-passwd" ng-model="user.password" type="password" placeholder="Senha">
 				<br><br>
 
-				<a class="" ng-click="signIn()"> Log In </a>
+				<input type="submit" value="Sign In" ng-click="signIn()"/>
 
 			</form>
 
