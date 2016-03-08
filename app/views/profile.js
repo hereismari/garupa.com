@@ -1,6 +1,7 @@
 
 app.controller('profile', function($scope, $stateParams, Users) {
     $scope.user = Users.get($stateParams.uid);
+	$scope.signed = (Users.loggedUser === $scope.user);
 
     $scope.table = _.map([
         ['Nome',      $scope.user.name   ],

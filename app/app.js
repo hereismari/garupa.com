@@ -10,29 +10,24 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .when('', '/perfil')
 
         .when('/perfil', function($state, Users) {
-            $state.go('profile', {
-                uid: Users.loggedUser.id
-            });
+            return '/perfil/' + Users.loggedUser.id;
         })
 
         .when('/perfil/:uid', function($state, $match, Users) {
             var user = Users.get($match.uid);
-            if(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser)
-              return false;
 
-            $state.go('add-friend', {
-                uid: user.id
-            });
+			$state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
+				'profile' : 'add-friend', { uid: user.id });
         })
 
         .otherwise('/404');
 
     $stateProvider
         .state('profile', {
-            url: '/perfil/:uid',
             controller: 'profile',
             templateUrl: 'app/views/profile.html',
-            css: 'app/views/profile.css'
+            css: 'app/views/profile.css',
+            params: { uid: null }
         })
 
         .state('add-friend', {
