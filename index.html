@@ -14,25 +14,111 @@
   <script src='libs/jquery-2.1.3.js'></script>
   <script src="libs/bootstrap/js/flat-ui.min.js"></script>
   <script src='libs/underscore.js'></script>
-  
-  <script src="/home/dell/bootstrap3-typeahead.js"></script>
-
+  <script src="libs/bootstrap3-typeahead.js"></script>
+  <script src="libs/bootstrap-multiselect.js"></script>
+  <script src="libs/bootstrap-timepicker.min.js"></script>
+  <script src="libs/bootstrap-datepicker.js"></script>
   <script src='libs/require.js'></script>
 
   <link href="libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="libs/bootstrap-timepicker.min.css" rel="stylesheet">
+  <link href="libs/datepicker.css" rel="stylesheet">
   <link href="libs/bootstrap/css/flat-ui.min.css" rel="stylesheet">
-
+  <link href="libs/bootstrap-multiselect.css" rel="stylesheet">
   <script src='app/app.js'></script>
+
+  <link rel="stylesheet" href="app/views/style.css">
+  <script src="/home/dell/script.js"></script>
+
 </head>
 
 <body>
-  
-  <input class="span3" style="margin: 0 auto;" type="text"
-  data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New
-  Hampshire","New Jersey","New Mexico","New York","North Dakota","North
-  Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South
-  Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'
-  data-items="4" data-provide="typeahead">
-</body>
 
+  <!-- Fake data -->
+  <div ng-init="friends = [{name:'John', phone:'555-1276', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Official_portrait_of_Barack_Obama.jpg'},
+                     {name:'Mary', phone:'800-BIG-MARY', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
+                     {name:'Mike', phone:'555-4321', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
+                     {name:'Adam', phone:'555-5678', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
+                     {name:'Julie', phone:'555-8765', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
+                     {name:'Juliette', phone:'555-5678', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'}]"></div>
+
+  <!-- page -->
+  <div class="main-container container">
+    <!-- Search box -->
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <h1 class="text-center login-title"> Ache seu bigu! </h1>
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class='col-md-8 col-md-offset-2 search-box'>
+           <form class="form-signin">        
+            <table class='table table-hover table-responsive'>
+              <tr><th> Busco carona para:</th><td><input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG"></td></tr>
+              <tr><th> Destino: </th><td> <input ng-model="search.neigh" id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
+              <tr><th> No dia : </th><td> <input ng-model="search.date" type="text" placeholder="Escolha uma data" id="date"> </td></tr>
+              <tr><th> Na hora : </th><td> <input ng-model="search.time" id="time" type="text" required> </td></tr>
+            </table>
+              <div class="col-md-12">
+                <button ng-click="filter=''" class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+              </div>
+              <div class="col-md-12">
+                <a>Precisao 100%</a>
+                <input type="checkbox" ng-model="strict">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <!-- Image
+    <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/> -->
+    <!-- Filter -->
+    <div class="row find-box">
+      <table class='table table-responsive'>
+        <tr><th><h4>Bidus encontradas</h4></th></tr>
+        <tr ng-repeat="friendObj in friends | filter:search:strict">
+          <td>
+            <div class="row ride-box">
+              <div class="col-md-4">
+                <img class="img-responsive img-profile" ng-src="{{friendObj.image_url}}">
+              </div>
+              <div class="col-md-4">  
+                <p>Nome: {{friendObj.name}}</p>
+                <p>Telefone: {{friendObj.phone}}</p>
+                <p>Bairro: {{friendObj.neigh}}</p>
+              </div>
+              <div class="col-md-4">
+                <button ng-click="filter=''" class="btn btn-md btn-danger btn-block" type="submit"> Amigos de bidu! </button> 
+                <button ng-click="filter=''" class="btn btn-md btn-warning btn-block" type="submit"> Marcar carona </button> 
+              </div>
+            </div>
+          </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+  <!-- Ativa o switch --> 
+  <script> $("[name='partida']").bootstrapSwitch(); </script>
+  
+  <!-- Ativa o time -->
+  <script type="text/javascript"> $('#time').timepicker(); </script>
+  
+  <!-- Ativa a dta -->
+  <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {         
+                $('#date').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            });
+        </script>
+
+  <!-- bairros -->
+  <script> 
+    var jsonData =['Acacio Figueiredo ', 'Alto Branco ', 'Bairro das Cidades ', 'Bela Vista ', 'Bodocongo ', 'Cachoeira ', 'Castelo Branco ', 'Catole ', 'Catole de Ze Ferreira', 'Centenario ', 'Centro ', 'Conjunto Cinza ', 'Dinamerica ', 'Distrito de Catole ', 'Distrito Industrial ', 'Estacao Velha ', 'Estreito ', 'Gloria ', 'Itarare ', 'Jardim Atalaia ', 'Jardim Borborema ', 'Jardim Paulistano ', 'Jardim Verdejante ', 'Jeremias ', 'Jose Pinheiro ', 'Lauritzen ', 'Liberdade ', 'Ligeiro ', 'Louzeiro ', 'Malvinas ', 'Mirante ', 'Monte Castelo ', 'Monte Santo ', 'Mutirao do Serrotao', 'Nova Brasilia ', 'Novo Bodocongo', 'Palmeira ', 'Pedregal ', 'Prata ', 'Presidente Medici ', 'Quarenta ', 'Ramadinha ', 'Sandra Cavalcante ', 'Santa Cruz ', 'Santa Rosa ', 'Santa Terezinha ', 'Santo Antonio ', 'Sao Jose ', 'Sao Jose da Mata ', 'Serrotao ', 'Sitio Estreito ', 'Sitio Lucas ', 'Tambor ', 'Tres Irmas ', 'Universitario ', 'Velame ', 'Vila Cabral '];
+    $('#neigh').data-source(jsonData);
+  </script>
+
+</body>
 </html>

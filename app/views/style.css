@@ -5,3 +5,20 @@
   -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
   -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
 }
+
+.find-box {
+  margin: 2%;
+  box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+  -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+  -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+
+.ride-box {
+    background-color: white;
+    margin: 1%;
+}
+
+.img-profile {
+    width: 200px;
+    height: 200px;
+}
