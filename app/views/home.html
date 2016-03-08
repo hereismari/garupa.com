@@ -14,30 +14,44 @@
 
 			<form name='form-sign-up'>
 
-				<label class="" for="label-name">Nome</label>
-				<input id="label-name" ng-model="form.name" type="text" placeholder="Nome" spellcheck="false">
+				<label for="label-name">Nome</label>
+				<input id="label-name" ng-model="form.name" type="text" class="form-control" placeholder="Nome" spellcheck="false">
 				<br>  
 
 				<label for="labe-mat">Matricula</label>
 				<input id="label-mat" ng-model="form.registration" pattern="[0-9]{9}" 
-					type="text" title="Número de matricula incorreto" placeholder="Número de Matrícula" spellcheck="false">
+					type="text" class="form-control" title="Número de matricula incorreto" placeholder="Número de Matrícula" spellcheck="false">
 				<br>
+
 
 				<label class="" for="label-type">Tipo de usuário</label>
 				<br>
-					<spam> <input type="checkbox" ng-model="form.passengerMode" value="" name="dasdsad"/> Passageiro </spam>
-					<spam> <input type="checkbox" ng-model="form.driverrMode" value=""/> Motorista </spam>
+
+				<label class="checkbox" for="checkbox1">
+	            	<input type="checkbox" ng-model="form.passengerMode" value="" id="checkbox1" data-toggle="checkbox" class="custom-checkbox">
+	            	<span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+	            	Passageiro
+	            </label>
+
+				<label class="checkbox" for="checkbox2">
+	            	<input type="checkbox" ng-model="form.driverMode" value="" id="checkbox2" data-toggle="checkbox" class="custom-checkbox">
+	            	<span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+	            	Motorista
+	            </label>
+
+				<label for="label-neighborhood" ng-show="form.driverMode">Rua/Bairro</label>
+				<input id="label-neighborhood" ng-show="form.driverMode" ng-model="form.neighborhood" ng-show="form.driverMode"type="text" class="form-control" placeholder="Rua/Bairro">
 				<br>
+			
+				<label for="label-email">Email</label>
+				<input id="label-email" ng-model="form.email" type="text" class="form-control" placeholder="Email" spellcheck="false">
+				<br> 
 				
-				<label class="" for="label-email"></label>
-				<input id="label-email" ng-model="form.email" type="text" placeholder="Email" spellcheck="false">
-				<br>      
-
-				<label class="" for="label-passwd"></label>
-				<input id="label-passwd" ng-model="form.password" type="password" placeholder="Senha">
+				<label for="label-passwd"></label>
+				<input id="label-passwd" ng-model="form.password" type="password" class="form-control" placeholder="Senha">
 				<br>
 
-				<input type="submit" value="Sign Up" ng-click="signUp()"/>
+				<a href="#/" class="btn btn-primary" ng-click="signUp()"> Sign Up </a>
 
 			</form>
 
@@ -48,14 +62,14 @@
 			<form name='form-sign-in'>
 
 				<label class="" for="user-email">Email</label>
-				<input name="user-email" ng-model="user.email" type="text" placeholder="Email" spellcheck="false">
+				<input name="user-email" ng-model="user.email" type="text" class="form-control" placeholder="Email" spellcheck="false">
 				<br>      
 
 				<label class="" for="user-passwd">Senha</label>
-				<input name="user-passwd" ng-model="user.password" type="password" placeholder="Senha">
+				<input name="user-passwd" ng-model="user.password" type="password" class="form-control" placeholder="Senha">
 				<br><br>
 
-				<input type="submit" value="Sign In" ng-click="signIn()"/>
+				<a href="#/" class="btn btn-primary" ng-click="signIn()"> Sign In </a>
 
 			</form>
 

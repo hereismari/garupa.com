@@ -16,12 +16,17 @@
 
 	.container {
 		width: 400px;
-		height: 360px;
+		height: 1000px;
+		padding-top: 100px;
+		padding-bottom: 300px;
 		position: relative;
 		margin: 0 auto 40px;
-		border: 1px solid #CCC;
 		-webkit-perspective: 800px;
 		   -moz-perspective: 800px;
 		     -o-perspective: 800px;
 		        perspective: 800px;
+	}
+
+	.sign-in {
+		display: none;
 	}
