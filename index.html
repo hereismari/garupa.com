@@ -27,99 +27,119 @@
   <link href="libs/bootstrap-multiselect.css" rel="stylesheet">
   <script src='app/app.js'></script>
 
-  <link rel="stylesheet" href="app/views/style.css">
-  <script src="/home/dell/script.js"></script>
+  <link rel="stylesheet" href="app/views/search-rides/search-rides.css">
+
+  <script src='app/app.js'></script>
+  <script src="app/views/share/constants.js"></script>
+  <script src="app/views/share/users.js"></script>
+  <script src="app/views/search-rides/search-rides.js"></script>
 
 </head>
 
-<body>
-
-  <!-- Fake data -->
-  <div ng-init="friends = [{name:'John', phone:'555-1276', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Official_portrait_of_Barack_Obama.jpg'},
-                     {name:'Mary', phone:'800-BIG-MARY', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
-                     {name:'Mike', phone:'555-4321', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
-                     {name:'Adam', phone:'555-5678', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
-                     {name:'Julie', phone:'555-8765', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'},
-                     {name:'Juliette', phone:'555-5678', neigh:'teste', date:'08/03/2016', time:'2:15 AM', image_url: 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg'}]"></div>
-
+<body ng-controller="search">
 
   <!-- page -->
   <div class="main-container container">
+    
     <!-- Search box -->
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
+        
         <h1 class="text-center login-title"> Ache seu bigu! </h1>
+        
         <div class="col-sm-10 col-sm-offset-1">
-          <div class='col-md-8 col-md-offset-2 search-box'>
-           <form class="form-signin">        
-            <table class='table table-hover table-responsive'>
-              <tr><th> Busco carona para:</th><td><input id="switch-onText" type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="status-cb" name="partida" data-label-text="UFCG"></td></tr>
-              <tr><th> Destino: </th><td> <input ng-model="search.neigh" id="neigh" style="margin: 0 auto;" type="text" data-source='["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco ", "Catole ", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare ", "Jardim Atalaia ", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo ", "Monte Santo ", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz ", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral "]' data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
+          <div class='col-md-8 col-md-offset-2 search-box box'>
+    
+            <table class='table table-responsive'>
+              <tr><th> Busco carona para:</th><td><input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG"></td></tr>
+              <tr><th> Seu bairro: </th><td> <input ng-model="search.adress" id="adress" style="margin: 0 auto;" type="text" data-source="{{dataSource}}" data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
               <tr><th> No dia : </th><td> <input ng-model="search.date" type="text" placeholder="Escolha uma data" id="date"> </td></tr>
               <tr><th> Na hora : </th><td> <input ng-model="search.time" id="time" type="text" required> </td></tr>
             </table>
-              <div class="col-md-12">
-                <button ng-click="filter=''" class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
-              </div>
-              <div class="col-md-12">
-                <a>Precisao 100%</a>
-                <input type="checkbox" ng-model="strict">
-              </div>
-            </form>
+            
+            <div class="col-md-12">
+              <button ng-click="search()" class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+            </div>
+          
           </div>
         </div>
       </div>
     </div>
       
-    <!-- Image
-    <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/> -->
-    <!-- Filter -->
-    <div class="row find-box">
-      <table class='table table-responsive'>
-        <tr><th><h4>Bidus encontradas</h4></th></tr>
-        <tr ng-repeat="friendObj in friends | filter:search:strict">
-          <td>
-            <div class="row ride-box">
-              <div class="col-md-4">
-                <img class="img-responsive img-profile" ng-src="{{friendObj.image_url}}">
-              </div>
-              <div class="col-md-4">  
-                <p>Nome: {{friendObj.name}}</p>
-                <p>Telefone: {{friendObj.phone}}</p>
-                <p>Bairro: {{friendObj.neigh}}</p>
-              </div>
-              <div class="col-md-4">
-                <button ng-click="filter=''" class="btn btn-md btn-danger btn-block" type="submit"> Amigos de bidu! </button> 
-                <button ng-click="filter=''" class="btn btn-md btn-warning btn-block" type="submit"> Marcar carona </button> 
-              </div>
-            </div>
-          </div>
-          </td>
-        </tr>
-      </table>
+    <!-- Busca nao foi realizada -->
+    <div ng-if="!searchWasMade">
+    	<img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
     </div>
 
-  <!-- Ativa o switch --> 
-  <script> $("[name='partida']").bootstrapSwitch(); </script>
-  
-  <!-- Ativa o time -->
-  <script type="text/javascript"> $('#time').timepicker(); </script>
-  
-  <!-- Ativa a dta -->
-  <script type="text/javascript">
-            // When the document is ready
-            $(document).ready(function () {         
-                $('#date').datepicker({
-                    format: "dd/mm/yyyy"
-                });  
-            });
-        </script>
+    <!-- Busca realizada -->
+    <div ng-if="searchWasMade">
 
-  <!-- bairros -->
-  <script> 
-    var jsonData =['Acacio Figueiredo ', 'Alto Branco ', 'Bairro das Cidades ', 'Bela Vista ', 'Bodocongo ', 'Cachoeira ', 'Castelo Branco ', 'Catole ', 'Catole de Ze Ferreira', 'Centenario ', 'Centro ', 'Conjunto Cinza ', 'Dinamerica ', 'Distrito de Catole ', 'Distrito Industrial ', 'Estacao Velha ', 'Estreito ', 'Gloria ', 'Itarare ', 'Jardim Atalaia ', 'Jardim Borborema ', 'Jardim Paulistano ', 'Jardim Verdejante ', 'Jeremias ', 'Jose Pinheiro ', 'Lauritzen ', 'Liberdade ', 'Ligeiro ', 'Louzeiro ', 'Malvinas ', 'Mirante ', 'Monte Castelo ', 'Monte Santo ', 'Mutirao do Serrotao', 'Nova Brasilia ', 'Novo Bodocongo', 'Palmeira ', 'Pedregal ', 'Prata ', 'Presidente Medici ', 'Quarenta ', 'Ramadinha ', 'Sandra Cavalcante ', 'Santa Cruz ', 'Santa Rosa ', 'Santa Terezinha ', 'Santo Antonio ', 'Sao Jose ', 'Sao Jose da Mata ', 'Serrotao ', 'Sitio Estreito ', 'Sitio Lucas ', 'Tambor ', 'Tres Irmas ', 'Universitario ', 'Velame ', 'Vila Cabral '];
-    $('#neigh').data-source(jsonData);
-  </script>
+      <!-- Busca feita porem nao achou caronas validas -->
+      <div ng-if="filtered_users.length === 0" class="row not-found-box box">
+        
+        <div class="col-md-8 col-md-offset-2">
+          <h4>Eita! Parece que nao tem bigu desse tipo nao, que pena :(. </h4>
+        </div>
+
+        <div class="col-md-4 col-md-offset-4" style="background-color:red">
+          <button ng-submit="setModalMessage()" class="btn btn-md btn-primary btn-block" type="submit" data-toggle="modal" data-target="#modal" id="notify"> 
+            Me notificar quando surgir um bigu desse!
+          </button> 
+        </div>
+      
+      </div>
+	    
+      <!-- Busca feita e resultados foram encontrados -->
+      <div ng-if="filtered_users.length !== 0" class="row find-box box">
+	      
+        <table class='table table-responsive'>
+      		<tr><th><h4>Bigus encontradas</h4></th></tr>
+      		<tr ng-repeat="user in filtered_users">
+      		  <td>
+      		    <div class="row ride-box">
+      		      
+                <div class="col-md-4">
+      		        <img class="img-responsive img-profile" ng-src="{{user.photo_url}}">
+      		      </div>
+      		      
+                <div class="col-md-4">  
+      		        <p>Nome: {{user.name}}</p>
+      		        <p>Telefone: {{user.phone}}</p>
+      		        <p>Bairro: {{user.address}}</p>
+      		      </div>
+      		      
+                <div class="col-md-4">
+      		        <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block" 
+                  type="submit" data-toggle="modal" id="make-a-friend" data-target="#modal"> Amigos de bigu! </button> 
+      		        <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block"
+                  type="submit" data-toggle="modal" id="send-invitation" data-target="#modal"> Marcar carona </button> 
+      		      </div>
+      		    
+              </div>
+      		  </td>
+      		</tr>
+	      </table>
+	    </div>
+    </div>
+
+    <!-- modals -->
+    <div class="modal fade" id="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form class="form-horizontal" role="form">
+            <div class="modal-header">
+              <h4>{{modal_title}}<h4>
+            </div>
+            <div class="modal-body">
+              <p> {{modal_message}}</p>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-default" data-dismiss="modal">Fechar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
 </body>
 </html>
