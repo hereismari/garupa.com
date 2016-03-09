@@ -15,10 +15,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 
         .when('/perfil/:uid', function($state, $match, Users) {
             var user = Users.get($match.uid);
+            if(user == null) return false;
 
-			$state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
-				'profile' : 'add-friend', { uid: user.id });
-        })
+            $state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
+                'profile' : 'add-friend', { uid: user.id });
+            })
 
         .otherwise('/404');
 
@@ -42,6 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         });
 
     angular.extend($cssProvider.defaults, {
-        persist: true
+        persist: true,
+        preload: true
     });
 });

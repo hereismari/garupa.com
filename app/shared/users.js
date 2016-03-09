@@ -51,7 +51,6 @@ app.service('Users', function(Day, Way) {
     ];
 
     user1.addFriend(user2);
-    user1.addFriend(user3);
     user2.addFriend(user1);
     user3.addFriend(user2);
 
@@ -60,12 +59,20 @@ app.service('Users', function(Day, Way) {
     user3.name = 'Wesley Safadão';
 
     user1.email = 'dilmona@presidente.br';
-    user1.phone = '33331122';
+    user2.email = 'albert@ciencia.e.mc2';
+    user3.email = 'garota@safada.voce';
+
+    user1.phone = '(13) 13131313';
+    user2.phone = '(18) 67362672';
+    user3.phone = '(82) 93724408';
+
     user1.address = 'Casa Branca';
+    user2.address = 'Alemanha';
+    user3.address = 'Seu coração';
 
     user1.photo_url = 'http://static2.blastingnews.com/media/photogallery/2016/2/23/290x290/b_290x290/salario-de-dilma-devera-ser-reduzido_615715.jpg';
-	user2.photo_url = 'https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg';
-	user3.photo_url = 'https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png';
+    user2.photo_url = 'https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg';
+    user3.photo_url = 'https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png';
 
     user1.addRide(1000, Day.SUN, Way.FROM, user2);
     user1.addRide(730, Day.SUN, Way.TO, user1);
@@ -81,10 +88,10 @@ app.service('Users', function(Day, Way) {
 
     // End fake users
 
-    this.loggedUser = user3;
+    this.loggedUser = user1;
 
     this.areFriends = function(user1, user2) {
-        if(user1 === null || user2 === null) return false;
+        if(user1 == null || user2 == null) return false;
         return user1.hasFriend(user2) && user2.hasFriend(user1);
     };
 

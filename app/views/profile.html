@@ -5,8 +5,8 @@
     <div id='profile-pic'>
       <img class='img-responsive' ng-src='{{user.photo_url}}'/>
       <span class='action'>
-        <button class='btn btn-primary btn-block' ng-if='signed'>
-          <i class='fa fa-pencil'></i> &nbsp; Trocar Foto </button>
+        <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url' ng-if='signed'>
+          <i class='fa fa-pencil'></i> &nbsp; Trocar Foto </image-input>
         <button class='btn btn-danger btn-block' ng-if='!signed'>
           <i class='fa fa-user-times'></i> &nbsp; Remover Amigo </button>
       </span>
@@ -16,7 +16,7 @@
   <div class='col-md-8 col-md-offset-1'>
 
     <table class='table table-hover'>
-      <tr ng-repeat='info in table'>
+      <tr ng-repeat='info in table' ng-if='signed || !info.secret'>
         <th> {{info.name}} </th><td> {{info.data}} </td>
         <td><a ng-if='signed'>
           <i class='fa fa-pencil'></i> &nbsp; Editar </a></td>
