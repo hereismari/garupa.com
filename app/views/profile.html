@@ -6,21 +6,33 @@
       <img class='img-responsive' ng-src='{{user.photo_url}}'/>
       <span class='action'>
         <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url' ng-if='signed'>
-          <i class='fa fa-pencil'></i> &nbsp; Trocar Foto </image-input>
-        <button class='btn btn-danger btn-block' ng-if='!signed'>
-          <i class='fa fa-user-times'></i> &nbsp; Remover Amigo </button>
+          <span engrave='pencil'> Trocar Foto </span></image-input>
+        <button class='btn btn-danger btn-block' ng-if='!signed' engrave='user-times'>
+          Remover Amigo </button>
       </span>
     </div>
 
   </div>
   <div class='col-md-8 col-md-offset-1'>
 
-    <table class='table table-hover'>
-      <tr ng-repeat='info in table' ng-if='signed || !info.secret'>
-        <th> {{info.name}} </th><td> {{info.data}} </td>
-        <td><a ng-if='signed'>
-          <i class='fa fa-pencil'></i> &nbsp; Editar </a></td>
+    <table class='table table-hover' ng-init='editing = false'>
+
+      <tr ng-repeat='info in table' ng-style='edit? { background: "#f0f0f0" } : null'>
+        <th> {{ info.name }} </th>
+
+        <td ng-init='edit = false'>
+          <span ng-if='edit == false'> {{ user[info.data] }} </span>
+          <form name='form' ng-if='edit == true' ng-submit='$parent.edit = false; user[info.data] = input; $parent.$parent.editing = false'>
+            <input name='input' class='form-control' ng-init='input = user[info.data]' ng-model='input' placeholder='{{info.placeholder}}' pattern='{{info.pattern}}' type='text' required>
+            <button class='btn btn-primary btn-sm' ng-disabled='form.input.$invalid' type='submit'> Salvar </button>
+            <button class='btn btn-danger btn-sm' ng-click='$parent.edit = false; $parent.$parent.editing = false'> Cancelar </button>
+          </form>
+        </td>
+
+        <td><a engrave='pencil' ng-hide='editing || !info.pattern' ng-click='edit = true; $parent.editing = true'>
+          Editar </a></td>
       </tr>
+
     </table>
 
   </div>

@@ -62,9 +62,9 @@ app.service('Users', function(Day, Way) {
     user2.email = 'albert@ciencia.e.mc2';
     user3.email = 'garota@safada.voce';
 
-    user1.phone = '(13) 13131313';
-    user2.phone = '(18) 67362672';
-    user3.phone = '(82) 93724408';
+    user1.phone = '(13) 1313-1313';
+    user2.phone = '(18) 6736-2672';
+    user3.phone = '(82) 9372-4408';
 
     user1.address = 'Casa Branca';
     user2.address = 'Alemanha';

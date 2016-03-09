@@ -30,9 +30,12 @@ table th, table a {
   font-size: 82%;
 }
 
-table th,
+table th {
+  width: 100px;
+}
+
 table td:last-child {
-  width: 160px;
+  width: 100px;
 }
 
 table a {
@@ -42,4 +45,14 @@ table a {
 
 table tr:hover a {
   opacity: 1;
+}
+
+table input {
+  margin-bottom: 12px;
+}
+
+table {
+  border-bottom-color: #ddd;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 }
