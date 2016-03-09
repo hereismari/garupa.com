@@ -9,23 +9,24 @@
       <tr>
         <th> Donturrem</th>
         <td>
-          <input type="radio" name="partida" value="Casa" ng-model="carona.partida"/> Casa
-          <input type="radio" name="partida" value="UFCG" ng-model="carona.partida"/> UFCG
+          <input type="radio" name="where" value="Casa" ng-model="carpool.from" ng-change="setDefaultTo()"/> Casa
+          <input type="radio" name="where" value="UFCG" ng-model="carpool.from" /> UFCG
         </td>
       </tr>
 
       <tr>
         <th> Pronturrai </th>
         <td>
-          <input type="text" placeholder="Bairro" value="" ng-if="carona.partida == 'UFCG'" ng-model="carona.destino"/>
-          <input type="text" value="UFCG" ng-if="carona.partida == 'Casa'" ng-model="carona.destino" readonly>
+          <input type="text" placeholder="Bairro" ng-if="carpool.from == 'UFCG'" ng-model="carpool.to"/>
+          <input type="text" placeholder="UFCG" value="UFCG" ng-if="carpool.from == 'Casa'" readonly>
+          <p>{{carpool.to}}</p>
         </td>
       </tr>
 
       <tr>
         <th> Que dia? </th>
         <td>
-          <select ng-model="carona.data">
+          <select class="form-control" ng-model="carpool.day">
             <option value="Domingo">Domingo</option>
             <option value="Segunda">Segunda</option>
             <option value="Terça">Terça</option>
@@ -40,7 +41,7 @@
       <tr>
         <th> Que hora? </th>
         <td>
-          <input type="time" ng-model="carona.hora"/>
+          <input type="time" ng-model="carpool.time"/> <!-- usar isso mesmo?????????????? -->
         </td>
       </tr>
 
