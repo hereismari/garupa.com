@@ -7,49 +7,40 @@
     <table class='table table-hover table-responsive'>
 
       <tr>
-        <th> Donturem</th>
+        <th> Donturrem</th>
         <td>
-          <input
-                  bs-switch
-                  ng-model="isSelected"
-                  type="checkbox"
-                  switch-active="{{ isActive }}"
-                  switch-on-text="{{ onText }}"
-                  switch-off-text="{{ offText }}"
-                  switch-on-color="{{ onColor }}"
-                  switch-off-color="{{ offColor }}"
-                  switch-animate="{{ animate }}"
-                  switch-size="{{ size }}"
-                  switch-label="{{ label }}"
-                  switch-icon="{{ icon }}"
-                  switch-radio-off="{{ radioOff }}"
-                  switch-label-width="{{ labelWidth }}"
-                  switch-handle-width="{{ handleWidth }}"
-                  switch-wrapper="{{ wrapper }}"
-                  ng-true-value="'yep'"
-                  ng-false-value="'nope'"
-                  switch-inverse="{{ !inverse }}">
+          <input type="radio" name="partida" value="Casa" ng-model="carona.partida"/> Casa
+          <input type="radio" name="partida" value="UFCG" ng-model="carona.partida"/> UFCG
         </td>
       </tr>
 
       <tr>
-        <th> Pronturai </th>
+        <th> Pronturrai </th>
         <td>
-          <input placeholder="Bairro" ng-model="carona.destino">
+          <input type="text" placeholder="Bairro" value="" ng-if="carona.partida == 'UFCG'" ng-model="carona.destino"/>
+          <input type="text" value="UFCG" ng-if="carona.partida == 'Casa'" ng-model="carona.destino" readonly>
         </td>
       </tr>
 
       <tr>
         <th> Que dia? </th>
         <td>
-          <input placeholder="dd/mm/aaaa" ng-model="carona.data">
+          <select ng-model="carona.data">
+            <option value="Domingo">Domingo</option>
+            <option value="Segunda">Segunda</option>
+            <option value="Terça">Terça</option>
+            <option value="Quarta">Quarta</option>
+            <option value="Quinta">Quinta</option>
+            <option value="Sexta">Sexta</option>
+            <option value="Sabado">Sábado</option>
+          </select>
         </td>
       </tr>
 
       <tr>
         <th> Que hora? </th>
         <td>
-          <input placeholder="hh:mm" ng-model="carona.hora">
+          <input type="time" ng-model="carona.hora"/>
         </td>
       </tr>
 

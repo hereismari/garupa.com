@@ -6,8 +6,8 @@ app.directive('offering', function() {
 
         controller: function($scope) {
             $scope.carona = {
-                partida: '',
-                destino: '',
+                partida: 'Casa',
+                destino: 'UFCG',
                 data: '',
                 hora: ''
             }
