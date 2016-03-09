@@ -12,6 +12,8 @@ app.directive('offering', function() {
                 hora: ''
             }
 
+
+
         }
     }
 })
