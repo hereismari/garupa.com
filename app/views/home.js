@@ -2,8 +2,6 @@
 
 app.controller('homeController', function($scope, $location) {
 
-	/* My First "Bad smell" */
-
 	$scope.welcome_text = "Bem-vindo ao Garupa.com!";
 	$scope.welcome_desc = "Consiga ou ofereça carona para da Universidade e faça novas amizades! ";
 
@@ -26,11 +24,9 @@ app.controller('homeController', function($scope, $location) {
 	};
 
 	$scope.toogleSignUpForm = function() {
-		$("#welcome").fadeOut("slow", function() {
-			$(".sign-up").fadeIn("slow");
+		$( "#welcome" ).fadeOut("slow", function() {
+			$( ".sign-up" ).fadeIn("slow");
 		});
 	}
 
 });
-
-

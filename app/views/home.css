@@ -31,20 +31,28 @@
 
 	#welcome .img-container {
 		width: 60%;
-		height: 180px;
+		height: 160px;
 		border: 1px solid #dde;
 		overflow: hidden;
 		position: relative;
 		margin: 0 auto;
 	}
 
-	.sign-up {
-		/*display: none;*/
+	.form-control {
+		border-width: 1px;
+	}
+
+	.sign-up, .sign-in {
 		margin: 0 auto;
 	    position: relative;
 	    width: 55%;
 	}
 
-	.sign-in {
-		/*display: none;*/
+	.sign-up, .form-recover-msg{
+		display: none;
+	}
+	
+	.sign-in .lnk {
+		float: right;
+	    font-size: 16px;
 	}

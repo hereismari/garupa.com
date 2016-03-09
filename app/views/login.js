@@ -1,5 +1,7 @@
 'use strict';
 
-app.controller('loginAttemptController', function($scope, $routeParams) {
-	$scope.log = $routeParams.login_attempt;
+app.controller('loginController', function($scope, $location) {
+	
+	// efetuar login do usuario
+
 });

@@ -1,0 +1,34 @@
+
+<div ng-controller="recoverController">
+
+	<section class="container">
+
+		<div class="sign-in">
+
+			<form name='form-sign-in'>
+
+				<div class="form-recover-msg">
+					<br><br><br>
+					<h6> <span class="fui-mail"> </span>  Verifique sua caixa de email. </h6>
+					<a href="#/" class="lnk" style="float:left"> Retornar para página principal </a>
+
+				</div>
+
+				<div class="form-recover"> 
+
+					<label class="" for="user-email">Email</label>
+					<input id="user-email" ng-model="user.email" type="email" 
+						class="form-control" placeholder="Email" spellcheck="false" required>
+					<br>     
+
+					<a href="#recover" class="btn btn-primary" ng-click="recoverPasswd()"> Recuperar Senha </a>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</section>
+
+</div>
