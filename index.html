@@ -3,31 +3,33 @@
 <html ng-app='app'>
 
 <head>
-    <meta charset='utf-8'>
-    <title> garupa </title>
-    
-    <!-- Loading Bootstrap -->
-    <link href="libs/ui/flat/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset='UTF-8'>
+  <title> garupa.com </title>
+  <link rel='shortcut icon' href='favicon.ico'>
+  <!-- <base href='/'> -->
 
-    <!-- Loading Flat UI -->
-    <link href="libs/ui/flat/dist/css/flat-ui.css" rel="stylesheet">
 
-    <link rel='shortcut icon' href='favicon.ico'>
-    <link href='app/styles/home.css' rel='stylesheet'>
+  <link href='libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet'>
+  <link href='libs/bootstrap/css/flat-ui.min.css' rel='stylesheet'>
+  <link href='libs/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
+  <link href='libs/bootstrap-vert-offset-shim.css' rel='stylesheet'>
+  <link href='app/views/home.css' rel='stylesheet'>
 
 </head>
 
 <body>
- 
-    <div ng-view></div>
-
-    <script src="libs/ui/flat/dist/js/vendor/jquery.min.js"></script>
-    <script src="libs/ui/flat/dist/js/flat-ui.min.js"></script>
-    <script src='libs/angular.min.js'></script>
-    <script src='libs/angular-route.min.js'></script>
-    <script src='app/app.js'></script>
-    <script src='app/controllers/homeController.js'></script>
-    <script src='app/controllers/loginAttemptController.js'></script>
+  
+  <div ui-view></div>
+  
+  <script src='libs/jquery.min.js'></script>
+  <script src='libs/bootstrap/js/flat-ui.min.js'></script>
+  <script src='libs/angular.min.js'></script>
+  <!-- <script src='libs/angular-css.min.js'></script> -->
+  <!-- <script src='libs/angular-ui-router.js'></script> -->
+  <script src='libs/angular-route.min.js'></script>
+  <!-- <script src='libs/angular-animate.min.js'></script> -->
+  <script src='app/app.js'></script>
+  <script src='app/views/home.js'></script>
 
 </body>
 
