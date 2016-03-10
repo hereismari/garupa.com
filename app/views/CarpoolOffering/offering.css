@@ -1,0 +1,14 @@
+.offer {
+  position:fixed;
+  top: 25%;
+  left: 50%;
+  width:30em;
+  height:20em;
+  margin-top: -10em; /*set to a negative number 1/2 of your height*/
+  margin-left: -15em; /*set to a negative number 1/2 of your width*/
+  border: 1px solid #ccc;
+}
+
+.form-control {
+  width: 200px;
+}

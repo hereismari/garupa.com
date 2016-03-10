@@ -1,13 +1,13 @@
-<div>
+<div class="offer">
   <div>
-    <h4 >Diz tu!</h4>
+    <h4 >Poste uma carona!</h4>
   </div>
 
   <div>
     <table class='table table-hover table-responsive'>
 
       <tr>
-        <th> Donturrem</th>
+        <th> Saindo de: </th>
         <td>
           <input type="radio" name="where" value="Casa" ng-model="carpool.from" ng-change="setDefaultTo()"/> Casa
           <input type="radio" name="where" value="UFCG" ng-model="carpool.from" /> UFCG
@@ -15,11 +15,10 @@
       </tr>
 
       <tr>
-        <th> Pronturrai </th>
+        <th> Indo para: </th>
         <td>
-          <input type="text" placeholder="Bairro" ng-if="carpool.from == 'UFCG'" ng-model="carpool.to"/>
-          <input type="text" placeholder="UFCG" value="UFCG" ng-if="carpool.from == 'Casa'" readonly>
-          <p>{{carpool.to}}</p>
+          <input ng-if="carpool.from == 'UFCG'" ng-model="carpool.to" id="adress" type="text" data-source="{{dataSource}}" data-items="4" data-provide="typeahead" placeholder="Bairro" required/>
+          <input type="text" placeholder="UFCG" value="UFCG" ng-if="carpool.from == 'Casa'" readonly disabled unselectable/>
         </td>
       </tr>
 
@@ -46,7 +45,13 @@
       </tr>
 
     </table>
+
+    <!--table class='table table-responsive'>
+      <tr><th> Busco carona para:</th><td><input type="checkbox" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG"></td></tr>
+      <tr><th> No dia : </th><td> <input type="text" placeholder="Escolha uma data" id="date"> </td></tr>
+      <tr><th> Na hora : </th><td> <input id="time" type="text" required> </td></tr>
+    </table!-->
   </div>
 
-  <button type="button" class="btn btn-default">Oferece o teu bigu!</button>
+  <button type="button" class="btn btn-success">Oferece o teu bigu!</button>
 </div>
