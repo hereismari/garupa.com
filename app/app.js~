@@ -3,7 +3,7 @@ var app = angular.module("app", [
     "ngAnimate", "ui.router", "door3.css",
 ]);
 
-app.config(function($stateProvider, $cssProvider) {
+app.config(function($stateProvider) {
     $stateProvider
         .state('offering', {
             url: '/',
