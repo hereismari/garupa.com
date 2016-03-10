@@ -25,34 +25,3 @@
 #profile-pic * {
   border-radius: 0px;
 }
-
-table th, table a {
-  font-size: 82%;
-}
-
-table th {
-  width: 100px;
-}
-
-table td:last-child {
-  width: 100px;
-}
-
-table a {
-  cursor: pointer;
-  opacity: 0;
-}
-
-table tr:hover a {
-  opacity: 1;
-}
-
-table input {
-  margin-bottom: 12px;
-}
-
-table {
-  border-bottom-color: #ddd;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-}

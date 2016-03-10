@@ -1,0 +1,35 @@
+
+user-info th, user-info a {
+  font-size: 82%;
+}
+
+user-info th {
+  width: 100px;
+}
+
+user-info td:last-child {
+  width: 100px;
+}
+
+user-info a {
+  cursor: pointer;
+  opacity: 0;
+}
+
+user-info tr:hover a {
+  opacity: 1;
+}
+
+user-info input {
+  margin-bottom: 12px;
+}
+
+user-info table {
+  border-bottom-color: #ddd;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+user-info tr.selected > * {
+  background: #f0f0f0 !important;
+}
