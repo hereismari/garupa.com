@@ -49,8 +49,13 @@
 	            	Motorista
 	            </label>
 
-				<label for="label-neighborhood" ng-show="form.driverMode">Rua/Bairro</label>
-				<input id="label-neighborhood" ng-show="form.driverMode" ng-model="form.neighborhood" ng-show="form.driverMode"type="text" 
+				<label for="label-neighborhood">Endereço de Partida</label>
+				<input id="label-neighborhood" ng-model="form.neighborhoodFrom" type="text" 
+					class="form-control" style="text-transform:capitalize" placeholder="Rua/Bairro" required>
+				<br>
+
+				<label for="label-neighborhood2">Endereço de Chegada</label>
+				<input id="label-neighborhood3" ng-model="form.neighborhoodTo" type="text" 
 					class="form-control" style="text-transform:capitalize" placeholder="Rua/Bairro" required>
 				<br>
 			
@@ -82,7 +87,7 @@
 
 				<a href="#login" class="btn btn-primary" ng-click="signUp()"> Sign Up </a>
 				<br><br><br>
-				
+
 			</form>
 
 		</div>
