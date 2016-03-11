@@ -45,5 +45,18 @@ app.controller('offering', function($scope, Day) {
     $scope.$watch('carpool.from', function() {
         $scope.carpool.to = 'UFCG';
     });
+});
 
+$(document).ready(function () {
+
+    //ativa o datepicker
+    $('#date').datepicker({
+        format: "dd/mm/yyyy"
+    });
+
+    //ativa o switch
+    $("#way-cb").bootstrapSwitch();
+
+    //ativa o timepicker
+    $('#time').timepicker();
 });
