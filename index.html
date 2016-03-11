@@ -35,7 +35,7 @@
 
 </head>
 
-<body>
+<body ng-controller='search-rides'>
   <div class="main-container container">
 
 <!-- Search box -->
@@ -43,25 +43,44 @@
   <div class="col-sm-10 col-sm-offset-1">
     
     <h1 class="text-center login-title"> Ache seu bigu! </h1>
-    
-    <div class="col-sm-10 col-sm-offset-1">
-      <div class='col-md-8 col-md-offset-2 search-box box'>
+    <div class='col-sm-8 col-sm-offset-2 search-box box'>
 
-        <table class='table table-responsive'>
-          <tr><th> Busco carona para:</th><td><input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG"></td></tr>
-          <tr><th> Seu bairro: </th><td> <input ng-model="search.adress" id="adress" style="margin: 0 auto;" type="text" data-source="{{dataSource}}" data-items="4" data-provide="typeahead" placeholder="Bairro" required></td></tr>
-          <tr><th> No dia : </th><td> <input ng-model="search.date" type="text" placeholder="Escolha uma data" id="date"> </td></tr>
-          <tr><th> Na hora : </th><td> <input ng-model="search.time" id="time" type="text" required> </td></tr>
-        </table>
-        
-        <div class="col-md-12">
-          <button ng-click="search()" class="btn btn-lg btn-primary btn-block" type="submit"> Buscar </button>  
+      <form name='form-search' data-toggle="validator" role="form" class="form-group">
+
+        <!-- texto/imagem e botao -->
+        <div class='col-md-6'>
+          <h3> {{ explanation_title }} </h3>
+          <p> {{ explanation }} </p>
+          <a href="#login" class="btn btn-primary" ng-click="search()"> Buscar carona </a>
         </div>
-      
-      </div>
+        
+        <div class='col-md-6'>
+          
+          <label for="label-type">Estou indo para: </label>
+          <br>
+          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG">  
+          <br>
+          <br>
+
+          <label for="label-adress">Seu bairro:</label>
+          <input id="label-adress" class='form-control' ng-model="search.adress" type="text" data-source="{{dataSource}}" data-items="4"  data-provide="typeahead" placeholder="Bairro" spellcheck="false" required>
+          <br>
+
+          <label for="labe-mat">Dia da carona:</label>
+          <input id="label-neighborhood" ng-model="form.neighborhoodFrom" type="text" 
+            class="form-control" style="text-transform:capitalize" placeholder="Rua/Bairro" required>
+          <br>
+
+          <label for="labe-mat">dia da carona:</label>
+          <input id="label-neighborhood" ng-model="form.neighborhoodFrom" type="text" 
+            class="form-control" style="text-transform:capitalize" placeholder="Rua/Bairro" required>
+          <br>        
+   
+          <div class="help-block with-errors"></div>
+          
+        </div>
+      </form>
     </div>
-  </div>
-</div>
   
 <!-- Busca nao foi realizada -->
 <div ng-if="!searchWasMade">

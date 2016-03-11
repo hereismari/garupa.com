@@ -10,6 +10,9 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   $scope.modal_title = "";
   $scope.modal_message = "";
 
+  $scope.explanation_title = "Ache a carona perfeita para voce!";
+  $scope.explanation = "Esta indo para UFCG ou voltando para casa e tem medo de ser assaltado se for andando ou entao dos outros males que nos cercam diariamente? Calma!!! Temos a carona perfeita para voce!";
+
   $scope.search = function() {
   	
   	for(var i = 0; i < $scope.users.length; i++) {
@@ -43,7 +46,9 @@ $(document).ready(function () {
 
 	//ativa o switch
 	$("#way-cb").bootstrapSwitch(); 
-
+  $("[name='origin']").bootstrapSwitch();
+  $("[name='repeat']").bootstrapSwitch();
+  
 	//ativa o timepicker
 	 $('#time').timepicker();
 });
