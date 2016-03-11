@@ -19,7 +19,7 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   		$scope.filtered_users.push($scope.users[i]);
   	}
 
-	$scope.searchWasMade = true;
+    $scope.searchWasMade = true;
   };
 
   $scope.setModalMessage = function(evt) {
@@ -46,8 +46,6 @@ $(document).ready(function () {
 
 	//ativa o switch
 	$("#way-cb").bootstrapSwitch(); 
-  $("[name='origin']").bootstrapSwitch();
-  $("[name='repeat']").bootstrapSwitch();
   
 	//ativa o timepicker
 	 $('#time').timepicker();
