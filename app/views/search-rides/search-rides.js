@@ -16,7 +16,6 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   $scope.search = function() {
   	
     $scope.filtered_rides = [];
-    alert($scope.search.address);
         
   	for(var i = 0; i < $scope.users.length; i++) {
       for(var j = 0; j < $scope.users[i].rides.length; j++) {
