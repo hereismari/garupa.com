@@ -1,7 +1,7 @@
 app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($scope, Users, ModalMessage) {
   
   $scope.users = Users.getAll();
-  $scope.filtered_users = [];
+  $scope.filtered_rides = [];
 
   $scope.dataSource = ["Acacio Figueiredo ", "Alto Branco ", "Bairro das Cidades ", "Bela Vista ", "Bodocongo ", "Cachoeira ", "Castelo Branco", "Catole", "Catole de Ze Ferreira", "Centenario ", "Centro ", "Conjunto Cinza ", "Dinamerica ", "Distrito de Catole ", "Distrito Industrial ", "Estacao Velha ", "Estreito ", "Gloria ", "Itarare", "Jardim Atalaia", "Jardim Borborema ", "Jardim Paulistano ", "Jardim Verdejante ", "Jeremias ", "Jose Pinheiro ", "Lauritzen ", "Liberdade ", "Ligeiro ", "Louzeiro ", "Malvinas ", "Mirante ", "Monte Castelo", "Monte Santo", "Mutirao do Serrotao", "Nova Brasilia ", "Novo Bodocongo", "Palmeira ", "Pedregal ", "Prata ", "Presidente Medici ", "Quarenta ", "Ramadinha ", "Sandra Cavalcante ", "Santa Cruz", "Santa Rosa ", "Santa Terezinha ", "Santo Antonio ", "Sao Jose ", "Sao Jose da Mata ", "Serrotao ", "Sitio Estreito ", "Sitio Lucas ", "Tambor ", "Tres Irmas ", "Universitario ", "Velame ", "Vila Cabral"];
 
@@ -15,8 +15,18 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
 
   $scope.search = function() {
   	
+    $scope.filtered_rides = [];
+    alert($scope.search.address);
+        
   	for(var i = 0; i < $scope.users.length; i++) {
-  		$scope.filtered_users.push($scope.users[i]);
+      for(var j = 0; j < $scope.users[i].rides.length; j++) {
+        var user = $scope.users[i];
+        var ride = $scope.users[i].rides[j];
+        if(user.address === $scope.search.address) {
+          $scope.filtered_rides.push(ride);
+          break;
+        }
+      }
   	}
 
     $scope.searchWasMade = true;

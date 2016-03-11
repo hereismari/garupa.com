@@ -22,8 +22,8 @@
           <br>
           <br>
 
-          <label for="label-adress">Seu bairro:</label>
-          <input id="label-adress" class='form-control' ng-model="search.adress" type="text" data-source="{{dataSource}}" data-items="4"  data-provide="typeahead" placeholder="Bairro" spellcheck="false" required>
+          <label for="label-address">Seu bairro:</label>
+          <input id="label-address" class='form-control' ng-model="search.address" type="text" data-source="{{dataSource}}" data-items="4"  data-provide="typeahead" placeholder="Bairro" spellcheck="false" required>
           <br>
 
           <label>Data da carona:</label>
@@ -51,10 +51,10 @@
 <div ng-if="searchWasMade">
 
   <!-- Busca feita porem nao achou caronas validas -->
-  <div ng-if="filtered_users.length === 0" class="row not-found-box">
+  <div ng-if="filtered_rides.length === 0" class="row not-found-box">
     
     <div class="col-md-8 col-md-offset-2">
-      <h4>Eita! Parece que nao tem bigu desse tipo :(. </h4>
+      <h4>Eita! Parece que nao tem bigu desse tipo. </h4>
     </div>
     <br>
     <br>
@@ -68,22 +68,23 @@
   </div>
   
   <!-- Busca feita e resultados foram encontrados -->
-  <div ng-if="filtered_users.length !== 0" class="row find-box box">
+  <div ng-if="filtered_rides.length !== 0" class="row find-box box">
     
     <table class='table table-responsive'>
       <tr><th><h4>Bigus encontrados</h4></th></tr>
-      <tr ng-repeat="user in filtered_users">
+      <tr ng-repeat="ride in filtered_rides">
         <td>
           <div class="row ride-box">
             
             <div class="col-md-4">
-              <img class="img-responsive img-profile" ng-src="{{user.photo_url}}">
+              <img class="img-responsive img-profile" ng-src="{{ride.driver.photo_url}}">
             </div>
             
             <div class="col-md-4">  
-              <p>Nome: {{user.name}}</p>
-              <p>Telefone: {{user.phone}}</p>
-              <p>Bairro: {{user.address}}</p>
+              <p>Nome: {{ride.driver.name}}</p>
+              <p>Telefone: {{ride.driver.phone}}</p>
+              <p>Bairro: {{ride.driver.address}}</p>
+              <p>Vagas Disponiveis: {{ride.vacancies}}</p>
             </div>
             
             <div class="col-md-4">

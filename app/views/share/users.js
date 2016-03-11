@@ -1,10 +1,11 @@
 app.service('Users', function(Day, Way) {
 
-    function Ride(time, day, way, driver) {
+    function Ride(time, day, way, driver, vacancies) {
         this.time = time;
         this.day = day;
         this.driver = driver;
         this.way = way;
+        this.vacancies = vacancies;
     }
 
     function User(id) {
@@ -22,8 +23,8 @@ app.service('Users', function(Day, Way) {
         this.rides = new Array();
         this.friends = new Array();
 
-        this.addRide = function(time, day, way, driver) {
-            self.rides.push(new Ride(time, day, way, driver));
+        this.addRide = function(time, day, way, driver, vacancies) {
+            self.rides.push(new Ride(time, day, way, driver, vacancies));
         }
 
         this.addFriend = function(user) {
@@ -63,17 +64,21 @@ app.service('Users', function(Day, Way) {
     user1.address = 'Alto Branco';
     user1.photo_url = 'http://static2.blastingnews.com/media/photogallery/2016/2/23/290x290/b_290x290/salario-de-dilma-devera-ser-reduzido_615715.jpg';
 
-    user1.addRide(1000, Day.SUN, Way.FROM, user2);
-    user1.addRide(730, Day.SUN, Way.TO, user1);
-    user1.addRide(800, Day.MON, Way.TO, user2);
-    user1.addRide(800, Day.TUE, Way.FROM, user3);
-    user1.addRide(1130, Day.THU, Way.TO, user1);
-    user1.addRide(730, Day.THU, Way.FROM, user2);
-    user1.addRide(730, Day.SAT, Way.TO, user3);
-    user1.addRide(1300, Day.SUN, Way.FROM, user2);
-    user1.addRide(500, Day.SUN, Way.TO, user1);
+    user2.email = 'fisicoturista@emc2.br';
+    user2.phone = '33331122314';
+    user2.address = 'Catole';
 
-    user2.addRide(500, Day.TUE, Way.TO, user1);
+    user1.addRide(1000, Day.SUN, Way.FROM, user2, 3);
+    user1.addRide(730, Day.SUN, Way.TO, user1, 2);
+    user1.addRide(800, Day.MON, Way.TO, user2, 4);
+    user1.addRide(800, Day.TUE, Way.FROM, user3, 5);
+    user1.addRide(1130, Day.THU, Way.TO, user1, 1);
+    user1.addRide(730, Day.THU, Way.FROM, user2, 0);
+    user1.addRide(730, Day.SAT, Way.TO, user3), 1;
+    user1.addRide(1300, Day.SUN, Way.FROM, user2, 4);
+    user1.addRide(500, Day.SUN, Way.TO, user1, 5);
+
+    user2.addRide(500, Day.TUE, Way.TO, user1, 2);
 
     // End fake users
 
