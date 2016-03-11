@@ -1,4 +1,4 @@
-app.controller('search', ['$scope', 'Users', 'ModalMessage', function($scope, Users, ModalMessage) {
+app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($scope, Users, ModalMessage) {
   
   $scope.users = Users.getAll();
   $scope.filtered_users = [];

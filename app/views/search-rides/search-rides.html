@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-
-<html ng-app="app">
-
-<head>
-  <meta charset="UTR-8">
-  <title> garupa.com </title>
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <script src='libs/jquery-2.1.3.js'></script>
-  <script src='libs/angular.min.js'></script>
-  <script src='libs/angular-css.min.js'></script>
-  <script src='libs/angular-ui-router.js'></script>
-  <script src='libs/angular-animate.min.js'></script>
-  <script src="libs/bootstrap/js/flat-ui.min.js"></script>
-  <script src='libs/underscore.js'></script>
-  <script src="libs/bootstrap3-typeahead.js"></script>
-  <script src="libs/bootstrap-multiselect.js"></script>
-  <script src="libs/bootstrap-timepicker.min.js"></script>
-  <script src="libs/bootstrap-datepicker.js"></script>
-  <script src='libs/require.js'></script>
-
-  <link href="libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="libs/bootstrap/css/flat-ui.min.css" rel="stylesheet">
-  <link href="libs/bootstrap-timepicker.min.css" rel="stylesheet">
-  <link href="libs/datepicker.css" rel="stylesheet">
-  <link href="libs/bootstrap-multiselect.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="app/views/search-rides/search-rides.css">
-
-  <script src='app/app.js'></script>
-  <script src="app/views/share/constants.js"></script>
-  <script src="app/views/share/users.js"></script>
-  <script src="app/views/search-rides/search-rides.js"></script>
-
-</head>
-
-<body>
-  <div class="main-container container">
+<div class="main-container container">
 
 <!-- Search box -->
 <div class="row">
@@ -65,7 +27,7 @@
   
 <!-- Busca nao foi realizada -->
 <div ng-if="!searchWasMade">
-  <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
+	<img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
 </div>
 
 <!-- Busca realizada -->
@@ -90,31 +52,31 @@
   <div ng-if="filtered_users.length !== 0" class="row find-box box">
     
     <table class='table table-responsive'>
-      <tr><th><h4>Bigus encontrados</h4></th></tr>
-      <tr ng-repeat="user in filtered_users">
-        <td>
-          <div class="row ride-box">
-            
+  		<tr><th><h4>Bigus encontrados</h4></th></tr>
+  		<tr ng-repeat="user in filtered_users">
+  		  <td>
+  		    <div class="row ride-box">
+  		      
             <div class="col-md-4">
-              <img class="img-responsive img-profile" ng-src="{{user.photo_url}}">
-            </div>
-            
+  		        <img class="img-responsive img-profile" ng-src="{{user.photo_url}}">
+  		      </div>
+  		      
             <div class="col-md-4">  
-              <p>Nome: {{user.name}}</p>
-              <p>Telefone: {{user.phone}}</p>
-              <p>Bairro: {{user.address}}</p>
-            </div>
-            
+  		        <p>Nome: {{user.name}}</p>
+  		        <p>Telefone: {{user.phone}}</p>
+  		        <p>Bairro: {{user.address}}</p>
+  		      </div>
+  		      
             <div class="col-md-4">
-              <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block" 
+  		        <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block" 
               type="submit" data-toggle="modal" id="make-a-friend" data-target="#modal"> Amigos de bigu! </button> 
-              <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block"
+  		        <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block"
               type="submit" data-toggle="modal" id="send-invitation" data-target="#modal"> Marcar carona </button> 
-            </div>
-          
+  		      </div>
+  		    
           </div>
-        </td>
-      </tr>
+  		  </td>
+  		</tr>
     </table>
   </div>
 </div>
@@ -138,7 +100,3 @@
   </div>
   
 </div>
-
-</body>
-
-</html>
