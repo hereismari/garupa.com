@@ -46,17 +46,12 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
         console.log($scope.carpool.from)
     });
 
-}]);
-
-$(document).ready(function () {
-
-	//ativa o datepicker
+   //ativa o datepicker
     $('#date').datepicker({
         format: "dd/mm/yyyy"
     });  
 
-	
-  
-	//ativa o timepicker
-	 $('#time').timepicker();
-});
+  //ativa o timepicker
+   $('#time').timepicker();
+
+}]);

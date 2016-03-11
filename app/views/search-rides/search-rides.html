@@ -10,13 +10,13 @@
         <div class='col-md-6'>
           <h3> {{ explanation_title }} </h3>
           <p> {{ explanation }} </p>
-          <a href="#login" class="btn btn-primary" ng-click="search()"> Buscar carona </a>
+          <button class="btn btn-primary" ng-click="search()"> Buscar carona </button>
         </div>
         
         <!-- Campos -->
         <div class='col-md-6'>
           
-          <label for="label-type">Estou indo para: </label>
+          <label for="label-type">Estou indo para:</label>
           <br>
           <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG">  
           <br>
@@ -26,14 +26,12 @@
           <input id="label-adress" class='form-control' ng-model="search.adress" type="text" data-source="{{dataSource}}" data-items="4"  data-provide="typeahead" placeholder="Bairro" spellcheck="false" required>
           <br>
 
-          <label for="labe-mat">Dia da carona:</label>
-          <input id="label-neighborhood" ng-model="form.neighborhoodFrom" type="text" 
-            class="form-control" style="text-transform:capitalize" placeholder="Rua/Bairro" required>
+          <label>Data da carona:</label>
+          <input id="date" type="text" class="form-control" placeholder="Data" required>
           <br>
 
-          <label for="labe-mat">dia da carona:</label>
-          <input id="label-neighborhood" ng-model="form.neighborhoodFrom" type="text" 
-            class="form-control" style="text-transform:capitalize" placeholder="Rua/Bairro" required>
+          <label>Hora da carona:</label>
+          <input id="time" type="text" class="form-control"  placeholder="Hora" required>
           <br>        
    
           <div class="help-block with-errors"></div>
@@ -108,14 +106,29 @@
     <div class="modal-content">
       <form class="form-horizontal" role="form">
         <div class="modal-header">
-          <h4>{{modal_title}}<h4>
+          <h4>{{modal_title}}</h4>
         </div>
         <div class="modal-body">
-          <p> {{modal_message}}</p>
+          <p>{{modal_message}}</p>
+
+            <p>Tem certeza a respeito disso?</p>
+            <button class="btn btn-md btn-success btn-md" data-dismiss="modal"> Confirmar acao </button> 
+            <button class="btn btn-md btn-danger btn-md" data-dismiss="modal"> Cancelar </button> 
+            
+            <div ng-if="modal_title.localeCompare('Enviar solicitacao de carona') == 0">
+              <br>
+              <input type="checkbox" ng-model="form.driverMode" value="" id="checkbox2" data-toggle="checkbox" class="custom-checkbox">
+                <span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                Quero utilizar essa carona semanalmente.
+            </div>
+            
         </div>
+
         <div class="modal-footer">
           <a class="btn btn-default" data-dismiss="modal">Fechar</a>
         </div>
       </form>
     </div>
+  </div>
+</div>
   
