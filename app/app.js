@@ -8,7 +8,8 @@ app.config(function($stateProvider, $cssProvider) {
         .state('offering', {
             url: '/',
             controller: 'offering',
-            templateUrl: 'app/views/CarpoolOffering/offering.html'
+            templateUrl: 'app/views/CarpoolOffering/offering.html',
+            css: 'app/views/CarpoolOffering/offering.css'
         });
     
     angular.extend($cssProvider.defaults, {
