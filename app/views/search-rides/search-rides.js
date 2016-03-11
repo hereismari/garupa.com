@@ -35,6 +35,17 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   	$scope.modal_message = modal_auxiliar.message;
 
   }
+
+  //ativa o switch
+  $("#way-cb").bootstrapSwitch(); 
+
+   $('#way-cb').bootstrapSwitch('onSwitchChange', function(event, state) {
+        $scope.carpool.from = state?  'UFCG' : 'Casa';
+        $scope.$apply();
+
+        console.log($scope.carpool.from)
+    });
+
 }]);
 
 $(document).ready(function () {
@@ -44,8 +55,7 @@ $(document).ready(function () {
         format: "dd/mm/yyyy"
     });  
 
-	//ativa o switch
-	$("#way-cb").bootstrapSwitch(); 
+	
   
 	//ativa o timepicker
 	 $('#time').timepicker();
