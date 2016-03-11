@@ -4,42 +4,45 @@
 </div>
 
 <form class='form-horizontal'>
+
   <div class='form-group'>
-    <label class='col-md-2 control-label'> Direção </label>
+    <label class='col-md-2 control-label'> É recorrente? </label>
     <div class='col-md-10'>
-        <input type='radio' value='Casa' ng-model='carpool.from' /> Para UFCG
-        <input type='radio' value='UFCG' ng-model='carpool.from' /> Voltando da UFCG
-  </div></div>
-  
+      <input type='checkbox' name='repeat' data-on-text='Sim' data-off-text='Não' data-label-text='repeat'>
+    </div></div>
+
   <div class='form-group'>
-    <label class='col-md-2 control-label'> {{carpool.from == 'Casa'? 'Origem' : 'Destino'}} </label>
+    <label class='col-md-2 control-label'> Saindo de onde? </label>
+    <div class='col-md-10'>
+      <input type='checkbox' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'>
+  </div></div>
+
+  <div class='form-group' ng-if='carpool.from == "UFCG"'>
+    <label class='col-md-2 control-label'> Destino </label>
+
     <div class='col-md-10'>
       <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro' required/>
   </div></div>
-  
+
   <div class='form-group'>
     <label class='col-md-2 control-label'> Que dia? </label>
     <div class='col-md-10'>
-      <select class='form-control' ng-model='carpool.day' required>
+      <select ng-hide="!carpool.recurrent" class='form-control' ng-model='carpool.day' required>
         <option ng-repeat='day in Day' value={{day}}> {{day}} </option>
       </select>
+
+      <input ng-hide="carpool.recurrent" name='calendar' type='text' placeholder='Escolha uma data' >
   </div></div>
-  
+
   <div class='form-group'>
     <label class='col-md-2 control-label'> Que hora? </label>
     <div class='col-md-10'>
-       <input type='time' ng-model='carpool.time' />
+       <input name='time' ng-model='carpool.time' />
   </div></div>
-  
+
   <div class='form-group'>
     <div class='col-md-offset-2 col-md-10'>
       <button type='submit' class='btn btn-primary btn'> Oferece o teu bigu! </button>
   </div></div>
+
 </form>
-
-  <!--table class='table table-responsive'>
-    <tr><th> Busco carona para:</th><td><input type='checkbox' data-on-text='UFCG' data-off-text='Casa' data-off-color='warning' id='way-cb' data-label-text='UFCG'></td></tr>
-    <tr><th> No dia : </th><td> <input type='text' placeholder='Escolha uma data' id='date'> </td></tr>
-    <tr><th> Na hora : </th><td> <input id='time' type='text' required> </td></tr>
-  </table-->
-

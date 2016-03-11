@@ -1,8 +1,14 @@
 
 app.controller('offering', function($scope, Day) {
 
-    $(document).ready(function() {
-        $("[name='my-checkbox']").bootstrapSwitch();
+    $("[name='origin']").bootstrapSwitch();
+
+    $("[name='repeat']").bootstrapSwitch();
+
+    $("[name='time']").timepicker();
+
+    $("[name='calendar']").datepicker({
+        format: "dd/mm/yyyy"
     });
 
     $scope.Day = Day;
@@ -11,7 +17,8 @@ app.controller('offering', function($scope, Day) {
         from: 'Casa',
         to: 'UFCG',
         day: '',
-        time: ''
+        time: '',
+        recurrent: false
     };
 
     $scope.dataSource = [
@@ -42,21 +49,17 @@ app.controller('offering', function($scope, Day) {
         'Velame', 'Vila Cabral'
     ];
 
-    $scope.$watch('carpool.from', function() {
-        $scope.carpool.to = 'UFCG';
-    });
-});
+    $("[name='repeat']").bootstrapSwitch('onSwitchChange', function(event, state) {
+        $scope.carpool.recurrent = state;
+        $scope.$apply();
 
-$(document).ready(function () {
-
-    //ativa o datepicker
-    $('#date').datepicker({
-        format: "dd/mm/yyyy"
+        console.log(event)
     });
 
-    //ativa o switch
-    $("#way-cb").bootstrapSwitch();
+    $("[name='origin']").bootstrapSwitch('onSwitchChange', function(event, state) {
+        $scope.carpool.from = state?  'UFCG' : 'Casa';
+        $scope.$apply();
 
-    //ativa o timepicker
-    $('#time').timepicker();
+        console.log($scope.carpool.from)
+    });
 });
