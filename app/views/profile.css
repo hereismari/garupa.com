@@ -25,3 +25,17 @@
 #profile-pic * {
   border-radius: 0px;
 }
+
+.panel .fa {
+  text-align: center;
+  width: 30px;
+}
+
+.panel-primary {
+  border-color: #34495e;
+}
+
+.panel-primary > .panel-heading {
+  background: #34495e;
+  border-color: #34495e;
+}

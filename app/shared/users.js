@@ -8,12 +8,12 @@ app.service('Users', function(Day, Way) {
         this.way = way;
     }
 
-    function User(id) {
+    function User(id, password) {
         var self = this;
 
         this.id = id;
+        this.password = password;
         this.email = null;
-        this.password = null;
 
         this.name = undefined;
         this.phone = undefined;
@@ -42,9 +42,9 @@ app.service('Users', function(Day, Way) {
 
     // Fake users
 
-    var user1 = new User('dilma');
-    var user2 = new User('einstein');
-    var user3 = new User('safadao');
+    var user1 = new User('dilma', 'votempt');
+    var user2 = new User('einstein', 'loacepeso');
+    var user3 = new User('safadao', 'soasnovinhas');
 
     var user_list = [
         user1, user2, user3

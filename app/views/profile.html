@@ -1,5 +1,5 @@
 
-<div class='row vert-offset-bottom-4'>
+<div class='row vert-offset-bottom-3'>
   <div class='col-md-3'>
     <div id='profile-pic'>
       <img class='img-responsive' ng-src='{{user.photo_url}}'/>
@@ -8,25 +8,44 @@
           <span engrave='pencil'> Trocar Foto </span></image-input>
         <button class='btn btn-danger btn-block' ng-if='!signed' engrave='user-times'>
           Remover Amigo </button>
-      </span>
-    </div>
+    </span></div>
   </div>
-  
+
   <div class='col-md-8 col-md-offset-1'>
     <user-info user='user'/>
   </div>
 </div>
 
-<div class='row vert-offset-bottom-2'>
+<div class='row vert-offset-bottom-4'>
   <div class='col-md-12'><calendar user='user'/></div>
 </div>
 
-<div class='row' ng-if='signed'>
-  <div class='col-md-3 col-md-offset-6'>
-    <button class='btn btn-primary btn-block'> Procurar um Bigu </button>
-  </div>
+<!-- Refazer com ngRepeat quando der -->
+<div class='row'>
+  <div class='col-md-6'> <div class='panel panel-primary'>
+    <div class='panel-heading'> Caronas Agendadas </div>
 
-  <div class='col-md-3'>
+    <div class='list-group'>
+      <a class='list-group-item' engrave='home'>
+        {{ 1457249400000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
+        <small class='text-muted'> Wesley Safadão </small></a>
+
+      <a class='list-group-item' engrave='graduation-cap'>
+        {{ 1457620200000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
+        <small class='text-muted'> Albert Einstein </small></a>
+
+      <a class='list-group-item' engrave='graduation-cap'>
+        {{ 1460822400000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
+        <small class='text-muted'> Em aberto </small></a>
+
+      <a class='list-group-item' engrave='home'>
+        {{ 1460829600000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
+        <small class='text-muted'> Dilma Rousseff </small></a>
+    </div>
+  </div></div>
+
+  <div class='col-md-6'>
+    <button class='btn btn-primary btn-block vert-offset-bottom-1'> Procurar um Bigu </button>
     <button class='btn btn-primary btn-block'> Oferecer um Bigu </button>
   </div>
 </div>
