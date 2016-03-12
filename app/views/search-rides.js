@@ -21,7 +21,7 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
       for(var j = 0; j < $scope.users[i].rides.length; j++) {
         var user = $scope.users[i];
         var ride = $scope.users[i].rides[j];
-        if(user.address === $scope.address) {
+        if(ride.driver.address === $scope.address) {
           $scope.filtered_rides.push(ride);
           break;
         }
