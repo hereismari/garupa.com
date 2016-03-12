@@ -7,6 +7,8 @@ app.controller('offering', function($scope, Day) {
 
     $("[name='time']").timepicker();
 
+    $("[name='tagsinput']").tagsinput();
+
     $("[name='calendar']").datepicker({
         format: "dd/mm/yyyy"
     });

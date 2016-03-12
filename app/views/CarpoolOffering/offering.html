@@ -9,30 +9,28 @@
     <label class='control-label'> É recorrente? </label>
 
     <div class='col-md-10'>
-      <input type='checkbox' name='repeat' data-on-text='Sim' data-off-text='Não' data-label-text='repeat'>
+      <input type='checkbox' name='repeat' data-on-text='Sim' data-off-text='Não' data-label-text='repeat'/>
     </div></div>
 
   <div class='form-group box'>
     <label class='control-label'> Partida: </label>
 
     <div class='col-md-10 box'>
-      <input type='checkbox' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'>
+      <input type='checkbox' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'/>
   </div></div>
 
   <div class='form-group box'>
     <label class='control-label'> Destino: </label>
 
     <div class='col-md-11'>
-      <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro' />
+      <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro'/>
   </div></div>
 
   <div class='form-group box'>
     <label class='control-label'> Por onde você passa? </label>
 
-    <div class='col-md-10'>
-      <select class='form-control'>
-        <option> Bairros </option>
-      </select>
+    <div class='col-md-10 bootstrap-tagsinput'>
+      <input name="tagsinput" class="tagsinput" data-role="tagsinput" value='Bodocongo, Catole, Alto Branco, Bairro das Nacoes'/>
   </div></div>
 
   <div class='form-group box'>
