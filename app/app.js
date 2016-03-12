@@ -72,6 +72,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             templateUrl: 'app/views/offer-ride.html',
             css: 'app/views/offer-ride.css'
         })
+        
+        .state('notifications', {
+			url: '/notificacoes',
+			templateUrl: 'app/views/notifications.html',
+			css: 'app/views/notifications.css'
+		})
 
         .state('404', {
             url: '/404',
