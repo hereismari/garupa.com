@@ -88,7 +88,7 @@ app.service('Users', function(Day, Way) {
 
     // End fake users
 
-    this.loggedUser = user1;
+    this.loggedUser = null;
 
     this.login = function(uid) {
         return this.loggedUser = this.get(uid);
