@@ -4,10 +4,10 @@ Sistema web de caronas solidárias para associados a UFCG.
 Desenvolvido por Arthur Emanuel, Arthur Vinícius, Jeferson Silva, Marianne Linhares e Victor Andrade para a disciplina de SI1 no período 2015.2
 na UFCG.
 
-** Modificacao do README que mandamos por e-mail **
-** commit 1 (sem integração): https://github.com/mari-linhares/garupa.com/commit/2ada2bc76373c1e25cc2bb90de26bac416f65fe9**
-** commit 2 (último commit antes das 23:59): https://github.com/mari-linhares/garupa.com/commit/ef99b1d1b436de453e32bfa3f7818da969ff076d **
-** commit 3 (correção dos bugs de integração): commit atual**
+**Modificacao do README que mandamos por e-mail**
+**commit 1 (sem integração): https://github.com/mari-linhares/garupa.com/commit/2ada2bc76373c1e25cc2bb90de26bac416f65fe9**
+**commit 2 (último commit antes das 23:59): https://github.com/mari-linhares/garupa.com/commit/ef99b1d1b436de453e32bfa3f7818da969ff076d**
+**commit 3 (correção dos bugs de integração): commit atual**
 
 ## Primeira entrega - como visualisar as páginas ?
 
