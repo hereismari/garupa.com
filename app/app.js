@@ -10,12 +10,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .when('', '/perfil')
 
         .when('/perfil', function($state, Users) {
+            if(Users.loggedUser == null) return '/404';
             return '/perfil/' + Users.loggedUser.id;
         })
 
         .when('/perfil/:uid', function($state, $match, Users) {
             var user = Users.get($match.uid);
-            if(user == null) return false;
+            if(user == null || Users.loggedUser == null)
+                return '/404';
 
             $state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
                 'profile' : 'add-friend', { uid: user.id });

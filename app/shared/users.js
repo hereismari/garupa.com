@@ -90,6 +90,14 @@ app.service('Users', function(Day, Way) {
 
     this.loggedUser = user1;
 
+    this.login = function(uid) {
+        return this.loggedUser = this.get(uid);
+    };
+
+    this.logout = function() {
+        return this.loggedUser = null;
+    };
+
     this.areFriends = function(user1, user2) {
         if(user1 == null || user2 == null) return false;
         return user1.hasFriend(user2) && user2.hasFriend(user1);
