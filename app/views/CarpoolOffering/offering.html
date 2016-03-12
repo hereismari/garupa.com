@@ -1,6 +1,6 @@
 
 <div class='row text-center login-title'>
-  <h4> Poste uma carona! </h4>
+  <h4> Ofereça uma carona! </h4>
 </div>
 
 <form class='col-md-4 col-md-offset-4 form-horizontal box'>
@@ -13,17 +13,26 @@
     </div></div>
 
   <div class='form-group box'>
-    <label class='control-label'> Direção </label>
+    <label class='control-label'> Partida: </label>
 
     <div class='col-md-10 box'>
       <input type='checkbox' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'>
   </div></div>
 
   <div class='form-group box'>
-    <label class='control-label'> {{carpool.from == 'UFCG'? 'Partida' : 'Destino'}} </label>
+    <label class='control-label'> Destino: </label>
 
     <div class='col-md-11'>
-      <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro' required/>
+      <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro' />
+  </div></div>
+
+  <div class='form-group box'>
+    <label class='control-label'> Por onde você passa? </label>
+
+    <div class='col-md-10'>
+      <select class='form-control'>
+        <option> Bairros </option>
+      </select>
   </div></div>
 
   <div class='form-group box'>
