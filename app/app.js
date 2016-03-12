@@ -59,6 +59,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             params: { uid: null }
         })
 
+        .state('search-rides', {
+            url: '/procurar-bigu',
+            controller: 'search-rides',
+            templateUrl: 'app/views/search-rides.html',
+            css: 'app/views/search-rides.css'
+        })
+
         .state('404', {
             url: '/404',
             template: 'Not Found 404',
