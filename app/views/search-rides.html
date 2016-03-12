@@ -1,6 +1,6 @@
 <!-- Search box -->
 <div class="row">
-    
+
     <h1 class="text-center login-title"> Ache seu bigu! </h1>
     <div class='col-sm-8 col-sm-offset-2 search-box box'>
 
@@ -12,18 +12,18 @@
           <p> {{ explanation }} </p>
           <button class="btn btn-primary" ng-click="search()"> Buscar carona </button>
         </div>
-        
+
         <!-- Campos -->
         <div class='col-md-6'>
-          
+
           <label for="label-type">Estou indo para:</label>
           <br>
-          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG">  
+          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG">
           <br>
           <br>
 
           <label for="label-address">Seu bairro:</label>
-          <input id="label-address" class='form-control' ng-model="search.address" type="text" data-source="{{dataSource}}" data-items="4"  data-provide="typeahead" placeholder="Bairro" spellcheck="false" required>
+          <input id="label-address" class='form-control' ng-model="address" type="text" data-source="{{dataSource}}" data-items="4"  data-provide="typeahead" placeholder="Bairro" spellcheck="false" required>
           <br>
 
           <label>Data da carona:</label>
@@ -32,10 +32,10 @@
 
           <label>Hora da carona:</label>
           <input id="time" type="text" class="form-control"  placeholder="Hora" required>
-          <br>        
-   
+          <br>
+
           <div class="help-block with-errors"></div>
-          
+
         </div>
       </form>
     </div>
@@ -52,7 +52,7 @@
 
   <!-- Busca feita porem nao achou caronas validas -->
   <div ng-if="filtered_rides.length === 0" class="row not-found-box">
-    
+
     <div class="col-md-8 col-md-offset-2">
       <h4>Eita! Parece que nao tem bigu desse tipo. </h4>
     </div>
@@ -61,38 +61,38 @@
 
     <div class="col-md-4 col-md-offset-4">
       <button ng-click="setModalMessage($event)" class="btn btn-md btn-warning btn-block" type="submit" data-toggle="modal"
-      data-target="#modal" id="notify-me"> Me notificar quando surgir uma carona desse tipo! </button> 
+      data-target="#modal" id="notify-me"> Me notificar quando surgir uma carona desse tipo! </button>
     </div>
-  
+
   </div>
-  
+
   <!-- Busca feita e resultados foram encontrados -->
   <div ng-if="filtered_rides.length !== 0" class="row find-box box">
-    
+
     <table class='table table-responsive'>
       <tr><th><h4>Bigus encontrados</h4></th></tr>
       <tr ng-repeat="ride in filtered_rides">
         <td>
           <div class="row ride-box">
-            
+
             <div class="col-md-4">
               <img class="img-responsive img-profile" ng-src="{{ride.driver.photo_url}}">
             </div>
-            
-            <div class="col-md-4">  
+
+            <div class="col-md-4">
               <p>Nome: {{ride.driver.name}}</p>
               <p>Telefone: {{ride.driver.phone}}</p>
               <p>Bairro: {{ride.driver.address}}</p>
               <p>Vagas Disponiveis: {{ride.vacancies}}</p>
             </div>
-            
+
             <div class="col-md-4">
-              <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block" 
-              type="submit" data-toggle="modal" id="make-a-friend" data-target="#modal"> Amigos de bigu! </button> 
               <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block"
-              type="submit" data-toggle="modal" id="send-invitation" data-target="#modal"> Agendar carona </button> 
+              type="submit" data-toggle="modal" id="make-a-friend" data-target="#modal"> Amigos de bigu! </button>
+              <button ng-click="setModalMessage($event)" class="btn btn-md btn-primary btn-block"
+              type="submit" data-toggle="modal" id="send-invitation" data-target="#modal"> Agendar carona </button>
             </div>
-          
+
           </div>
         </td>
       </tr>
@@ -112,16 +112,16 @@
           <p>{{modal_message}}</p>
 
             <p>Tem certeza a respeito disso?</p>
-            <button class="btn btn-md btn-success btn-md" data-dismiss="modal"> Confirmar acao </button> 
-            <button class="btn btn-md btn-danger btn-md" data-dismiss="modal"> Cancelar </button> 
-            
+            <button class="btn btn-md btn-success btn-md" data-dismiss="modal"> Confirmar a&ccedil;&atilde;o </button>
+            <button class="btn btn-md btn-danger btn-md" data-dismiss="modal"> Cancelar </button>
+
             <div ng-if="modal_title.localeCompare('Enviar solicitacao de carona') == 0">
               <br>
               <input type="checkbox" ng-model="form.driverMode" value="" id="checkbox2" data-toggle="checkbox" class="custom-checkbox">
                 <span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
                 Quero utilizar essa carona semanalmente.
             </div>
-            
+
         </div>
 
         <div class="modal-footer">
@@ -131,4 +131,3 @@
     </div>
   </div>
 </div>
-  

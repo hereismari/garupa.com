@@ -1,5 +1,5 @@
 app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($scope, Users, ModalMessage) {
-  
+
   $scope.users = Users.getAll();
   $scope.filtered_rides = [];
 
@@ -14,14 +14,14 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   $scope.explanation = "Esta indo para UFCG ou voltando para casa e tem medo de ser assaltado se for andando ou entao dos outros males que nos cercam diariamente? Calma!!! Temos a carona perfeita para voce!";
 
   $scope.search = function() {
-  	
+
     $scope.filtered_rides = [];
-        
+
   	for(var i = 0; i < $scope.users.length; i++) {
       for(var j = 0; j < $scope.users[i].rides.length; j++) {
         var user = $scope.users[i];
         var ride = $scope.users[i].rides[j];
-        if(user.address === $scope.search.address) {
+        if(user.address === $scope.address) {
           $scope.filtered_rides.push(ride);
           break;
         }
@@ -32,7 +32,7 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   };
 
   $scope.setModalMessage = function(evt) {
-  	
+
   	var id = evt.target.id;
   	var modal_auxiliar = undefined;
 
@@ -46,7 +46,7 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   }
 
   //ativa o switch
-  $("#way-cb").bootstrapSwitch(); 
+  $("#way-cb").bootstrapSwitch();
 
    $('#way-cb').bootstrapSwitch('onSwitchChange', function(event, state) {
         $scope.carpool.from = state?  'UFCG' : 'Casa';
@@ -58,7 +58,7 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
    //ativa o datepicker
     $('#date').datepicker({
         format: "dd/mm/yyyy"
-    });  
+    });
 
   //ativa o timepicker
    $('#time').timepicker();
