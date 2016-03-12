@@ -66,6 +66,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             css: 'app/views/search-rides.css'
         })
 
+        .state('offer-ride', {
+            url: '/oferecer-bigu',
+            controller: 'offer-ride',
+            templateUrl: 'app/views/offer-ride.html',
+            css: 'app/views/offer-ride.css'
+        })
+
         .state('404', {
             url: '/404',
             template: 'Not Found 404',

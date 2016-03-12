@@ -1,0 +1,59 @@
+
+<div class='row text-center login-title'>
+  <h4> Ofereça uma carona! </h4>
+</div>
+
+<form class='col-md-4 col-md-offset-4 form-horizontal'>
+
+  <div class='form-group'>
+    <label class='control-label'> É recorrente? </label>
+
+    <div class='col-md-10'>
+      <input type='check' name='repeat' data-on-text='Sim' data-off-text='Não' data-label-text='repeat'/>
+    </div></div>
+
+  <div class='form-group'>
+    <label class='control-label'> Partida: </label>
+
+    <div class='col-md-10'>
+      <input type='check' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'/>
+  </div></div>
+
+  <div class='form-group'>
+    <label class='control-label'> Destino: </label>
+
+    <div class='col-md-11'>
+      <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro'/>
+  </div></div>
+
+  <div class='form-group'>
+    <label class='control-label'> Por onde você passa? </label>
+
+    <div class='col-md-10 bootstrap-tagsinput'>
+      <input name="tagsinput" class="tagsinput" data-role="tagsinput" value='Bodocongo, Catole, Alto Branco, Bairro das Nacoes'/>
+  </div></div>
+
+  <div class='form-group'>
+    <label class='control-label'> Que dia? </label>
+
+    <div class='col-md-10'>
+      <select ng-hide="!carpool.recurrent" class='form-control' ng-model='carpool.day' required>
+        <option ng-repeat='day in Day' value={{day}}> {{day}} </option>
+      </select>
+
+      <input ng-hide="carpool.recurrent" name='calendar' type='text' placeholder='Escolha uma data' class='form-control'/>
+  </div></div>
+
+  <div class='form-group'>
+    <label class='control-label'> Que hora? </label>
+
+    <div class='col-md-10'>
+       <input name='time' ng-model='carpool.time' class='form-control'/>
+  </div></div>
+
+  <div class='form-group'>
+    <div class='col-md-offset-2 col-md-13'>
+      <button type='submit' class='btn btn-primary btn'> Oferece o teu bigu! </button>
+  </div></div>
+
+</form>
