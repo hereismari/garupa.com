@@ -81,7 +81,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 
         .state('404', {
             url: '/404',
-            template: 'Not Found 404',
+            templateUrl: 'app/views/not-found.html',
+            css: 'app/views/not-found.css',
         });
 
     angular.extend($cssProvider.defaults, {

@@ -1,23 +1,21 @@
+<span id='profile'>
 
 <div class='row vert-offset-bottom-3'>
-  <div class='col-md-3'>
-    <div id='profile-pic'>
-      <img class='img-responsive' ng-src='{{user.photo_url}}'/>
-      <span class='action'>
-        <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url' ng-if='signed'>
-          <span engrave='pencil'> Trocar Foto </span></image-input>
-        <button class='btn btn-danger btn-block' ng-if='!signed' engrave='user-times'>
-          Remover Amigo </button>
-    </span></div>
-  </div>
+  <div class='col-md-3'><div class='user-image'>
+    <img class='img-responsive' ng-src='{{user.photo_url}}' />
+    <span class='action'>
+      <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url' ng-if='signed'>
+        <span engrave='pencil'> Trocar Foto </span></image-input>
+      <button class='btn btn-danger btn-block' ng-if='!signed' engrave='user-times'>
+        Remover Amigo </button>
+  </span></div></div>
 
   <div class='col-md-8 col-md-offset-1'>
-    <user-info user='user'/>
-  </div>
+    <user-info user='user' /></div>
 </div>
 
 <div class='row vert-offset-bottom-4'>
-  <div class='col-md-12'><calendar user='user'/></div>
+  <div class='col-md-12'><calendar user='user' /></div>
 </div>
 
 <!-- Refazer com ngRepeat quando der -->
@@ -49,3 +47,5 @@
     <a class='btn btn-primary btn-block' href='#/oferecer-bigu'> Oferecer um Bigu </a>
   </div>
 </div>
+
+</span>

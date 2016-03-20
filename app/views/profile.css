@@ -1,15 +1,11 @@
 
-#profile-pic {
+#profile .user-image {
   border-radius: 4px;
   overflow: hidden;
   position: relative;
 }
 
-#profile-pic img {
-  width: 100%;
-}
-
-#profile-pic .action {
+#profile .user-image .action {
   width: 100%;
   bottom: 0px;
 
@@ -18,24 +14,24 @@
   opacity: 0;
 }
 
-#profile-pic:hover .action {
+#profile .user-image:hover .action {
   opacity: 1;
 }
 
-#profile-pic * {
+#profile .user-image * {
   border-radius: 0px;
 }
 
-.panel .fa {
+#profile .panel .fa {
   text-align: center;
   width: 30px;
 }
 
-.panel-primary {
+#profile .panel-primary {
   border-color: #34495e;
 }
 
-.panel-primary > .panel-heading {
+#profile .panel-primary > .panel-heading {
   background: #34495e;
   border-color: #34495e;
 }
