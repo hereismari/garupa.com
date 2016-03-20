@@ -1,4 +1,5 @@
 app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($scope, Users, ModalMessage) {
+    $scope.carpool = new Object();
 
   $scope.users = Users.getAll();
   $scope.filtered_rides = [];
@@ -46,7 +47,6 @@ app.controller('search-rides', ['$scope', 'Users', 'ModalMessage', function($sco
   }
 
   //ativa o switch
-  $("#way-cb").bootstrapSwitch();
 
    $('#way-cb').bootstrapSwitch('onSwitchChange', function(event, state) {
         $scope.carpool.from = state?  'UFCG' : 'Casa';

@@ -1,6 +1,6 @@
 
 var app = angular.module('app', [
-    'ngAnimate', 'ui.router', 'door3.css'
+    'ui.router', 'door3.css'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider) {
@@ -72,7 +72,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             templateUrl: 'app/views/offer-ride.html',
             css: 'app/views/offer-ride.css'
         })
-        
+
         .state('notifications', {
 			url: '/notificacoes',
 			templateUrl: 'app/views/notifications.html',
