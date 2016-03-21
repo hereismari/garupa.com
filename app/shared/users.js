@@ -39,7 +39,7 @@ app.service('Users', function(Day, Way) {
         this.hasFriend = function(user) {
             return _.contains(self.friends, user)
         }
-    };
+    }
 
     // Fake users
 
