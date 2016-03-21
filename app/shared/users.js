@@ -92,11 +92,12 @@ app.service('Users', function(Day, Way) {
     this.loggedUser = null;
 
     this.login = function(uid) {
-        return this.loggedUser = this.get(uid);
+        this.loggedUser = this.get(uid);
+        return this.loggedUser != null;
     };
 
     this.logout = function() {
-        return this.loggedUser = null;
+        this.loggedUser = null;
     };
 
     this.areFriends = function(user1, user2) {

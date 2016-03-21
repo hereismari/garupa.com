@@ -2,22 +2,22 @@
 app.directive('navigationBar', function() {
     return {
         restrict: 'E',
-        scope: true,
+        scope: {},
         templateUrl: 'app/navigation-bar/navigation-bar.html',
         css: 'app/navigation-bar/navigation-bar.css',
 
         controller: function($scope, $location, Users) {
-            $scope.user = Users.loggedUser;
+            $scope.Users = Users;
 
             $scope.login = function(uid) {
-                $scope.user = Users.login(uid);
-                $location.path($scope.user? '/perfil' : '/login');
+                var success = Users.login(uid);
+                $location.path(success? '/perfil' : '/login');
             };
 
             $scope.logout = function() {
                 $location.path('/');
-                $scope.user = Users.logout();
-            }
+                Users.logout();
+            };
         }
     };
 });

@@ -1,19 +1,20 @@
+<span id='login'>
 
 <div class='col-md-6 col-md-offset-3'>
-		<div class='sign-in'><form name='form-sign-in'>
+		<form name='form-login'>
 
-			<label class='' for='user-email'>Email</label>
-			<input name='user-email' ng-model='user.email' type='text'
-				class='form-control' placeholder='Email' spellcheck='false' required>
+			<label for='user-id'> Matricula </label>
+			<input name='user-id' ng-model='uid' type='text'
+				class='form-control' placeholder='Matricula' spellcheck='false' required>
 			<br>
 
-			<label class='' for='user-passwd'>Senha</label>
-			<input name='user-passwd' ng-model='user.password' type='password'
+			<label for='user-password'> Senha </label>
+			<input name='user-password' ng-model='password' type='password'
 				class='form-control' placeholder='Senha' required>
 			<br>
 
-			<a href='#profile' class='btn btn-primary' ng-click='signIn()'> Sign In </a>
-			<a href='#recover' class='lnk' > Esqueci minha senha </a>
+			<button class='btn btn-primary' ng-click='login(uid)'> Entrar </button>
+			<a href='#/recuperar-senha' class='pull-right small'> Esqueci minha senha </a>
+</form></div>
 
-	</form></div>
-</div>
+</span>
