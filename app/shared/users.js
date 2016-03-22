@@ -68,7 +68,7 @@ app.service('Users', function(Day, Way) {
     user3.phone = '(82) 9372-4408';
 
     user1.address = 'Alto Branco';
-    user2.address = 'Catole';
+    user2.address = 'Catolé';
     user3.address = 'Seu coração';
 
     user1.photo_url = 'http://static2.blastingnews.com/media/photogallery/2016/2/23/290x290/b_290x290/salario-de-dilma-devera-ser-reduzido_615715.jpg';
