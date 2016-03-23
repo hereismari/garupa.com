@@ -1,6 +1,6 @@
 
 var app = angular.module('app', [
-    'ngAnimate', 'ui.router', 'door3.css'
+    'ui.router', 'door3.css'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider) {
@@ -10,20 +10,26 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .when('', '/')
 
         .when('/perfil', function($state, Users) {
-            if(Users.loggedUser == null) return '/home';
+            if(Users.loggedUser == null) return '/login';
             return '/perfil/' + Users.loggedUser.id;
         })
 
-        .when('/perfil/:uid', function($state, $match, Users) {
+        .when('/perfil/:uid', function($state, $location, $match, Users) {
             var user = Users.get($match.uid);
-            if(user == null || Users.loggedUser == null)
-                return '/404';
+
+            if(user == null)
+                return $state.go('404');
+
+            if(Users.loggedUser == null)
+                return $state.go('login', { redirect: $location.url() });
 
             $state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
                 'profile' : 'add-friend', { uid: user.id });
             })
 
-        .otherwise('/404');
+        .otherwise(function($injector) {
+            $injector.get('$state').go('404')
+        });
 
     $stateProvider
         .state('home', {
@@ -35,12 +41,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 
         .state('login', {
             url: '/login',
+            controller: 'login',
             templateUrl: 'app/views/login.html',
-            css: 'app/views/home.css'
+            params: { redirect: '/perfil' }
         })
 
         .state('recover', {
-            url: '/recover',
+            url: '/recuperar-senha',
             controller: 'recover',
             templateUrl: 'app/views/recover.html',
             css: 'app/views/home.css'
@@ -72,7 +79,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             templateUrl: 'app/views/offer-ride.html',
             css: 'app/views/offer-ride.css'
         })
-        
+
         .state('notifications', {
 			url: '/notificacoes',
 			templateUrl: 'app/views/notifications.html',
@@ -80,8 +87,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 		})
 
         .state('404', {
-            url: '/404',
-            template: 'Not Found 404',
+            templateUrl: 'app/views/not-found.html',
+            css: 'app/views/not-found.css',
         });
 
     angular.extend($cssProvider.defaults, {

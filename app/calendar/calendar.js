@@ -7,8 +7,8 @@ app.directive('calendar', function() {
         css: 'app/calendar/calendar.css',
 
         controller: function($scope, Day, Way) {
-              $scope.Day = Day;
-              $scope.Way = Way;
+            $scope.Day = Day;
+            $scope.Way = Way;
         }
     }
 });
