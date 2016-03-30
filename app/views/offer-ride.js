@@ -5,8 +5,6 @@ app.controller('offer-ride', function($scope, Day, Districts) {
 
     $("[name='repeat']").bootstrapSwitch();
 
-    $("[name='time']").timepicker();
-
     $("[name='tagsinput']").tagsinput();
 
     $("[name='calendar']").datepicker({
