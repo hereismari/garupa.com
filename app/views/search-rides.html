@@ -18,7 +18,7 @@
 
           <label for="label-type">Estou indo para:</label>
           <br>
-          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG">
+          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" id="way-cb" data-label-text="UFCG">
           <br>
           <br>
 
@@ -40,11 +40,6 @@
       </form>
     </div>
   </div>
-</div>
-
-<!-- Busca nao foi realizada -->
-<div ng-if="!searchWasMade">
-  <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
 </div>
 
 <!-- Busca realizada -->
