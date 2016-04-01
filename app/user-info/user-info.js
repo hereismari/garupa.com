@@ -22,7 +22,6 @@ app.directive('userInfo', function() {
                 new Row('Matrícula', 'id'),
                 new Row('Nome',      'name',    'ie.: Fulaninho da Silva',     '.{3,}'),
                 new Row('Telefone',  'phone',   'ie.: (83) 99988-1122',        '\\(\\d\\d\\) \\d{4,5}-\\d{4}'),
-                new Row('Endereço',  'address', 'ie.: Rua Tomé de Souza, 288', '.{5,}'),
                 new Row('Email',     'email',   'ie.: fulano.silva@email.com', '.+@.+\\..+')
             ];
         }
