@@ -1,8 +1,8 @@
-<!-- Search box -->
+<span id='search-rides'>
 <div class="row">
 
     <h1 class="text-center login-title"> Ache seu bigu! </h1>
-    <div class='col-sm-8 col-sm-offset-2 search-box box'>
+    <div class='col-sm-8 col-sm-offset-2 search-box'>
 
       <form name='form-search' data-toggle="validator" role="form" class="form-group">
 
@@ -18,7 +18,7 @@
 
           <label for="label-type">Estou indo para:</label>
           <br>
-          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" data-off-color="warning" id="way-cb" data-label-text="UFCG">
+          <input type="checkbox" ng-model="myWay" ng-change="changeWay()" data-on-text="UFCG" data-off-text="Casa" id="way-cb" data-label-text="UFCG">
           <br>
           <br>
 
@@ -27,11 +27,11 @@
           <br>
 
           <label>Data da carona:</label>
-          <input id="date" type="text" class="form-control" placeholder="Data" required>
+          <input id="date" type="text" class="form-control" placeholder="DD/MM/YYYY" required>
           <br>
 
           <label>Hora da carona:</label>
-          <input id="time" type="text" class="form-control"  placeholder="Hora" required>
+          <input id="time" type="text" class="form-control"  placeholder="08:00" required>
           <br>
 
           <div class="help-block with-errors"></div>
@@ -40,11 +40,6 @@
       </form>
     </div>
   </div>
-</div>
-
-<!-- Busca nao foi realizada -->
-<div ng-if="!searchWasMade">
-  <img class="img-responsive" style="width: 100%" src='assets/img/no-search.jpg'/>
 </div>
 
 <!-- Busca realizada -->
@@ -67,7 +62,7 @@
   </div>
 
   <!-- Busca feita e resultados foram encontrados -->
-  <div ng-if="filtered_rides.length !== 0" class="row find-box box">
+  <div ng-if="filtered_rides.length !== 0" class="row find-box">
 
     <table class='table table-responsive'>
       <tr><th><h4>Bigus encontrados</h4></th></tr>
@@ -76,7 +71,9 @@
           <div class="row ride-box">
 
             <div class="col-md-4">
-              <img class="img-responsive img-profile" ng-src="{{ride.driver.photo_url}}">
+            	<a href='#/perfil/{{ride.driver.id}}'>
+            		<img class='img-responsive img-profile' ng-src='{{ride.driver.photo_url}}'>
+            	</a>
             </div>
 
             <div class="col-md-4">
@@ -131,3 +128,4 @@
     </div>
   </div>
 </div>
+</span>

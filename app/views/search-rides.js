@@ -1,4 +1,5 @@
 app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope, Users, Districts) {
+
     $scope.carpool = new Object();
 
     $scope.users = Users.getAll();
@@ -53,7 +54,6 @@ app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope,
     }
 
     //ativa o switch
-
     $('#way-cb').bootstrapSwitch('onSwitchChange', function(event, state) {
         $scope.carpool.from = state?  'UFCG' : 'Casa';
         $scope.$apply();
@@ -65,8 +65,5 @@ app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope,
     $('#date').datepicker({
         format: "dd/mm/yyyy"
     });
-
-    //ativa o timepicker
-    $('#time').timepicker();
 
 }]);
