@@ -9,24 +9,23 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
     $urlRouterProvider
         .when('', '/')
 
-        .when('/login', function(Users) {
-            if(Users.loggedUser != null) return '/perfil';
-            return false;
+        .when(/login|recuperar-senha/, function($state, $match, Users) {
+            return Users.loggedUser != null? '/perfil':
+                $state.go($match == 'recuperar-senha'? 'recover' : 'login');
+        })
+
+        .when(/\/.+/, function($state, $location, Users) {
+            return Users.loggedUser != null? false:
+                $state.go('login', { redirect: $location.url() });
         })
 
         .when('/perfil', function($state, Users) {
-            if(Users.loggedUser == null) return '/login';
             return '/perfil/' + Users.loggedUser.id;
         })
 
         .when('/perfil/:uid', function($state, $location, $match, Users) {
             var user = Users.get($match.uid);
-
-            if(user == null)
-                return $state.go('404');
-
-            if(Users.loggedUser == null)
-                return $state.go('login', { redirect: $location.url() });
+            if(user == null) return $state.go('404');
 
             $state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
                 'profile' : 'add-friend', { uid: user.id });
@@ -54,8 +53,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .state('recover', {
             url: '/recuperar-senha',
             controller: 'recover',
-            templateUrl: 'app/views/recover.html',
-            css: 'app/views/home.css'
+            templateUrl: 'app/views/recover.html'
         })
 
         .state('profile', {
