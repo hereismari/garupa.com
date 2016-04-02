@@ -5,9 +5,8 @@ app.controller('offer-ride', function($scope, $timeout, Day, Districts) {
     $scope.Districts = Districts;
 
     $scope.carpool = {
-        from: 'UFCG',
-        day: undefined,
-        time: undefined,
+        destination: 'UFCG',
+        date: undefined,
         route: undefined,
         recurrent: false
     };
@@ -21,13 +20,8 @@ app.controller('offer-ride', function($scope, $timeout, Day, Districts) {
             startDate: new Date()
         });
 
-        $('#origin').bootstrapSwitch('onSwitchChange', function(event, state) {
-            $scope.carpool.from = state?  'UFCG' : 'Casa';
-            $scope.$apply();
-        });
-
-        $('#repeat').bootstrapSwitch('onSwitchChange', function(event, state) {
-            $scope.carpool.recurrent = state;
+        $('#destination').bootstrapSwitch('onSwitchChange', function(event, state) {
+            $scope.carpool.destination = state?  'UFCG' : 'Casa';
             $scope.$apply();
         });
 

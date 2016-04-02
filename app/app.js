@@ -72,8 +72,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .state('search-rides', {
             url: '/procurar-bigu',
             controller: 'search-rides',
-            templateUrl: 'app/views/search-rides.html',
-            css: 'app/views/search-rides.css'
+            templateUrl: 'app/views/search-rides.html'
         })
 
         .state('offer-ride', {
