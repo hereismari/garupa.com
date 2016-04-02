@@ -1,0 +1,7 @@
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  -webkit-transform: none !important;
+      -ms-transform: none !important;
+          transform: none !important;
+}

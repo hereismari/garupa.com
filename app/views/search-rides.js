@@ -1,4 +1,5 @@
 app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope, Users, Districts) {
+
     $scope.carpool = new Object();
 
     $scope.users = Users.getAll();
@@ -16,9 +17,6 @@ app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope,
         NOTIFY_ME : { title: 'Quero ser notificado', message: 'Voce sera notificado assim que uma carona desse tipo surgir!'},
         MAKE_A_FRIEND : { title: 'Solicitacao de amizade', message: 'O usuario sera notificado que voce quer ser seu amigo!'}
     };
-
-    $scope.explanation_title = "Ache a carona perfeita para voce!";
-    $scope.explanation = "Esta indo para UFCG ou voltando para casa e tem medo de ser assaltado se for andando ou entao dos outros males que nos cercam diariamente? Calma!!! Temos a carona perfeita para voce!";
 
     $scope.search = function() {
 
@@ -53,7 +51,6 @@ app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope,
     }
 
     //ativa o switch
-
     $('#way-cb').bootstrapSwitch('onSwitchChange', function(event, state) {
         $scope.carpool.from = state?  'UFCG' : 'Casa';
         $scope.$apply();
@@ -65,8 +62,5 @@ app.controller('search-rides', ['$scope', 'Users', 'Districts', function($scope,
     $('#date').datepicker({
         format: "dd/mm/yyyy"
     });
-
-    //ativa o timepicker
-    $('#time').timepicker();
 
 }]);

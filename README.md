@@ -4,15 +4,10 @@ Sistema web de caronas solidárias para associados a UFCG.
 Desenvolvido por Arthur Emanuel, Arthur Vinícius, Jeferson Silva, Marianne Linhares e Victor Andrade para a disciplina de SI1 no período 2015.2
 na UFCG.
 
-**Modificacao do README que mandamos por e-mail**
+- Link para o [drive](https://drive.google.com/folderview?id=0B5o0xAAYXFw2dm9FMHhwSkpGT3M&usp=sharing).
+- Link para o [trello](https://trello.com/garupa).
 
-**commit 1 (sem integração): https://github.com/mari-linhares/garupa.com/commit/2ada2bc76373c1e25cc2bb90de26bac416f65fe9**
-
-**commit 2 (último commit antes das 23:59): https://github.com/mari-linhares/garupa.com/commit/ef99b1d1b436de453e32bfa3f7818da969ff076d**
-
-**commit 3 (correção dos bugs de integração): commit atual**
-
-## Primeira entrega - como visualisar as páginas ?
+### Primeira entrega - como visualisar as páginas?
 
 Para a primeira entrega usamos: html, js, css, angular.js e alguns frameworks e librarys (bootstrap, jquery, entre outros).
 
@@ -33,7 +28,7 @@ Para acessar as telas deve-se:
 
 Pronto! A página agora está disponível.
 
-### Como interagir com as telas
+#### Como interagir com as telas
 
 A primeira tela é a tela que fala sobre o site que leva para a tela de cadastro, caso erre a senha o usuario sera levado a tela de login.
 Para acessar a tela principal preencha apenas o campo matricula com alguma informação. Exemplo: 'dilma'.
@@ -56,8 +51,7 @@ estiver buscando ele pode pedir para ser notificado quando uma carona desse tipo
 Ao achar as caronas baseando-se no filtro o usuário pode contactar o motorista da carona para pegar uma vaga no carro.
 O motorista será notificado do interesse na carona.
 
-
-## Primeira entrada - comentários a respeito das US's
+#### comentários a respeito das US's
 
 US 01 - “Como um possível usuário do sistema, gostaria de efetuar o cadastro como motorista e/ou passageiro.”
 	Resumidamente, o que é necessário fazer para essa US é uma tela de cadastro, contendo duas opções de conta: motorista e passageiro, e pra cada tipo de conta alguns dados precisam ser fornecidos no ato do cadastro.
@@ -89,7 +83,7 @@ endereço (bairro) de destino e horário de retorno que eu.”
 US 08 - “Como um passageiro gostaria de agendar uma carona.”
 	US tratada de maneira semelhante as US 06 e 07.
 
-Extras:
+#### Extras:
 
 1. Desenvolvemos telas para edição de informações da conta e recuperação de conta.
 

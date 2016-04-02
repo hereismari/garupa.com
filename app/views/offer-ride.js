@@ -1,41 +1,38 @@
 
-app.controller('offer-ride', function($scope, Day, Districts) {
-
-    $("[name='origin']").bootstrapSwitch();
-
-    $("[name='repeat']").bootstrapSwitch();
-
-    $("[name='time']").timepicker();
-
-    $("[name='tagsinput']").tagsinput();
-
-    $("[name='calendar']").datepicker({
-        format: "dd/mm/yyyy"
-    });
+app.controller('offer-ride', function($scope, $timeout, Day, Districts) {
 
     $scope.Day = Day;
+    $scope.Districts = Districts;
 
     $scope.carpool = {
-        from: 'Casa',
-        to: 'UFCG',
-        day: '',
-        time: '',
+        from: 'UFCG',
+        day: undefined,
+        time: undefined,
+        route: undefined,
         recurrent: false
     };
 
-    $scope.dataSource = Districts;
+    $scope.ready = function() {
+        $('.calendar-input').datetimepicker({
+            language: 'pt-BR',
+            format: 'd M yyyy (h:ii)',
+            fontAwesome: true,
+            autoclose: true,
+            startDate: new Date()
+        });
 
-    $("[name='repeat']").bootstrapSwitch('onSwitchChange', function(event, state) {
-        $scope.carpool.recurrent = state;
-        $scope.$apply();
+        $('#origin').bootstrapSwitch('onSwitchChange', function(event, state) {
+            $scope.carpool.from = state?  'UFCG' : 'Casa';
+            $scope.$apply();
+        });
 
-        console.log(event)
-    });
+        $('#repeat').bootstrapSwitch('onSwitchChange', function(event, state) {
+            $scope.carpool.recurrent = state;
+            $scope.$apply();
+        });
 
-    $("[name='origin']").bootstrapSwitch('onSwitchChange', function(event, state) {
-        $scope.carpool.from = state?  'UFCG' : 'Casa';
-        $scope.$apply();
-
-        console.log($scope.carpool.from)
-    });
+        $('#route').select2({
+            formatNoMatches: 'Nenhum bairro encontrado'
+        });
+    };
 });

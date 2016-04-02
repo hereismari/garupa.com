@@ -9,6 +9,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
     $urlRouterProvider
         .when('', '/')
 
+        .when('/login', function(Users) {
+            if(Users.loggedUser != null) return '/perfil';
+            return false;
+        })
+
         .when('/perfil', function($state, Users) {
             if(Users.loggedUser == null) return '/login';
             return '/perfil/' + Users.loggedUser.id;
@@ -76,8 +81,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .state('offer-ride', {
             url: '/oferecer-bigu',
             controller: 'offer-ride',
-            templateUrl: 'app/views/offer-ride.html',
-            css: 'app/views/offer-ride.css'
+            templateUrl: 'app/views/offer-ride.html'
         })
 
         .state('notifications', {

@@ -1,59 +1,58 @@
+<span id='offer-ride'>
 
-<div class='row text-center login-title'>
-  <h4> Ofereça uma carona! </h4>
+<div class='row text-center vert-offset-bottom-2'>
+  <h4> Detalhes da Carona </h4>
 </div>
 
-<form class='col-md-4 col-md-offset-4 form-horizontal'>
+<form class='row'><div class='col-md-8 col-md-offset-2'>
 
-  <div class='form-group'>
-    <label class='control-label'> É recorrente? </label>
+  <!-- checkboxes e opcoes de data e hora na esquerda -->
+  <div class='col-md-4'>
 
-    <div class='col-md-10'>
-      <input type='checkbox' name='repeat' data-on-text='Sim' data-off-text='Não' data-label-text='repeat'/>
-    </div></div>
+    <div class='form-group'>
+      <label> Partida </label>
+      <div class='bootstrap-switch-square'>
+        <input type='checkbox' id='origin' data-on-text='UFCG' data-off-text='Casa' checked /></div>
+    </div>
 
-  <div class='form-group'>
-    <label class='control-label'> Partida: </label>
+    <div class='form-group'>
+      <label> Toda semana? </label>
+      <div class='bootstrap-switch-square'>
+        <input type='checkbox' id='repeat' data-on-text='Sim' data-off-text='Não' /></div>
+    </div>
 
-    <div class='col-md-10'>
-      <input type='checkbox' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'/>
-  </div></div>
+    <div class='form-group'>
+      <label> Quando? </label>
+      <input type='text' placeholder='Escolha uma data' class='calendar-input form-control' readonly required />
+    </div>
 
-  <div class='form-group'>
-    <label class='control-label'> Destino: </label>
+  </div>
 
-    <div class='col-md-11'>
-      <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro'/>
-  </div></div>
+  <!-- campos textuais a direita e botao -->
+  <div class='col-md-7 col-md-offset-1'>
 
-  <div class='form-group'>
-    <label class='control-label'> Por onde você passa? </label>
+    <div class='form-group'>
+      <label> Destino </label>
+      <input type='text' class='form-control' placeholder='Bairro' required />
+    </div>
 
-    <div class='col-md-10 bootstrap-tagsinput'>
-      <input name="tagsinput" class="tagsinput" data-role="tagsinput" value='Bodocongó, Catolé, Alto Branco, Bairro das Nações'/>
-  </div></div>
+    <div class='form-group'>
+      <label> Por onde você passa? </label>
+      <select id='route' class='form-control multiselect multiselect-primary' ng-model='carpool.route'
+          ng-options='d for d in Districts' multiple required></select>
+    </div>
 
-  <div class='form-group'>
-    <label class='control-label'> Que dia? </label>
+    <div class='form-group vert-offset-top-2'>
+      <button type='submit' class='btn btn-primary btn-block'>
+          Oferece o teu bigu! </button>
+      <a href='#/perfil' class='btn btn-danger btn-block'>
+          Cancelar </a>
+    </div>
 
-    <div class='col-md-10'>
-      <select ng-hide="!carpool.recurrent" class='form-control' ng-model='carpool.day' required>
-        <option ng-repeat='day in Day' value={{day}}> {{day}} </option>
-      </select>
+  </div>
 
-      <input ng-hide="carpool.recurrent" name='calendar' type='text' placeholder='Escolha uma data' class='form-control'/>
-  </div></div>
+</div></form>
 
-  <div class='form-group'>
-    <label class='control-label'> Que hora? </label>
+<span ng-init='ready()'></span>
 
-    <div class='col-md-10'>
-       <input name='time' ng-model='carpool.time' class='form-control'/>
-  </div></div>
-
-  <div class='form-group'>
-    <div class='col-md-offset-2 col-md-13'>
-      <button type='submit' class='btn btn-primary btn'> Oferece o teu bigu! </button>
-  </div></div>
-
-</form>
+</span>
