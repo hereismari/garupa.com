@@ -7,7 +7,7 @@ na UFCG.
 - Link para o [drive](https://drive.google.com/folderview?id=0B5o0xAAYXFw2dm9FMHhwSkpGT3M&usp=sharing).
 - Link para o [trello](https://trello.com/garupa).
 
-### Primeira entrega - como visualisar as páginas ?
+### Primeira entrega - como visualisar as páginas?
 
 Para a primeira entrega usamos: html, js, css, angular.js e alguns frameworks e librarys (bootstrap, jquery, entre outros).
 

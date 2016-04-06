@@ -1,77 +1,57 @@
 <span id='offer-ride'>
 
-<div class='row text-center login-title'>
-  <h4> Ofereça uma carona! </h4>
-</div>
+<div class='col-md-8 col-md-offset-2'>
 
-<form class='row'>
+  <div class='vert-offset-bottom-2'>
+    <h4 class='turquoise'> Detalhes da carona </h4>
+  </div>
 
-  <!-- pagina mais centralizada e menos esparcada devido a div abaixo -->
-  <div class='col-md-8 col-md-offset-2'>
+  <form class='row'>
 
     <!-- checkboxes e opcoes de data e hora na esquerda -->
-    <div class='col-md-4 form-horizontal'>
-      <div class='col-md-12'>
+    <div class='col-md-4'>
 
-        <div class='form-group'>
-            <div class='col-md-12'>
-              <label class='control-label'> Partida: </label>
-              <br> 
-              <input type='checkbox' name='origin' data-on-text='UFCG' data-off-text='Casa' data-label-text='UFCG'/>
-            </div>
-        </div>
-
-        <div class='form-group'>
-          <div class='col-md-12'>
-            <label class='control-label'> É recorrente? </label>
-            <br> 
-            <input type='checkbox' name='repeat' data-on-text='Sim' data-off-text='Não' data-label-text='repeat'/>
-          </div>
-        </div>
-
-
-        <div class='form-group'>
-          <div class='col-md-12'>
-            <label class='control-label'> Que dia? </label>
-            <br>
-            <select ng-hide="!carpool.recurrent" class='form-control' ng-model='carpool.day' required>
-              <option ng-repeat='day in Day' value={{day}}> {{day}} </option>
-            </select>
-            <input ng-hide="carpool.recurrent" name='calendar' type='text' placeholder='Escolha uma data' class='form-control'/>
-          </div>
-
-          <div class='col-md-12'>
-            <label class='control-label'> Que hora? </label>
-            <br>
-            <input name='time' ng-model='carpool.time' class='form-control' placeholder='08:00' />
-          </div>
-        </div>
+      <div class='form-group'>
+        <label> Destino </label>
+        <div class='bootstrap-switch-square'>
+          <input type='checkbox' id='destination' data-on-text='UFCG' data-off-text='Casa' checked /></div>
       </div>
+
+      <div class='form-group'>
+        <label> Quando? </label>
+        <input type='text' class='calendar-input form-control' placeholder='Escolha uma data' readonly required />
+      </div>
+
+      <div class='form-group'>
+        <label class='checkbox'> Toda semana?
+          <input type='checkbox' ng-model='carpool.recurrent' class='custom-checkbox'>
+          <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
+      </label></div>
+
     </div>
 
     <!-- campos textuais a direita e botao -->
-    <div class='col-md-8 form-horizontal'>
-      <div class='col-md-10 col-md-offset-1'>
-        
-        <div class='form-group'>
-          <label class='control-label'> Destino: </label>
-          <input type='text' class='form-control' data-source='{{dataSource}}' data-items='4' data-provide='typeahead' placeholder='Bairro'/>
-        </div>
+    <div class='col-md-7 col-md-offset-1'>
 
-        <div class='form-group'>
-          <label class='control-label'> Por onde você passa? </label>
-          <input name="tagsinput" class="tagsinput bootstrap-tagsinput" data-role="tagsinput" value='Bodocongó, Catoló, Alto Branco, Bairro das Nações'/>
-        </div>
-
-        <div class='form-group'>
-          <button type='submit' class='btn btn-primary btn-block'> Oferece o teu bigu! </button>
-        </div>
+      <div class='form-group'>
+        <label> Seu endereço </label>
+        <input type='text' class='form-control' placeholder='ie.: Rua Almirante Barbosa, 438' required />
       </div>
+
+      <div class='form-group'>
+        <label> Por onde você passa? </label>
+        <select id='route' class='form-control multiselect multiselect-primary' ng-model='carpool.route'
+            ng-options='d for d in Districts' multiple required></select>
+      </div>
+
+      <div class='form-group vert-offset-top-2'>
+        <button type='submit' class='btn btn-primary'> Oferece o teu bigu! </button>
+        <a href='#/perfil' class='btn btn-danger'> Cancelar </a>
+      </div>
+
     </div>
-  </div>
-</form>
+</form></div>
 
-
-
+<span ng-init='ready()'></span>
 
 </span>

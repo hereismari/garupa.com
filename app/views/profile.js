@@ -1,5 +1,5 @@
 
-app.controller('profile', function($scope, $stateParams, Users) {
+app.controller('profile', function($scope, $stateParams, Users, Districts) {
     $scope.user = Users.get($stateParams.uid);
     $scope.signed = (Users.loggedUser === $scope.user);
 });

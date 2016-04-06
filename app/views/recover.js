@@ -3,10 +3,9 @@ app.controller('recover', function($scope) {
 
 	// enviar email de recuperação de senha
 
-	$scope.recoverPasswd = function() {
-		$('.form-recover').fadeOut('slow', function() {
-			$('.form-recover-msg').fadeIn('slow');
+	$scope.recover = function() {
+		$('#recovery-form').fadeOut('slow', function() {
+			$('#form-confirmation').fadeIn('slow');
 		});
-	}
-
+	};
 });

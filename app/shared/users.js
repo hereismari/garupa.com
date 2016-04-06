@@ -1,12 +1,13 @@
 
 app.service('Users', function(Day, Way) {
 
-    function Ride(time, day, way, driver, vacancies) {
+    function Ride(time, day, way, driver, vacancies, recurrent) {
         this.time = time;
         this.day = day;
         this.driver = driver;
         this.way = way;
         this.vacancies = vacancies;
+        this.recurrent = recurrent;
     }
 
     function User(id, password) {
@@ -18,14 +19,13 @@ app.service('Users', function(Day, Way) {
 
         this.name = undefined;
         this.phone = undefined;
-        this.address = undefined;
         this.photo_url = 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg';
 
         this.rides = new Array();
         this.friends = new Array();
 
-        this.addRide = function(time, day, way, driver) {
-            self.rides.push(new Ride(time, day, way, driver));
+        this.addRide = function(time, day, way, driver, vacancies, recurrent) {
+            self.rides.push(new Ride(time, day, way, driver, vacancies, recurrent));
         }
 
         this.addFriend = function(user) {
@@ -67,25 +67,21 @@ app.service('Users', function(Day, Way) {
     user2.phone = '(18) 6736-2672';
     user3.phone = '(82) 9372-4408';
 
-    user1.address = 'Alto Branco';
-    user2.address = 'Catolé';
-    user3.address = 'Seu coração';
-
     user1.photo_url = 'http://static2.blastingnews.com/media/photogallery/2016/2/23/290x290/b_290x290/salario-de-dilma-devera-ser-reduzido_615715.jpg';
     user2.photo_url = 'https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg';
     user3.photo_url = 'https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png';
 
-    user1.addRide(1000, Day.SUN, Way.FROM, user2, 3);
-    user1.addRide(730, Day.SUN, Way.TO, user1, 2);
-    user1.addRide(800, Day.MON, Way.TO, user2, 4);
-    user1.addRide(800, Day.TUE, Way.FROM, user3, 5);
-    user1.addRide(1130, Day.THU, Way.TO, user1, 1);
-    user1.addRide(730, Day.THU, Way.FROM, user2, 0);
-    user1.addRide(730, Day.SAT, Way.TO, user3), 1;
-    user1.addRide(1300, Day.SUN, Way.FROM, user2, 4);
-    user1.addRide(500, Day.SUN, Way.TO, user1, 5);
+    user1.addRide(1000, Day.SUN, Way.FROM, user2, 3, false);
+    user1.addRide(730, Day.SUN, Way.TO, user1, 2, true);
+    user1.addRide(800, Day.MON, Way.TO, user2, 4, true);
+    user1.addRide(800, Day.TUE, Way.FROM, user3, 5, false);
+    user1.addRide(1130, Day.THU, Way.TO, user1, 1, false);
+    user1.addRide(730, Day.THU, Way.FROM, user2, 0, true);
+    user1.addRide(730, Day.SAT, Way.TO, user3, 1, false);
+    user1.addRide(1300, Day.SUN, Way.FROM, user2, 4, true);
+    user1.addRide(500, Day.SUN, Way.TO, user1, 5, true);
 
-    user2.addRide(500, Day.TUE, Way.TO, user1, 2);
+    user2.addRide(500, Day.TUE, Way.TO, user1, 2, true);
 
     // End fake users
 
@@ -111,7 +107,15 @@ app.service('Users', function(Day, Way) {
         });
     };
 
-    this.getAll = function() {
-        return user_list;
+    this.getAllRides = function() {
+        var result = new Array();
+
+        _.each(user_list, function(user) {
+            _.each(user.rides, function(ride) {
+                if(ride.driver !== user) result.push(ride);
+            });
+        });
+
+        return result;
     };
 });
