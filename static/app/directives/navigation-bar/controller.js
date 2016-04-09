@@ -3,8 +3,8 @@ app.directive('navigationBar', function() {
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: '/app/navigation-bar/navigation-bar.html',
-        css: '/app/navigation-bar/navigation-bar.css',
+        templateUrl: '/app/directives/navigation-bar/template.html',
+        css: '/app/directives/navigation-bar/style.css',
 
         controller: function($scope, $location, Users) {
             $scope.Users = Users;
