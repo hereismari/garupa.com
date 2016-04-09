@@ -1,5 +1,5 @@
 
-app.service('Users', function(Day, Way) {
+app.service('Users', function(Day, Way, $cookies) {
 
     function Ride(time, day, way, driver, vacancies, recurrent) {
         this.time = time;
@@ -85,15 +85,16 @@ app.service('Users', function(Day, Way) {
 
     // End fake users
 
-    this.loggedUser = null;
-
     this.login = function(uid) {
         this.loggedUser = this.get(uid);
-        return this.loggedUser != null;
+        if(this.loggedUser == null) return false;
+        $cookies.put('garupa.uid', uid);
+        return true;
     };
 
     this.logout = function() {
         this.loggedUser = null;
+        $cookies.remove('garupa.uid');
     };
 
     this.areFriends = function(user1, user2) {
@@ -118,4 +119,6 @@ app.service('Users', function(Day, Way) {
 
         return result;
     };
+
+    this.loggedUser = this.get($cookies.get('garupa.uid'));
 });
