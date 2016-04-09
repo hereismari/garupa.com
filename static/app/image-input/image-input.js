@@ -4,8 +4,8 @@ app.directive('imageInput', function() {
         restrict: 'E',
         transclude: true,
         scope: { ngModel: '=', btnStyle: '@' },
-        templateUrl: 'app/image-input/image-input.html',
-        css: 'app/image-input/image-input.css',
+        templateUrl: '/app/image-input/image-input.html',
+        css: '/app/image-input/image-input.css',
 
         controller: function($scope) {
             var config = {

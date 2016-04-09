@@ -15,3 +15,7 @@ navigation-bar .dropdown img {
 navigation-bar .navbar .nav-icon {
   padding: 15px 10px;
 }
+
+navigation-bar input {
+  margin-left: 2px;
+}
