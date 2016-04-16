@@ -1,8 +1,6 @@
 class RideRequestNotification(Notification):
 
-    def __init__(self, associatedUser=None, notificationType, status=NEW_NOTIFICATION):
-
-        self.associatedUser = associatedUser
-        self.notificationType = notificationType
-        self.status = status
+    def __init__(self, date, associatedUser, status=NotificationStatus.new):
+        super(RideFoundNotification, self).__init__(date, status)
+        self._associatedUser = associatedUser
 
