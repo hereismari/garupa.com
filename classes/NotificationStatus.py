@@ -1,5 +1,11 @@
+from enum import Enum
 
-class NotificationStatus():
+@unique
+class NotificationStatus(Enum):
 
-    def __init__():
-        pass
+    new = 1
+    seen = 2
+
+    def __str__(self):
+        return 'status name: %s, status number: %d' % (self.name, self.value)
+

@@ -9,14 +9,17 @@ class Ride:
         self._passengers = []
 
     def addPassenger(self, passenger, address):
-        if len(passengers) < numberOfVacanciess:
+        if not isFull():
             self.passengers.append((passenger, address))
 
     def removePassenger(self, passenger):
+        bool result = False
         for i in range(len(passengers)):
             if passengers[i][0] == passenger:
                 self.passengers.remove(i)
-                break
+                result = True
+
+        return result
 
     def isFull(self):
         return len(passengers) == numberOfVacancies
@@ -32,10 +35,10 @@ class Ride:
     def setWeekly(self, weekly):
         self._weekly = weekly
 
-    def getnumberOfVacancies(self):
+    def getNumberOfVacancies(self):
         return self._numberOfVacancies
 
-    def setnumberOfVacancies(self, numberOfVacancies):
+    def setNumberOfVacancies(self, numberOfVacancies):
         self._numberOfVacancies = numberOfVacancies
 
     def getPassengers(self):
