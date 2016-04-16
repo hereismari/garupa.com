@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edfa5dc0-61c9-4110-99b2-2863b99b5ae6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/Chat.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/Rating.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/tests/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/Address.py" afterPath="$PROJECT_DIR$/core/src/Address.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/FriendRequestNotification.py" afterPath="$PROJECT_DIR$/core/src/FriendRequestNotification.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/NewFriendNotification.py" afterPath="$PROJECT_DIR$/core/src/NewFriendNotification.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/Notification.py" afterPath="$PROJECT_DIR$/core/src/Notification.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/NotificationStatus.py" afterPath="$PROJECT_DIR$/core/src/NotificationStatus.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/Ride.py" afterPath="$PROJECT_DIR$/core/src/Ride.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/RideFoundNotification.py" afterPath="$PROJECT_DIR$/core/src/RideFoundNotification.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/RideRequestNotification.py" afterPath="$PROJECT_DIR$/core/src/RideRequestNotification.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/User.py" afterPath="$PROJECT_DIR$/core/src/User.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/classes/__init__.py" afterPath="$PROJECT_DIR$/core/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/bootstrap/js/flat-ui.js" afterPath="$PROJECT_DIR$/libs/bootstrap/js/flat-ui.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="garupa.com.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,10 +23,28 @@
     <favorites_list name="garupa.com" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.020215634">
+              <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
   <component name="JsBuildToolPackageJson" detection-done="true" />
@@ -92,6 +97,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="garupa.com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="garupa.com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="garupa.com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -195,5 +214,15 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.020215634">
+          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
