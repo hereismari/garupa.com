@@ -5,7 +5,7 @@
     <img class='img-responsive' ng-src='{{user.photo_url}}' />
     <span class='action' ng-switch='user.relationship'>
       <span ng-switch-when='self'>
-        <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url'>
+        <image-input btn-style='btn btn-primary btn-block' ng-model='photo_url'>
           <span engrave='pencil'> Trocar Foto </span></image-input></span>
       <span ng-switch-when='friend'>
         <button class='btn btn-danger btn-block' engrave='user-times'>

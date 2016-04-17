@@ -9,7 +9,7 @@ from logic import Controller
 app = Flask(__name__)
 controller = Controller()
 
-app.config['MAX_CONTENT_LENGTH'] = 1024
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['DEBUG'] = True
 
 #----------------------------------STATIC---------------------------------------
@@ -29,7 +29,7 @@ def serve_static(url):
 
 #------------------------------------API----------------------------------------
 
-@app.route('/api/register', methods=['POST'])
+@app.route('/api/user/register', methods=['POST'])
 def register():
     try:
         name = request.json['name']
@@ -37,10 +37,10 @@ def register():
         email = request.json['email']
         passwd = request.json['passwd']
 
-        assert re.match('[^\W\d_]+( [^\W\d_]+)*$', name, re.U)
+        assert re.match('.{3,}', name)
         assert re.match('\d{9}$', uid)
-        assert re.match('.+@.+\..+$', email)
-        assert re.match('.+$', passwd)
+        assert re.match('.+@.+\..+', email)
+        assert re.match('.+', passwd)
 
         uid = int(uid)
 
@@ -61,6 +61,22 @@ def user_view(uid):
 
     if view != None: return json.dumps(view)
     return ('User does not exist.', 404)
+
+@app.route('/api/user/<int:uid>', methods=['POST'])
+def update_user(uid):
+    try:
+        print repr(request.json)
+        attr, value = request.json
+
+        if attr == 'name': assert re.match('.{3,}', value)
+        if attr == 'email': assert re.match('.+@.+\..+', value)
+        if attr == 'phone': assert re.match('\(\d\d\) \d{4,5}-\d{4}$', value)
+        if attr == 'photo_url': assert re.match('data:image/.+;base64,[A-Za-z0-9+/]*={0,2}$', value)
+
+    except: raise BadRequest()
+    else: controller.update_user(uid, attr, value)
+
+    return ('User info updated.', 200)
 
 #-----------------------------------MAIN----------------------------------------
 

@@ -36,6 +36,10 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
         this.removeFriend = function(user) {
             self.friends = _.without(self.friends, user);
         };
+
+        this.update = function(attr, value) {
+            Api.updateUser(self.id, attr, self[attr] = value);
+        }
     }
 
     // Fake users
@@ -116,6 +120,7 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
                 },
 
                 function(err) {
+                    self.cacheUID.erase();
                     reject(err);
                 });
         });

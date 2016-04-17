@@ -5,7 +5,7 @@ app.service('Api', function($http) {
     this.register = function(args) {
         return $http({
             method: 'POST',
-            url: '/api/register',
+            url: '/api/user/register',
             data: args
         });
     };
@@ -16,6 +16,15 @@ app.service('Api', function($http) {
             method: 'GET',
             url: '/api/user/' + uid,
             params: {'vid': vid}
+        });
+    };
+
+    // args = [name], [email], [phone], [photo_url]
+    this.updateUser = function(uid, attr, value) {
+        return $http({
+            method: 'POST',
+            url: '/api/user/' + uid,
+            data: [attr, value]
         });
     };
 });

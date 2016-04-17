@@ -9,22 +9,22 @@ app.directive('userInfoRow', function() {
             $scope.mode = 'view';
 
             $scope.submit = function() {
-                $scope.user[$scope.row.data] = $scope.input;
+                $scope.user.update($scope.row.data, $scope.input);
                 $scope.return();
-            }
+            };
 
             $scope.edit = function() {
                 $scope.mode = 'edit';
                 $scope.canEdit.value = false;
                 $scope.input = $scope.user[$scope.row.data];
                 $element.addClass('selected');
-            }
+            };
 
             $scope.return = function() {
                 $scope.mode = 'view';
                 $scope.canEdit.value = true;
                 $element.removeClass('selected');
-            }
+            };
         }
     };
 });
