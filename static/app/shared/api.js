@@ -1,30 +1,42 @@
 
 app.service('Api', function($http) {
 
-    // args = name, uid, email, passwd
-    this.register = function(args) {
+    this.register = function(user) {
         return $http({
             method: 'POST',
-            url: '/api/user/register',
-            data: args
+            url: '/api/users',
+            data: user
         });
     };
 
-    // args = uid, [vid]
-    this.userView = function(uid, vid) {
+    this.viewUser = function(uid, vuid) {
         return $http({
             method: 'GET',
-            url: '/api/user/' + uid,
-            params: {'vid': vid}
+            url: '/api/users/' + uid,
+            params: {'vuid': vuid}
         });
     };
 
-    // args = [name], [email], [phone], [photo_url]
     this.updateUser = function(uid, attr, value) {
         return $http({
+            method: 'PUT',
+            url: '/api/users/' + uid + '/' + attr,
+            data: value
+        });
+    };
+
+    this.addFriend = function(uid, fuid) {
+        return $http({
             method: 'POST',
-            url: '/api/user/' + uid,
-            data: [attr, value]
+            url: '/api/users/' + uid + '/friends',
+            data: fuid
+        });
+    };
+
+    this.removeFriend = function(uid, fuid) {
+        return $http({
+            method: 'DELETE',
+            url: '/api/users/' + uid + '/friends/' + fuid
         });
     };
 });

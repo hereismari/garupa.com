@@ -11,10 +11,10 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
         this.recurrent = recurrent;
     }
 
-    function User(id, password) {
+    function User(uid, password) {
         var self = this;
 
-        this.id = id;
+        this.uid = uid;
         this.password = password;
         this.email = null;
 
@@ -23,22 +23,23 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
         this.photo_url = '/assets/img/default-profile-pic.png';
 
         this.rides = new Array();
-        this.friends = new Array();
 
         this.addRide = function(time, day, way, driver, seats, recurrent) {
             self.rides.push(new Ride(time, day, way, driver, seats, recurrent));
         };
 
-        this.addFriend = function(user) {
-            self.friends.push(user);
+        this.addFriend = function(uid) {
+            return Api.addFriend(self.uid, uid);
         };
 
-        this.removeFriend = function(user) {
-            self.friends = _.without(self.friends, user);
+        this.removeFriend = function(uid) {
+            return Api.removeFriend(self.uid, uid);
         };
 
         this.update = function(attr, value) {
-            Api.updateUser(self.id, attr, self[attr] = value);
+            return Api.updateUser(self.uid, attr, value).then(function() {
+                self[attr] = value;
+            });
         }
     }
 
@@ -51,10 +52,6 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
     var user_list = [
         user1, user2, user3
     ];
-
-    user1.addFriend(user2);
-    user2.addFriend(user1);
-    user3.addFriend(user2);
 
     user1.name = 'Dilma Rousseff';
     user2.name = 'Albert Einstein';
@@ -88,12 +85,14 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
 
     this.cacheUID = new Cookie('garupa.uid');
 
-    this.get = function(uid, vid) {
+    this.get = function(uid, vuid) {
+        vuid = vuid || self.cacheUID.get();
+
         return $q(function(resolve, reject) {
-            if(self.logged && uid == self.logged.id)
+            if(self.logged && uid == self.logged.uid)
                 return resolve(self.logged);
 
-            Api.userView(uid, vid).then(
+            Api.viewUser(uid, vuid).then(
                 function(resp) {
                     var user = new User();
                     _.extend(user, resp.data);
@@ -109,18 +108,22 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
 
     this.login = function(uid) {
         return $q(function(resolve, reject) {
-            self.get(uid).then(
+            self.get(uid, uid).then(
                 function(user) {
-                    if(user == null)
-                        return resolve(false);
+                    if(user == null) {
+                        self.logged = null;
+                        self.cacheUID.erase();
+                        resolve(false);
+                    }
 
-                    self.logged = user;
-                    self.cacheUID.set(uid);
-                    resolve(true);
+                    else {
+                        self.logged = user;
+                        self.cacheUID.set(uid);
+                        resolve(true);
+                    }
                 },
 
                 function(err) {
-                    self.cacheUID.erase();
                     reject(err);
                 });
         });

@@ -16,7 +16,7 @@ app.directive('userInfo', function() {
             }
 
             $scope.table = [
-                new Row('Matrícula', 'id'),
+                new Row('Matrícula', 'uid'),
                 new Row('Nome',      'name',    'eg. Fulaninho da Silva',     '.{3,}'),
                 new Row('Telefone',  'phone',   'eg. (83) 99988-1122',        '\\(\\d\\d\\) \\d{4,5}-\\d{4}'),
                 new Row('E-mail',    'email',   'eg. fulano.silva@email.com', '.+@.+\\..+')

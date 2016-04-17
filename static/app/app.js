@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             return Users.get($match.uid).then(function(user) {
                 if(user == null) $state.go('404');
                 else $state.go(/self|friend/.test(user.relationship)?
-                    'profile' : 'add-friend', { uid: user.id });
+                    'profile' : 'add-friend', { uid: user.uid });
             });
         })
 

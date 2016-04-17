@@ -1,6 +1,4 @@
-import re, json
-
-from werkzeug.exceptions import BadRequest
+import json, validation
 from flask import Flask, request, redirect
 from logic import Controller
 
@@ -11,6 +9,14 @@ controller = Controller()
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['DEBUG'] = True
+
+#--------------------------------STATUS-CODES-----------------------------------
+
+UID_TAKEN      = 'User ID taken.'         , 409
+USER_CREATED   = 'User created.'          , 200
+USER_UPDATED   = 'User updated.'          , 200
+USER_NOT_FOUND = 'User does not exist.'   , 404
+BAD_REQUEST    = 'Bad arguments provided.', 400
 
 #----------------------------------STATIC---------------------------------------
 
@@ -29,54 +35,60 @@ def serve_static(url):
 
 #------------------------------------API----------------------------------------
 
-@app.route('/api/user/register', methods=['POST'])
+@app.route('/api/users', methods=['POST'])
 def register():
     try:
-        name = request.json['name']
-        uid = request.json['uid']
-        email = request.json['email']
-        passwd = request.json['passwd']
+        args = request.json.copy()
+        assert set(args) == validation.REQUIRED
 
-        assert re.match('.{3,}', name)
-        assert re.match('\d{9}$', uid)
-        assert re.match('.+@.+\..+', email)
-        assert re.match('.+', passwd)
+        for attr, value in args.iteritems():
+            assert validation.check(attr, value)
 
-        uid = int(uid)
+        args['uid'] = int(args['uid'])
 
-    except: raise BadRequest()
-    else: success = controller.register(name, uid, email, passwd)
+    except: return BAD_REQUEST
+    else: success = controller.register(**args)
 
-    if success: return ('Account created.', 200)
-    return ('User ID taken.', 409)
+    if success: return USER_CREATED
+    return UID_TAKEN
 
-@app.route('/api/user/<int:uid>', methods=['GET'])
-def user_view(uid):
-    try:
-        vid = request.args.get('vid', None)
-        if vid != None: vid = int(vid)
-
-    except: raise BadRequest()
-    else: view = controller.user_view(uid, vid)
+@app.route('/api/users/<int:uid>', methods=['GET'])
+def view_user(uid):
+    try: vuid = int(request.args['vuid'])
+    except: return BAD_REQUEST
+    else: view = controller.view_user(uid, vuid)
 
     if view != None: return json.dumps(view)
-    return ('User does not exist.', 404)
+    return USER_NOT_FOUND
 
-@app.route('/api/user/<int:uid>', methods=['POST'])
-def update_user(uid):
+@app.route('/api/users/<int:uid>/<string:attr>', methods=['PUT'])
+def update_user(uid, attr):
     try:
-        print repr(request.json)
-        attr, value = request.json
+        value = request.data
+        assert validation.check(attr, value)
+        assert attr in validation.EDITABLE
 
-        if attr == 'name': assert re.match('.{3,}', value)
-        if attr == 'email': assert re.match('.+@.+\..+', value)
-        if attr == 'phone': assert re.match('\(\d\d\) \d{4,5}-\d{4}$', value)
-        if attr == 'photo_url': assert re.match('data:image/.+;base64,[A-Za-z0-9+/]*={0,2}$', value)
+    except: return BAD_REQUEST
+    else: success = controller.update_user(uid, attr, value)
 
-    except: raise BadRequest()
-    else: controller.update_user(uid, attr, value)
+    if success: return USER_UPDATED
+    return USER_NOT_FOUND
 
-    return ('User info updated.', 200)
+@app.route('/api/users/<int:uid>/friends', methods=['POST'])
+def add_friend(uid):
+    try: fuid = int(request.data)
+    except: return BAD_REQUEST
+    else: success = controller.add_friend(uid, fuid)
+
+    if success: return USER_UPDATED
+    return USER_NOT_FOUND
+
+@app.route('/api/users/<int:uid>/friends/<int:fuid>', methods=['DELETE'])
+def remove_friend(uid, fuid):
+    success = controller.remove_friend(uid, fuid)
+
+    if success: return USER_UPDATED
+    return USER_NOT_FOUND
 
 #-----------------------------------MAIN----------------------------------------
 
