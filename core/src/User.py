@@ -1,5 +1,7 @@
 import os, random, string
 
+from core.src.NotificationStatus import NotificationStatus
+
 class User:
 
     def __init__(self, name, email, phone, enrollment, password=None, profileImage=None):
@@ -19,10 +21,17 @@ class User:
             self._password = self.generatePassword()
 
     def addFriend(self, friend):
-        self._friends.append(friend)
+        if friend not in self._friends:
+            self._friends.append(friend)
 
     def removeFriend(self, friend):
         self._friends.remove(friend)
+
+    def isFriendOf(self, user):
+        return (user in self._friends)
+
+    def numberOfFriends(self):
+        return len(self._friends)
 
     def addNotification(self, notification):
         self._notifications.append(notification)
@@ -30,17 +39,36 @@ class User:
     def removeNotification(self, notification):
         self._notifications.remove(notification)
 
+    def numberOfNotifications(self):
+        return len(self._notifications)
+
+    def numberOfUnseenNotifications(self):
+        result = 0
+        for notification in self._notifications:
+            if notification.getStatus() == NotificationStatus.new: result += 1
+        return result
+
     def addRide(self, ride):
-        self._rides.add(ride)
+        if not ride in self._rides:
+            self._rides.append(ride)
 
     def removeRide(self, ride):
         self._rides.remove(ride)
+
+    def numberOfRides(self):
+        return len(self._rides)
 
     def generatePassword(self, length=10):
         chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
         random.seed = (os.urandom(1024))
         password = ''.join(random.choice(chars) for i in range(length))
         return password
+
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
+    def __str__(self):
+        return self._name
 
     """ Set and Get functions """
     def getName(self):
@@ -50,13 +78,10 @@ class User:
         self._name = name
 
     def getEmail(self):
-        return self._name
+        return self._email
 
     def setEmail(self, email):
         self._email = email
-
-    def getEmail(self):
-        return self._email
 
     def setEnrollment(self, enrollment):
         self._enrollment = enrollment
@@ -90,4 +115,3 @@ class User:
 
     def getRides(self):
         return self._rides
-

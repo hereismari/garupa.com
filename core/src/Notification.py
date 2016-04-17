@@ -15,20 +15,19 @@ class Notification:
         result += 'message: ' + str(self._message) + '\n'
         return result
 
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
     """ Set and Get functions """
-    
+
     def getMessage(self):
         return self._message
+
+    def getDate(self):
+        return self._date
 
     def getStatus(self):
         return self._status
 
     def setStatus(self, status):
         self._status = status
-
-    def getDate(self):
-        return self._date
-
-    def setDate(self, date):
-        self._date = date
-

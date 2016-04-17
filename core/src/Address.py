@@ -29,4 +29,3 @@ class Address():
 
     def setDistrict(self, district):
         self._district = district
-
