@@ -1,42 +1,58 @@
-<div class="container" id="main">
+
+<div class="container" id="notification">
   <h4>Notifica&ccedil;&otilde;es recentes</h4>
   <form>
     <ol class="list-group list_of_items">
 
-      <li class="list-group-item" style="background: #eeeeee">
+    <!-- template notification using ngRepeat
+      <li class="list-group-item">
         <h5 class="list-group-item-heading">
-          <img class='img-responsive img-rounded' src='https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png'
-           width="30px" height="30px" style="float : left"/>
-          <span style="margin-left: 5px">Safad&atilde;o</span>
-          avaliou voc&ecirc;.
-          <i class="fa fa-remove pull-right"></i>
+          <img class='img-responsive img-rounded' src='{{ url_img }}'/>
+           <span>{{ user_x }}</span>
+           {{ notification_type }}
+           <i class="fa fa-remove pull-right"></i>
         </h5>
+        <p class="list-group-item-text"> Dia da carona: {{ ride_date }}</p>
+        <p class="list-group-item-text"> Horário: {{ ride_schedule }}</p>
+      </li> -->
+
+      <li class="list-group-item">
+        <span class="fa fa-remove pull-right"></span>
+        <h6 class="list-group-item-heading">
+          <img class='img-responsive img-rounded' src='https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png'/>
+          <span>Safad&atilde;o</span>
+          avaliou voc&ecirc;.
+          <span class="rating">
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </span>
+        </h6>
         <p class="list-group-item-text">
-          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
           "O bigu foi tão bom que me emocionei... Me d&aacute; mais!"
         </p>
       </li>
 
-      <li class="list-group-item" style="background: #eeeeee">
-        <h5 class="list-group-item-heading">
-          <img class='img-responsive img-rounded' src='https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg'
-           width="30px" height="30px" style="float : left"/>
-           <span style="margin-left: 5px">Einsten</span>
+      <li class="list-group-item">
+        <span class="fa fa-remove pull-right"></span>
+        <h6 class="list-group-item-heading">
+          <img class='img-responsive img-rounded' src='https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg'/>
+           <span>Einsten</span>
            aceitou sua solicita&ccedil;&atilde;o de carona.
-           <i class="fa fa-remove pull-right"></i>
-        </h5>
+        </h6>
         <p class="list-group-item-text"> Dia da carona: 18/03/2016 </p>
         <p class="list-group-item-text"> Horário: 08:00 </p>
       </li>
 
-      <li class="list-group-item" style="background: #eeeeee">
-        <h5 class="list-group-item-heading">
-          <img class='img-responsive img-rounded' src='https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png'
-           width="30px" height="30px" style="float : left"/>
-           <span style="margin-left: 5px">Safad&atilde;o</span>
+      <li class="list-group-item">
+        <span class="fa fa-remove pull-right"></span>
+        <h6 class="list-group-item-heading">
+          <img class='img-responsive img-rounded' src='https://40.media.tumblr.com/20625bfafa453b4d628f7de4a5d7e14e/tumblr_nz7u21Qai41t4osjeo2_250.png'/>
+           <span>Safad&atilde;o</span>
            enviou uma solicita&ccedil;&atilde;o de carona.
-           <i class="fa fa-remove pull-right"></i>
-        </h5>
+        </h6>
         <p class="list-group-item-text"> Dia da carona: 15/03/2016 </p>
         <p class="list-group-item-text"> Bairro: Cruzeiro </p>
         <p class="list-group-item-text"> Horário: 10:00 </p>
@@ -46,4 +62,7 @@
 
     </ol>
   </form>
+
+  <span ng-init="ready()"></span>
+
 </div>

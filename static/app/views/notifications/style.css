@@ -1,7 +1,38 @@
 
-#main {
-	background-color: #ffffff;
+#notification {
 	border-radius: 5px;
 	width: 60%;
-	border: 1px solid #bbbbbb;
+}
+
+#notification form li {
+	background-color: #fff289;
+	margin-bottom: 10px;
+	box-shadow: 1px 1px 3px #ffd946;
+}
+
+#notification form li .pull-right:hover {
+	cursor: pointer;
+	color: black;
+}
+
+#notification form li h6 {
+	font-size: 16pt;
+}
+
+#notification .rating span:hover {
+	color: lightblue;
+}
+
+.list-group-item {
+	border-color: #f3db99;
+}
+
+.list-group-item-heading img {
+	width: 30px;
+	height: 30px;
+	float : left;
+}
+
+.list-group-item-heading span {
+	margin-left: 5px;
 }
