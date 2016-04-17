@@ -12,42 +12,40 @@
 </div>
 
 <div class='col-md-6 col-md-offset-3'>
-  <form name='form-sign-up' style='display: none;' data-toggle='validator' ng-submit='submit()'>
+  <form style='display: none' ng-submit='submit()'>
     <div class='form-group'>
-      <label for='label-name'> Nome </label>
-      <input id='label-name' ng-model='form.name' type='text' class='form-control'
-          style='text-transform:capitalize'  placeholder='Nome' spellcheck='false' required>
+      <label> Nome </label>
+      <input ng-model='form.name' type='text' class='form-control'
+          placeholder='eg. Fulaninho da Silva' spellcheck='false' required>
     </div>
 
     <div class='form-group'>
-      <label for='label-mat'> Matricula </label>
-      <input id='label-mat' ng-model='form.registration' pattern='[0-9]{9}' type='text' class='form-control'
-          title='Número de matricula incorreto' placeholder='Número de Matricula' spellcheck='false' required>
+      <label> Matrícula </label>
+      <input ng-model='form.uid' pattern='[0-9]{9}' type='text' class='form-control'
+          placeholder='eg. 114110376' spellcheck='false' required>
     </div>
 
     <div class='form-group'>
-      <label for='label-email'> E-mail </label>
-      <input id='label-email' ng-model='form.email' type='email' class='form-control'
-          placeholder='E-mail' spellcheck='false' required>
+      <label> E-mail </label>
+      <input ng-model='form.email' type='email' class='form-control'
+          placeholder='eg. fulano.silva@email.com' spellcheck='false' required>
     </div>
 
     <div class='form-group'>
-      <label for='label-passwd'> Senha </label>
-      <input id='label-passwd' ng-model='form.password' type='password' class='form-control' placeholder='Senha' required>
+      <label> Senha </label>
+      <input ng-model='form.passwd' type='password' class='form-control' required>
     </div>
 
     <div class='form-group'>
-      <label for='label-passwdConfirm'> Confirmar Senha </label>
-      <input id='label-passwdConfirm' ng-model='form.confirmPasswd' type='password' class='form-control'
-          data-match='#label-passwd' data-match-error='As senhas não conferem' placeholder='Senha' required>
-      <div class='help-block with-errors'></div>
+      <label> Confirmar Senha </label>
+      <input type='password' class='form-control' required>
     </div>
 
     <div class='form-group'>
-      <label class='checkbox' for='checkbox3'>
-        <input type='checkbox' ng-model='form.agreement' id='checkbox3' data-toggle='checkbox' class='custom-checkbox' required>
+      <label class='checkbox'>
+        <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' required>
         <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
-        <b>Eu aceito</b> os termos de uso e tal. <a href='' style='text-decoration: none'> Termo de uso. </a>
+        <b>Eu aceito</b> os termos de uso e tal. <a href=''> Termo de uso. </a>
       </label>
     </div>
 

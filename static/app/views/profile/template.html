@@ -3,15 +3,17 @@
 <div class='row vert-offset-bottom-3'>
   <div class='col-md-3'><div class='user-image'>
     <img class='img-responsive' ng-src='{{user.photo_url}}' />
-    <span class='action'>
-      <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url' ng-if='signed'>
-        <span engrave='pencil'> Trocar Foto </span></image-input>
-      <button class='btn btn-danger btn-block' ng-if='!signed' engrave='user-times'>
-        Remover Amigo </button>
+    <span class='action' ng-switch='user.relationship'>
+      <span ng-switch-when='self'>
+        <image-input btn-style='btn btn-primary btn-block' ng-model='user.photo_url'>
+          <span engrave='pencil'> Trocar Foto </span></image-input></span>
+      <span ng-switch-when='friend'>
+        <button class='btn btn-danger btn-block' engrave='user-times'>
+          Remover Amigo </button></span>
   </span></div></div>
 
   <div class='col-md-8 col-md-offset-1'>
-    <user-info user='user' /></div>
+    <user-info user='user' can-edit='editable'/></div>
 </div>
 
 <div class='row vert-offset-bottom-4'>

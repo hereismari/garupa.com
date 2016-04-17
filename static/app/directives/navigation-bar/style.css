@@ -8,8 +8,8 @@ navigation-bar .logo img {
 }
 
 navigation-bar .dropdown img {
-  width: 20px;
-  margin-right: 10px;
+  width: 24px;
+  margin: -5px 10px -2px 0px;
 }
 
 navigation-bar .navbar .nav-icon {

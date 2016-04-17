@@ -1,12 +1,13 @@
 
-app.service('Users', function(Day, Way, $cookies) {
+app.service('Users', function($q, Api, Cookie, Day, Way) {
+    var self = this;
 
-    function Ride(time, day, way, driver, vacancies, recurrent) {
+    function Ride(time, day, way, driver, seats, recurrent) {
         this.time = time;
         this.day = day;
         this.driver = driver;
         this.way = way;
-        this.vacancies = vacancies;
+        this.seats = seats;
         this.recurrent = recurrent;
     }
 
@@ -19,26 +20,22 @@ app.service('Users', function(Day, Way, $cookies) {
 
         this.name = undefined;
         this.phone = undefined;
-        this.photo_url = 'https://lh3.googleusercontent.com/-yysr8_T4r7k/AAAAAAAAAAI/AAAAAAAAAAA/EnhQ3HVLDok/photo.jpg';
+        this.photo_url = '/assets/img/default-profile-pic.png';
 
         this.rides = new Array();
         this.friends = new Array();
 
-        this.addRide = function(time, day, way, driver, vacancies, recurrent) {
-            self.rides.push(new Ride(time, day, way, driver, vacancies, recurrent));
-        }
+        this.addRide = function(time, day, way, driver, seats, recurrent) {
+            self.rides.push(new Ride(time, day, way, driver, seats, recurrent));
+        };
 
         this.addFriend = function(user) {
             self.friends.push(user);
-        }
+        };
 
         this.removeFriend = function(user) {
             self.friends = _.without(self.friends, user);
-        }
-
-        this.hasFriend = function(user) {
-            return _.contains(self.friends, user)
-        }
+        };
     }
 
     // Fake users
@@ -85,30 +82,55 @@ app.service('Users', function(Day, Way, $cookies) {
 
     // End fake users
 
-    this.login = function(uid) {
-        this.loggedUser = this.get(uid);
-        if(this.loggedUser == null) return false;
-        $cookies.put('garupa.uid', uid);
-        return true;
-    };
+    this.cacheUID = new Cookie('garupa.uid');
 
-    this.logout = function() {
-        this.loggedUser = null;
-        $cookies.remove('garupa.uid');
-    };
+    this.get = function(uid, vid) {
+        return $q(function(resolve, reject) {
+            if(self.logged && uid == self.logged.id)
+                return resolve(self.logged);
 
-    this.areFriends = function(user1, user2) {
-        if(user1 == null || user2 == null) return false;
-        return user1.hasFriend(user2) && user2.hasFriend(user1);
-    };
+            Api.userView(uid, vid).then(
+                function(resp) {
+                    var user = new User();
+                    _.extend(user, resp.data);
+                    resolve(user);
+                },
 
-    this.get = function(uid) {
-        return _.find(user_list, function(user) {
-            return user.id === uid;
+                function(resp) {
+                    if(resp.status == 404) resolve(null);
+                    else reject(resp);
+                });
         });
     };
 
+    this.login = function(uid) {
+        return $q(function(resolve, reject) {
+            self.get(uid).then(
+                function(user) {
+                    if(user == null)
+                        return resolve(false);
+
+                    self.logged = user;
+                    self.cacheUID.set(uid);
+                    resolve(true);
+                },
+
+                function(err) {
+                    reject(err);
+                });
+        });
+    };
+
+    this.logout = function() {
+        self.logged = null;
+        self.cacheUID.erase();
+    };
+
+    var uid = this.cacheUID.get();
+    if(uid != null) this.login(uid);
+
     this.getAllRides = function() {
+        alert('This is fake!');
         var result = new Array();
 
         _.each(user_list, function(user) {
@@ -119,6 +141,4 @@ app.service('Users', function(Day, Way, $cookies) {
 
         return result;
     };
-
-    this.loggedUser = this.get($cookies.get('garupa.uid'));
 });

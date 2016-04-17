@@ -10,8 +10,9 @@ app.directive('navigationBar', function() {
             $scope.Users = Users;
 
             $scope.login = function(uid) {
-                var success = Users.login(uid);
-                $location.path(success? '/perfil' : '/login');
+                Users.login(uid).then(function(success) {
+                    $location.path(success? '/perfil' : '/login');
+                });
             };
 
             $scope.logout = function() {

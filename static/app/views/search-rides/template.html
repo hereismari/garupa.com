@@ -28,7 +28,7 @@
 
       <div class='form-group'>
         <label> Seu endereço </label>
-        <input type='text' class='form-control vert-offset-bottom-1' placeholder='ie.: Rua Almirante Barbosa, 438' required />
+        <input type='text' class='form-control vert-offset-bottom-1' placeholder='eg. Rua Almirante Barbosa, 438' required />
         <select id='district' class='select select-primary' ng-model='carpool.district' ng-options='d for d in Districts' required>
           <option></option></select>
       </div>
@@ -80,7 +80,7 @@
               {{ride.driver.name}} <br>
               {{ride.driver.phone}} <br>
               {{ride.recurrent? 'Sim' : 'Não'}} <br>
-              {{ride.vacancies}} <br>
+              {{ride.seats}} <br>
             </div>
 
           </div>

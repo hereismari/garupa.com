@@ -3,7 +3,7 @@ app.controller('offer-ride', function($scope, $timeout, Day, Districts) {
 
     $scope.Day = Day;
     $scope.Districts = Districts;
-    $scope.vacancies = _.range(1, 8, 1)
+    $scope.seats = _.range(1, 8, 1)
 
     $scope.carpool = {
         destination: 'UFCG',
@@ -30,7 +30,7 @@ app.controller('offer-ride', function($scope, $timeout, Day, Districts) {
             formatNoMatches: 'Nenhum bairro encontrado'
         });
         
-        $('#vacancies').select2({
+        $('#seats').select2({
             placeholder: 'Escolha um valor'
         });
     };

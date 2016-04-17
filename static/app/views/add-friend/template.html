@@ -4,8 +4,8 @@
     <img class='img-rounded img-responsive' ng-src='{{user.photo_url}}'/>
   </div>
 
-  <div class='col-md-5 text-justify' ng-switch='state'>
-    <span ng-switch-when='request'>
+  <div class='col-md-5 text-justify' ng-switch='user.relationship'>
+    <span ng-switch-when='none'>
       O perfil de <b>{{user.name}}</b> não pode ser acessado, pois você ainda não
       adicionou este usuário a sua lista de amigos.
 
@@ -13,7 +13,7 @@
         <i class='fa fa-user-plus'></i> &nbsp; Requisitar Amizade </a>
     </span>
 
-    <span ng-switch-when='accept'>
+    <span ng-switch-when='available'>
       O usuário <b>{{user.name}}</b> convidou você para adicioná-lo a sua lista
       de amigos. Para ver seu perfil, aceite sua requisição de amizade.
 
@@ -21,7 +21,7 @@
         <i class='fa fa-user-plus'></i> &nbsp; Aceitar Amizade </a>
     </span>
 
-    <span ng-switch-when='cancel'>
+    <span ng-switch-when='pending'>
       O perfil de <b>{{user.name}}</b> não pode ser acessado, pois este usuário
       ainda não lhe adicionou a sua lista de amigos.
 

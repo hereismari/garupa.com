@@ -1,5 +1,7 @@
 
 app.controller('profile', function($scope, $stateParams, Users, Districts) {
-    $scope.user = Users.get($stateParams.uid);
-    $scope.signed = (Users.loggedUser === $scope.user);
+    Users.get($stateParams.uid).then(function(user) {
+        $scope.user = user;
+        $scope.editable = {value: user.relationship == 'self'};
+    });
 });
