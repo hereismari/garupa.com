@@ -1,3 +1,4 @@
+
 class Ride:
 
     def __init__(self, driver, numberOfVacancies, weekly=False):

@@ -8,7 +8,7 @@ class Address():
         self._district = district
 
     def __str__(self):
-        return self._street, self._number, self._district
+        return self._street + ' ' + self._number + ' ' + self._district
 
     """ Set and Get functions """
 

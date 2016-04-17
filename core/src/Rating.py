@@ -1,5 +1,16 @@
+
 class Rating:
+    
+    def __init__(self, avaliation, associatedUser, message=''):
+        self._avaliation = 0 
+        self._associatedUser = associatedUser
+        self._message = message
 
-    def __init__(self):
+    def getAvaliation(self):
+        return self._avaliation
 
-        self.rating = 0 #?
+    def getAssociatedUser(self):
+        return self._associatedUser
+
+    def getMessage(self):
+        return self._message

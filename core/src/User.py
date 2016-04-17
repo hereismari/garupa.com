@@ -1,17 +1,22 @@
+import os, random, string
+
 class User:
 
-    def __init__(self, profileImage, name, email, phone, enrollment, password):
+    def __init__(self, name, email, phone, enrollment, password=None, profileImage=None):
 
-        self._profileImage = profileImage
         self._name = name
         self._email = email
         self._phone = phone
         self._enrollment = enrollment
         self._password = password
+        self._profileImage = profileImage
 
         self._friends = []
         self._notifications = []
         self._rides = []
+
+        if password == None:
+            self._password = self.generatePassword()
 
     def addFriend(self, friend):
         self._friends.append(friend)
@@ -30,6 +35,12 @@ class User:
 
     def removeRide(self, ride):
         self._rides.remove(ride)
+
+    def generatePassword(self, length=10):
+        chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+        random.seed = (os.urandom(1024))
+        password = ''.join(random.choice(chars) for i in range(length))
+        return password
 
     """ Set and Get functions """
     def getName(self):

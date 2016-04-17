@@ -1,7 +1,6 @@
+
 class Chat:
 
     def __init__(self, users):
-
-        self.users = []
-
-        self.messages = []
+        self._users = users
+        self._messages = []

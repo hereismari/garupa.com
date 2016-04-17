@@ -1,15 +1,19 @@
-from NotificationStatus import *
+from NotificationStatus import NotificationStatus
 from datetime import date
 
 class Notification:
 
-    def __init__(self, date, status=NotificationStatus.new):
+    def __init__(self, date=date.today(), status=NotificationStatus.new):
         self._status = status
         self._date = date
-        self._message = "Nova notificação"
+        self._message = 'Nova atividade!'
 
     def __str__(self):
-        return self._date, self._status, self._message
+        result = 'Notification\n'
+        result += 'date: ' + str(self._date) + '\n'
+        result += 'status: ' + str(self._status) + '\n'
+        result += 'message: ' + str(self._message) + '\n'
+        return result
 
     """ Set and Get functions """
     
@@ -26,5 +30,5 @@ class Notification:
         return self._date
 
     def setDate(self, date):
-        return self._date = date
+        self._date = date
 
