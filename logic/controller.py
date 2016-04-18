@@ -33,6 +33,7 @@ class Controller(object):
             'name': name,
             'uid': uid,
             'email': email,
+            'phone': 'N/A',
             'photo': '/assets/img/default-profile-pic.png',
             'friends': [],
             'rides': []
@@ -59,8 +60,8 @@ class Controller(object):
             'none'
 
         if result['relationship'] in ['self', 'friend']:
-            result['email'] = u.get('email', 'N/A')
-            result['phone'] = u.get('phone', 'N/A')
+            result['email'] = u.get('email')
+            result['phone'] = u.get('phone')
             result['rides'] = []
             for r in u.get('rides'):
                 r = r.copy()
@@ -70,7 +71,7 @@ class Controller(object):
                     'uid': d['uid'],
                     'name': d['name'],
                     'photo': d['photo'],
-                    'phone': d.get('phone', 'N/A')
+                    'phone': d.get('phone')
                 }
                 result['rides'].append(r)
 
@@ -156,14 +157,16 @@ class Controller(object):
             district in r['route'] and \
             date == r['date'] and \
             uid != r['driver']['uid'] and \
+            self.get_user(uid) not in r['passengers'] and \
             r['seats'] > 0:
                 r = r.copy()
+                r['passengers'] = None
                 d = r['driver']
                 r['driver'] = {
                     'uid': d['uid'],
                     'name': d['name'],
                     'photo': d['photo'],
-                    'phone': d.get('phone', 'N/A')
+                    'phone': d.get('phone')
                 }
                 result.append(r)
         return result

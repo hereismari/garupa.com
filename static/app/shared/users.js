@@ -73,7 +73,9 @@ app.service('Users', function($q, Api, Cookie) {
 
     this.cacheUID = new Cookie('garupa.uid');
 
-    this.get = function(uid, vuid) {
+    this.get = function(uid) {
+        vuid = self.cacheUID.get();
+    
         return $q(function(resolve, reject) {
             if(self.logged && uid == self.logged.uid)
                 return resolve(self.logged);

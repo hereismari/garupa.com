@@ -9,8 +9,8 @@ app.directive('userInfoRow', function() {
             $scope.mode = 'view';
 
             $scope.submit = function() {
-                $scope.user.update($scope.row.data, $scope.input);
-                $scope.return();
+                $scope.user.update($scope.row.data, $scope.input)
+                    .then($scope.return);
             };
 
             $scope.edit = function() {

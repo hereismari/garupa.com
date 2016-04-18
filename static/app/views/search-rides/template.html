@@ -71,14 +71,14 @@
 
             <div class='col-md-2'>
               <b> Motorista <br>
-                  Telefone <br>
+                  Hora <br>
                   Semanal <br>
                   Vagas <br>
             </b></div>
 
             <div class='col-md-4'>
               {{ride.driver.name}} <br>
-              {{ride.driver.phone}} <br>
+              {{ride.date | date : 'H:mm'}} <br>
               {{ride.recurrent? 'Sim' : 'Não'}} <br>
               {{ride.seats}} <br>
             </div>
