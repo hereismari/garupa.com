@@ -1,5 +1,5 @@
 
-app.service('Users', function($q, Api, Cookie, Day, Way) {
+app.service('Users', function($q, Api, Cookie) {
     var self = this;
 
     function Ride(time, day, way, driver, seats, recurrent) {
@@ -11,21 +11,24 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
         this.recurrent = recurrent;
     }
 
-    function User(uid, password) {
+    function User() {
         var self = this;
 
-        this.uid = uid;
-        this.password = password;
+        this.uid = null;
+        this.password = null;
+
+        this.name = null;
         this.email = null;
 
-        this.name = undefined;
         this.phone = undefined;
-        this.photo_url = '/assets/img/default-profile-pic.png';
+        this.photo = undefined;
 
         this.rides = new Array();
 
-        this.addRide = function(time, day, way, driver, seats, recurrent) {
-            self.rides.push(new Ride(time, day, way, driver, seats, recurrent));
+        this.sync = function() {
+            return Api.viewUser(self.uid).then(function(resp) {
+                _.extend(self, resp.data);
+            });
         };
 
         this.addFriend = function(uid) {
@@ -37,13 +40,16 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
         };
 
         this.update = function(attr, value) {
-            return Api.updateUser(self.uid, attr, value).then(function() {
-                self[attr] = value;
-            });
-        }
+            return Api.updateUser(self.uid, attr, value).then(self.sync);
+        };
+
+        this.registerRide = function(ride) {
+            ride = _.clone(ride); ride.driver = self.uid;
+            return Api.registerRide(ride).then(self.sync);
+        };
     }
 
-    // Fake users
+    /*// Fake users
 
     var user1 = new User('dilma', 'votempt');
     var user2 = new User('einstein', 'loacepeso');
@@ -81,13 +87,11 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
 
     user2.addRide(500, Day.TUE, Way.TO, user1, 2, true);
 
-    // End fake users
+    // End fake users*/
 
     this.cacheUID = new Cookie('garupa.uid');
 
     this.get = function(uid, vuid) {
-        vuid = vuid || self.cacheUID.get();
-
         return $q(function(resolve, reject) {
             if(self.logged && uid == self.logged.uid)
                 return resolve(self.logged);
@@ -107,26 +111,18 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
     };
 
     this.login = function(uid) {
-        return $q(function(resolve, reject) {
-            self.get(uid, uid).then(
-                function(user) {
-                    if(user == null) {
-                        self.logged = null;
-                        self.cacheUID.erase();
-                        resolve(false);
-                    }
+        return self.get(uid).then(
+            function(user) {
+                if(user == null) {
+                    self.logged = null;
+                    self.cacheUID.erase();
+                    return false;
+                }
 
-                    else {
-                        self.logged = user;
-                        self.cacheUID.set(uid);
-                        resolve(true);
-                    }
-                },
-
-                function(err) {
-                    reject(err);
-                });
-        });
+                self.logged = user;
+                self.cacheUID.set(uid);
+                return true;
+            });
     };
 
     this.logout = function() {
@@ -136,17 +132,4 @@ app.service('Users', function($q, Api, Cookie, Day, Way) {
 
     var uid = this.cacheUID.get();
     if(uid != null) this.login(uid);
-
-    this.getAllRides = function() {
-        alert('This is fake!');
-        var result = new Array();
-
-        _.each(user_list, function(user) {
-            _.each(user.rides, function(ride) {
-                if(ride.driver !== user) result.push(ride);
-            });
-        });
-
-        return result;
-    };
 });

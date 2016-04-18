@@ -21,27 +21,19 @@
   <div class='col-md-12'><calendar user='user' /></div>
 </div>
 
-<!-- Refazer com ngRepeat quando der -->
 <div class='row'>
   <div class='col-md-6'> <div class='panel panel-primary'>
     <div class='panel-heading'> Caronas Agendadas </div>
 
+    <div class='panel-body text-center' ng-if='rides.length == 0'>
+      <span class='text-muted'> NENHUM BIGU AGENDADO </span>
+    </div>
+
     <div class='list-group'>
-      <a class='list-group-item' engrave='home'>
-        {{ 1457249400000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
-        <small class='text-muted'> Wesley Safadão </small></a>
-
-      <a class='list-group-item' engrave='graduation-cap'>
-        {{ 1457620200000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
-        <small class='text-muted'> Albert Einstein </small></a>
-
-      <a class='list-group-item' engrave='graduation-cap'>
-        {{ 1460822400000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
-        <small class='text-muted'> Em aberto </small></a>
-
-      <a class='list-group-item' engrave='home'>
-        {{ 1460829600000 | date: "d 'de' MMM h:mm a" : 'UTC' }} &nbsp;
-        <small class='text-muted'> Dilma Rousseff </small></a>
+      <a class='list-group-item' ng-repeat='ride in rides | orderBy: "date" '
+          engrave='{{ride.dest == Destination.HOME? "home" : "graduation-cap"}}'>
+          {{ ride.date | date: "dd 'de' MMM HH:mm" }} &nbsp;
+          <small class='text-muted'> {{ride.driver.name}} </small></a>
     </div>
   </div></div>
 

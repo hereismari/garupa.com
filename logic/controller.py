@@ -6,9 +6,14 @@ class Controller(object):
         'name': 'Victor',
         'uid': 114110495,
         'email': 'victor.almeida@ccc.ufcg.edu.br',
+        'photo': '/assets/img/default-profile-pic.png',
         'phone': '(83) 99937-6230',
-        'friends': []
+        'friends': [],
+        'rides': []
     }]
+
+    ride_count = 0
+    rides = []
 
     def get(self, uid):
         for u in self.users:
@@ -16,13 +21,15 @@ class Controller(object):
                 return u
         return None
 
-    def register(self, name, uid, email, passwd):
+    def register_user(self, name, uid, email, passwd):
         if self.get(uid): return False
         self.users.append({
             'name': name,
             'uid': uid,
             'email': email,
-            'friends': []
+            'photo': '/assets/img/default-profile-pic.png',
+            'friends': [],
+            'rides': []
         })
         return True
         # true se cadstro foi realizado com sucesso
@@ -36,7 +43,7 @@ class Controller(object):
 
         result['uid'] = u.get('uid')
         result['name'] = u.get('name')
-        result['photo'] = u.get('photo', '/assets/img/default-profile-pic.png')
+        result['photo'] = u.get('photo')
 
         result['relationship'] = \
             'self' if uid == vuid else \
@@ -48,6 +55,17 @@ class Controller(object):
         if result['relationship'] in ['self', 'friend']:
             result['email'] = u.get('email', None)
             result['phone'] = u.get('phone', None)
+            result['rides'] = []
+            for r in u.get('rides'):
+                r = r.copy()
+                d = r['driver']
+                r['driver'] = {
+                    'uid': d['uid'],
+                    'name': d['name'],
+                    'photo': d['photo'],
+                    'phone': d['phone']
+                }
+                result['rides'].append(r)
 
         return result
         # dict com view completa se forem amigos ou a mesma pessoa
@@ -75,6 +93,26 @@ class Controller(object):
         u = self.get(uid)
         if u == None: return False
         u['friends'].remove(fuid)
+        return True
+        # true se usuario existe
+        # false caso contrario
+
+    def register_ride(self, driver, date, dest, origin, route, repeat, seats):
+        u = self.get(driver)
+        if u == None: return False
+        ride = {
+            'driver': u,
+            'date': date,
+            'dest': dest,
+            'origin': origin,
+            'route': route,
+            'repeat': repeat,
+            'seats': seats,
+            'rid': self.ride_count
+        }
+        u['rides'].append(ride)
+        self.rides.append(ride)
+        self.ride_count += 1
         return True
         # true se usuario existe
         # false caso contrario

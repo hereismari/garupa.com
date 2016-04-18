@@ -12,5 +12,17 @@ _pattern = {
     'photo' : 'data:image/.+;base64,[A-Za-z0-9+/]*={0,2}$'
 }
 
+_type = {
+    'name'  : str,
+    'uid'   : int,
+    'email' : str,
+    'passwd': str,
+    'phone' : str,
+    'photo' : str
+}
+
+def cast(attr, value):
+    return _type[attr](value)
+
 def check(attr, value):
-    return re.match(_pattern[attr], value)
+    return re.match(_pattern[attr], str(value))

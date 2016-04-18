@@ -10,7 +10,7 @@ app.controller('home', function($scope, $state, Api) {
 	};
 
 	$scope.submit = function() {
-		Api.register($scope.form).then(
+		Api.registerUser($scope.form).then(
 			function(resp) {
 				alert('Cadastro realizado com sucesso!');
 				$state.go('login');

@@ -1,7 +1,7 @@
 
 app.service('Api', function($http) {
 
-    this.register = function(user) {
+    this.registerUser = function(user) {
         return $http({
             method: 'POST',
             url: '/api/users',
@@ -22,7 +22,7 @@ app.service('Api', function($http) {
             method: 'PUT',
             url: '/api/users/' + uid + '/' + attr,
             data: value
-        });
+        })
     };
 
     this.addFriend = function(uid, fuid) {
@@ -38,5 +38,13 @@ app.service('Api', function($http) {
             method: 'DELETE',
             url: '/api/users/' + uid + '/friends/' + fuid
         });
+    };
+
+    this.registerRide = function(ride) {
+        return $http({
+            method: 'POST',
+            url: '/api/rides',
+            data: ride
+        })
     };
 });
