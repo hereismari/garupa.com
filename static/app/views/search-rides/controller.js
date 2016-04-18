@@ -1,13 +1,11 @@
-app.controller('search-rides', function($scope, Users, Districts) {
+app.controller('search-rides', function($scope, Api, Users, Districts, Destination) {
 
     $scope.Districts = Districts;
     $scope.search_result = null;
 
-    $scope.carpool = {
-        destination: 'UFCG',
-        district: undefined,
-        date: undefined,
-        recurrent: false
+    $scope.form = {
+        dest: Destination.UFCG,
+        repeat: false
     };
 
     var ModalMessage = {
@@ -16,7 +14,17 @@ app.controller('search-rides', function($scope, Users, Districts) {
     };
 
     $scope.search = function() {
-        $scope.search_result = Users.getAllRides();
+        var form = $scope.form;
+        Api.searchRides(form.dest, form.district, form.date, Users.logged.uid)
+            .then(function(resp) {
+                $scope.search_result = resp.data;
+            });
+    };
+
+    $scope.joinRide = function(ride) {
+        Users.logged.joinRide(ride.rid).then(function() {
+            alert('Bigu aceito!');
+        });
     };
 
     $scope.setModalMessage = function(evt) {
@@ -33,15 +41,18 @@ app.controller('search-rides', function($scope, Users, Districts) {
     $scope.ready = function() {
 
         $('.calendar-input').datetimepicker({
-            language: 'pt-BR',
-            format: 'd MM yyyy (h:ii)',
-            fontAwesome: true,
-            autoclose: true,
+            language: 'pt-BR', format: 'd MM yyyy (h:ii)',
+            fontAwesome: true, autoclose: true,
             startDate: new Date()
-        });
+        })
+            .on('changeDate', function(event) {
+                event.date.setSeconds(0, 0);
+                $scope.form.date = event.date.getTime();
+                $scope.$apply();
+            });
 
         $('#destination').bootstrapSwitch('onSwitchChange', function(event, state) {
-            $scope.carpool.from = state?  'UFCG' : 'Casa';
+            $scope.form.dest = state?  Destination.UFCG : Destination.HOME;
             $scope.$apply();
         });
 

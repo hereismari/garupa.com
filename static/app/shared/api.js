@@ -22,7 +22,7 @@ app.service('Api', function($http) {
             method: 'PUT',
             url: '/api/users/' + uid + '/' + attr,
             data: value
-        })
+        });
     };
 
     this.addFriend = function(uid, fuid) {
@@ -40,11 +40,38 @@ app.service('Api', function($http) {
         });
     };
 
+    this.joinRide = function(uid, rid) {
+        return $http({
+            method: 'POST',
+            url: '/api/users/' + uid + '/rides',
+            data: rid
+        });
+    };
+
+    this.cancelRide = function(uid, rid) {
+        return $http({
+            method: 'DELETE',
+            url: '/api/users/' + uid + '/rides/' + rid
+        });
+    };
+
     this.registerRide = function(ride) {
         return $http({
             method: 'POST',
             url: '/api/rides',
             data: ride
-        })
+        });
+    };
+
+    this.searchRides = function(dest, district, date, uid, page, limit) {
+        return $http({
+            method: 'GET',
+            url: '/api/rides',
+            params: {
+                dest: dest, district: district,
+                date: date, uid:  uid,
+                page: page, limit: limit
+            }
+        });
     };
 });

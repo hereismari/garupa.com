@@ -22,6 +22,7 @@ app.controller('offer-ride', function($scope, $location, Users, Districts, Desti
             startDate: new Date()
         })
             .on('changeDate', function(event) {
+                event.date.setSeconds(0, 0);
                 $scope.form.date = event.date.getTime();
                 $scope.$apply();
             });

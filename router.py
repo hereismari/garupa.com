@@ -92,7 +92,21 @@ def add_friend(uid):
 @app.route('/api/users/<int:uid>/friends/<int:fuid>', methods=['DELETE'])
 def remove_friend(uid, fuid):
     success = controller.remove_friend(uid, fuid)
+    if success: return UPDATED
+    return NOT_FOUND
 
+@app.route('/api/users/<int:uid>/rides', methods=['POST'])
+def join_ride(uid):
+    try: rid = int(request.data)
+    except: return BAD_REQUEST
+    else: success = controller.join_ride(uid, rid)
+
+    if success: return UPDATED
+    return NOT_FOUND
+
+@app.route('/api/users/<int:uid>/rides/<int:rid>', methods=['DELETE'])
+def cancel_ride(uid, rid):
+    success = controller.cancel_ride(uid, rid)
     if success: return UPDATED
     return NOT_FOUND
 
@@ -100,19 +114,34 @@ def remove_friend(uid, fuid):
 def register_ride():
     try:
         args = request.json.copy()
-        #assert set(args) == validation.REQUIRED
-
-        #for attr, value in args.iteritems():
-        #    assert validation.check(attr, value)
-
-        #for attr, value in args.iteritems():
-        #    args[attr] = validation.cast(attr, value)
+        # Missing validation
 
     except: return BAD_REQUEST
     else: success = controller.register_ride(**args)
 
     if success: return CREATED
     return NOT_FOUND
+
+@app.route('/api/rides', methods=['GET'])
+def search_ride():
+    try:
+        page = request.args.get('page', 0)
+        limit = request.args.get('limit', 10)
+
+        dest = request.args['dest']
+        district = request.args['district']
+        date = request.args['date']
+        uid = request.args['uid']
+
+        page, limit = int(page), int(limit)
+        date, uid = int(date), int(uid)
+
+    except: return BAD_REQUEST
+    else: result = controller.search_rides(dest, district, date, uid)
+
+    return json.dumps(
+        result[page*limit:(page+1)*limit]
+    )
 
 #-----------------------------------MAIN----------------------------------------
 
