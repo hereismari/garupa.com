@@ -1,4 +1,4 @@
-import json, validation
+import json, validation, math
 from flask import Flask, request, redirect
 from logic import Controller
 
@@ -125,7 +125,7 @@ def register_ride():
 @app.route('/api/rides', methods=['GET'])
 def search_ride():
     try:
-        page = request.args.get('page', 0)
+        page = request.args.get('page', 1)
         limit = request.args.get('limit', 10)
 
         dest = request.args['dest']
@@ -139,9 +139,10 @@ def search_ride():
     except: return BAD_REQUEST
     else: result = controller.search_rides(dest, district, date, uid)
 
-    return json.dumps(
-        result[page*limit:(page+1)*limit]
-    )
+    return json.dumps({
+        'result': result[(page-1)*limit:page*limit],
+        'pages': int(math.ceil(1.0 * len(result) / limit))
+    })
 
 #-----------------------------------MAIN----------------------------------------
 

@@ -58,7 +58,7 @@
 
       <ul class='list-group'>
         <li class='list-group-item text-muted text-center'
-            style='padding: 60px 0px' ng-if='search_result.length === 0'>
+            style='padding: 60px 0px' ng-if='search_result.length == 0'>
             <h6> Nenhum bigu encontrado </h6></li>
 
         <li class='list-group-item' ng-repeat='ride in search_result'><div class='row'>
@@ -79,7 +79,7 @@
             <div class='col-md-4'>
               {{ride.driver.name}} <br>
               {{ride.date | date : 'H:mm'}} <br>
-              {{ride.recurrent? 'Sim' : 'Não'}} <br>
+              {{ride.repeat? 'Sim' : 'Não'}} <br>
               {{ride.seats}} <br>
             </div>
 
@@ -101,8 +101,17 @@
             <button class='btn btn-md btn-default btn-block'>
               Me notifique </button></div>
         </div></div>
-
     </div>
+
+    <div class='text-center' ng-if='pages.length > 0'><ul class='pagination'>
+      <li class='previous'>
+        <a href='#' class='fui-arrow-left' ng-click='setPage(form.page-1)'></a></li>
+      <li ng-repeat='page in pages' ng-class="form.page == page? 'active' : null">
+        <a href='#' ng-click='setPage(page)'> {{page}} </a></li>
+      <li class='next'>
+        <a href='#' class='fui-arrow-right' ng-click='setPage(form.page+1)'></a></li>
+    </ul></div>
+
   </div></div>
 </div>
 

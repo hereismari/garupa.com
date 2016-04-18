@@ -5,7 +5,8 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
 
     $scope.form = {
         dest: Destination.UFCG,
-        repeat: false
+        repeat: false,
+        page: 1
     };
 
     var ModalMessage = {
@@ -15,10 +16,15 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
 
     $scope.search = function() {
         var form = $scope.form;
-        Api.searchRides(form.dest, form.district, form.date, Users.logged.uid)
+        Api.searchRides(form.dest, form.district, form.date, Users.logged.uid, $scope.form.page)
             .then(function(resp) {
-                $scope.search_result = resp.data;
+                $scope.search_result = resp.data.result;
+                $scope.pages = _.range(1, resp.data.pages+1);
             });
+    };
+
+    $scope.setPage = function(page) {
+        console.log('Not implemented.'); // TODO
     };
 
     $scope.joinRide = function(ride) {

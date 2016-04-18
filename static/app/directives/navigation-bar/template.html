@@ -14,11 +14,11 @@
 
     <div class='navbar-collapse collapse'>
       <ul class='nav navbar-nav navbar-right' ng-if='Users.logged'>
-        <li><a href='' class='nav-icon'><i class='fa fa-comments fa-lg'></i></a></li>
+        <li><a href='#' class='nav-icon'><i class='fa fa-comments fa-lg'></i></a></li>
         <li><a href='./notificacoes' class='nav-icon'><i class='fa fa-bell fa-lg'></i></a></li>
 
         <li class='dropdown'>
-          <a href='' class='dropdown-toggle' data-toggle='dropdown'>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
             <img class='img-circle' ng-src='{{Users.logged.photo}}'>
             <span> {{Users.logged.name}} </span>
             <b class='caret'></b>
@@ -26,8 +26,8 @@
 
           <ul class='dropdown-menu'>
             <li><a href='./perfil'> Meu perfil </a></li>
-            <li><a href=''> Configurações </a></li>
-            <li><a href='' ng-click='logout()'> Sair </a></li>
+            <li><a href='#'> Configurações </a></li>
+            <li><a href='#' ng-click='logout()'> Sair </a></li>
         </ul></li>
       </ul>
 
