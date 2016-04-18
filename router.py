@@ -1,4 +1,4 @@
-import json, validation, math
+import json, validation
 from flask import Flask, request, redirect
 from logic import Controller
 
@@ -141,7 +141,7 @@ def search_ride():
 
     return json.dumps({
         'result': result[(page-1)*limit:page*limit],
-        'pages': int(math.ceil(1.0 * len(result) / limit))
+        'pages': (len(result) + limit - 1) / limit
     })
 
 #-----------------------------------MAIN----------------------------------------

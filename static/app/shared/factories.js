@@ -6,14 +6,14 @@ app.factory('Cookie', function($cookies) {
 
         this.get = function() {
             return $cookies.get(self.name);
-        }
+        };
 
         this.set = function(value) {
             $cookies.put(self.name, value);
-        }
+        };
 
         this.erase = function() {
             $cookies.remove(self.name);
-        }
-    }
+        };
+    };
 });
