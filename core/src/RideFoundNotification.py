@@ -1,13 +1,14 @@
 from core.src.Notification import Notification
 from core.src.NotificationStatus import NotificationStatus
-from datetime import date
+
+from time import time
 
 class RideFoundNotification(Notification):
 
-    def __init__(self, ride, date=date.today(), status=NotificationStatus.new):
+    def __init__(self, ride, date=int(time()*1000), status=NotificationStatus.new):
         Notification.__init__(self, date, status)
         self._ride = ride
-        self._message = 'Uma carona na data %s surgiu.' % (str(ride.getDate()))
+        self._message = 'Uma carona na data %s surgiu.' % (str(ride.getReadableDate()))
 
     def getRide(self):
         return self._ride

@@ -8,7 +8,8 @@ from core.src.User import User
 from core.src.Ride import Ride
 from core.src.Address import Address
 
-from datetime import date
+from datetime import datetime
+from time import time
 
 class RideTest(unittest.TestCase):
 
@@ -28,12 +29,12 @@ class RideTest(unittest.TestCase):
 
         self.assertEqual(ride.getDriver(), self.user1)
         self.assertEqual(ride.getNumberOfVacancies(), 2)
-        self.assertEqual(ride.getDate(), date.today())
         self.assertEqual(ride.isWeekly(), False)
+        self.assertEquals(ride.getReadableDate(), datetime.fromtimestamp(int(time())).strftime('%Y-%m-%d'))
         self.assertEqual(ride.isFull(), False)
         self.assertEqual(ride.getNumberOfPassengers(), 0)
         
-        # Test UID
+        #  Test UID
 
         self.assertEqual(self.ride1.getUid(), 4)
         self.assertEqual(self.ride2.getUid(), 5)

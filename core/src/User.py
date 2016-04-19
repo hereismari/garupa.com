@@ -116,10 +116,8 @@ class User:
     """ getView method """
     def getView(self, otherUser):
         
-        result = {}
         relationship = self.getRelationship(otherUser)
-        
-        if relationship != 'friends': result = getPublicView()
+        if relationship not in ['self', 'friends']: result = getPublicView()
         else: result = getPrivateView()
 
         result['relationship'] = relationship
@@ -131,6 +129,7 @@ class User:
         otherIsFriendOf = othterUser.isFriendOf(self)
 
         result = ''
+        if self == otherUser: result = 'self'
         if not isFriendOf and not otherIsFriendOf: result = 'none'
         elif isFriendOf and not otherIsFriendOf: result = 'pending'
         elif not isFriendOf and otherIsFriendOf: result = 'available'

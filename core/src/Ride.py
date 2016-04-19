@@ -1,11 +1,13 @@
-from datetime import date
+from time import time
+from datetime import datetime
 
 class Ride:
 
     # variavel estatica
     uid_counter = 1
 
-    def __init__(self, driver, numberOfVacancies, date=date.today(), weekly=False):
+    def __init__(self, driver, numberOfVacancies, date = int(time()*1000), weekly=False):
+
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
         
@@ -26,6 +28,7 @@ class Ride:
 
         self._passengers = [p for p in self._passengers if p[0] != passenger]
         return old_size != self.getNumberOfPassengers()
+    
     def getNumberOfPassengers(self):
         return len(self._passengers)
 
@@ -35,12 +38,18 @@ class Ride:
         return False
     
     def isFull(self):
-        return self.getNumberOfPassengers() == self.getNumberOfVacancies()
+        return (self.getNumberOfPassengers() == self.getNumberOfVacancies())
+
+    def __eq__(self, otherRide):
+        return self.getUid() == otherRide.getUid()
 
     """ Set and Get functions """
 
     def getDate(self):
         return self._date
+
+    def getReadableDate(self):
+        return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
 
     def getDriver(self):
         return self._driver

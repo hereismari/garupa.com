@@ -11,7 +11,7 @@ class NotificationTest(unittest.TestCase):
     def test_basic(self):
 
         notification = Notification();
-        self.assertEqual(notification.getDate(), date.today())
+        self.assertEqual(notification.getReadableDate(), str(date.today()))
         self.assertEqual(notification.getStatus(), NotificationStatus.new)
 
         notification.setStatus(NotificationStatus.seen)

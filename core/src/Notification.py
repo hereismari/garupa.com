@@ -1,9 +1,11 @@
 from NotificationStatus import NotificationStatus
-from datetime import date
+
+from datetime import datetime
+from time import time
 
 class Notification:
 
-    def __init__(self, date=date.today(), status=NotificationStatus.new):
+    def __init__(self, date=int(time()*1000), status=NotificationStatus.new):
         self._status = status
         self._date = date
         self._message = 'Nova atividade!'
@@ -25,6 +27,9 @@ class Notification:
 
     def getDate(self):
         return self._date
+
+    def getReadableDate(self):
+        return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
 
     def getStatus(self):
         return self._status
