@@ -48,6 +48,9 @@ class Ride:
     def getDate(self):
         return self._date
 
+    def setDate(self, timestamp):
+        self._date = timestamp
+
     def getReadableDate(self):
         return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
 

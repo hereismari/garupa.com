@@ -7,6 +7,7 @@ sys.path.append('../')
 from core.src.User import User
 from core.src.Notification import Notification
 from core.src.Ride import Ride
+from core.src.NotificationStatus import NotificationStatus
 
 class UserTest(unittest.TestCase):
 
