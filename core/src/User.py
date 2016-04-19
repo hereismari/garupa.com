@@ -162,21 +162,8 @@ class User:
         return result
 
     """ Update rides """
-
     def updateRides(self):
-        today = datetime.today()
-        sunday = self.getLastSunday(today.toordinal())
-        for ride in self._rides:
-            ride_date = datetime.fromtimestamp(ride.getDate()/1000)
-            if ride_date < sunday:
-                if ride.isWeekly():
-                    new_date = datetime.fromordinal(ride_date.toordinal() + 7)
-                    new_timestamp = time.mktime(new_date.timetuple())
-                    ride.setDate(new_timestamp)
-                else:
-                    self._rides.remove(ride)
+        self._rides = [ride for ride in self._rides if ride.update()]
+       
     
-    def getLastSunday(self, today_ordinal):
-        lastweek = today_ordinal - 7
-        sunday = lastweek - (lastweek % 7)
-        return datetime.fromordinal(sunday)
+    

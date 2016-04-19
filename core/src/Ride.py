@@ -42,14 +42,26 @@ class Ride:
 
     def __eq__(self, otherRide):
         return self.getUid() == otherRide.getUid()
+        
+    def update(self):
+        sunday = self.getLastSunday()
+        ride_date = datetime.fromtimestamp(ride.getDate()/1000)
+        if ride_date < sunday and ride.isWeekly():
+            new_date = ride_date + datetime.timedelta(weeks=1)
+            new_timestamp = time.mktime(new_date.timetuple())
+            ride._date = (int(new_timestamp) * 1000)
+            return True
+        return False
+                    
+    def getLastSunday(self):
+        today = datetime.today().toordinal()
+        week_day = datetime.today().isoweekday() % 7
+        return datetime.fromordinal(today - week_day)
 
     """ Set and Get functions """
 
     def getDate(self):
         return self._date
-
-    def setDate(self, timestamp):
-        self._date = timestamp
 
     def getReadableDate(self):
         return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
