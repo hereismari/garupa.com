@@ -20,7 +20,7 @@ class RideTest(unittest.TestCase):
         self.ride1 = Ride(self.user1, 2)
         self.ride2 = Ride(self.user2, 5)
 
-        self.address = Address('Rua da minha casa', '1', 'Meu bairro')
+        self.address = Address('Rua da minha casa', 'Meu bairro')
 
     def test_constructor(self):
 
@@ -31,42 +31,49 @@ class RideTest(unittest.TestCase):
         self.assertEqual(ride.getDate(), date.today())
         self.assertEqual(ride.isWeekly(), False)
         self.assertEqual(ride.isFull(), False)
-        self.assertEqual(ride.numberOfPassengers(), 0)
+        self.assertEqual(ride.getNumberOfPassengers(), 0)
+        
+        # Test UID
+
+        self.assertEqual(self.ride1.getUid(), 4)
+        self.assertEqual(self.ride2.getUid(), 5)
+        self.assertEqual(ride.getUid(), 6)
+
 
     def test_addPassenger(self):
 
         self.assertEqual(self.ride1.isFull(), False)
-        self.assertEqual(self.ride1.numberOfPassengers(), 0)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 0)
 
         self.ride1.addPassenger(self.user1, self.address)
 
         self.assertEqual(self.ride1.isFull(), False)
-        self.assertEqual(self.ride1.numberOfPassengers(), 1)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 0)
 
         self.ride1.addPassenger(self.user2, self.address)
 
-        self.assertEqual(self.ride1.isFull(), True)
-        self.assertEqual(self.ride1.numberOfPassengers(), 2)
+        self.assertEqual(self.ride1.isFull(), False)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 1)
 
     def test_removePassenger(self):
 
         self.assertEqual(self.ride1.isFull(), False)
-        self.assertEqual(self.ride1.numberOfPassengers(), 0)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 0)
 
         self.ride1.addPassenger(self.user1, self.address)
 
         self.assertEqual(self.ride1.isFull(), False)
-        self.assertEqual(self.ride1.numberOfPassengers(), 1)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 0)
 
         self.ride1.addPassenger(self.user2, self.address)
 
-        self.assertEqual(self.ride1.isFull(), True)
-        self.assertEqual(self.ride1.numberOfPassengers(), 2)
-
-        self.ride1.removePassenger(self.user1)
+        self.assertEqual(self.ride1.isFull(), False)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 1)
+        
+        self.ride1.removePassenger(self.user2)
 
         self.assertEqual(self.ride1.isFull(), False)
-        self.assertEqual(self.ride1.numberOfPassengers(), 1)
+        self.assertEqual(self.ride1.getNumberOfPassengers(), 0)
 
 if __name__ == '__main__':
     unittest.main()

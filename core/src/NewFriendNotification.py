@@ -11,3 +11,4 @@ class NewFriendNotification(Notification):
 
     def getAssociatedUser(self):
         return self._associatedUser
+

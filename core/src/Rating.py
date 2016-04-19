@@ -14,3 +14,4 @@ class Rating:
 
     def getMessage(self):
         return self._message
+

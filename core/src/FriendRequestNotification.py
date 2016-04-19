@@ -11,3 +11,4 @@ class FriendRequestNotification(Notification):
 
     def getAssociatedUser(self):
         return self._associatedUser
+

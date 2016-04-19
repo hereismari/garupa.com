@@ -11,3 +11,4 @@ class RideFoundNotification(Notification):
 
     def getRide(self):
         return self._ride
+

@@ -2,34 +2,41 @@ from datetime import date
 
 class Ride:
 
+    # variavel estatica
+    uid_counter = 1
+
     def __init__(self, driver, numberOfVacancies, date=date.today(), weekly=False):
 
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
+        
+        self._uid = Ride.uid_counter
+        Ride.uid_counter += 1
+    
         self._date = date
         self._weekly = weekly
 
         self._passengers = []
 
     def addPassenger(self, passenger, address):
-        if not self.isFull() and not (passenger,address) in self._passengers:
+        if not self.isFull() and passenger != self._driver and not self.findPassenger(passenger):
             self._passengers.append((passenger, address))
 
     def removePassenger(self, passenger):
-        result = False
-        for i in xrange(len(self._passengers)):
-            if self._passengers[i][0] == passenger:
-                self._passengers.remove((self._passengers[i][0], self._passengers[i][1]))
-                result = True
-                break
+        old_size = self.getNumberOfPassengers()
 
-        return result
-
-    def numberOfPassengers(self):
+        self._passengers = [p for p in self._passengers if p[0] != passenger]
+        return old_size != self.getNumberOfPassengers()
+    def getNumberOfPassengers(self):
         return len(self._passengers)
 
+    def findPassenger(self, user):
+        for passenger in self._passengers:
+            if passenger[0] == user: return True
+        return False
+    
     def isFull(self):
-        return len(self._passengers) == self._numberOfVacancies
+        return self.getNumberOfPassengers == self.getNumberOfVacancies
 
     """ Set and Get functions """
 
@@ -53,3 +60,7 @@ class Ride:
 
     def getPassengers(self):
         return self._passengers
+
+    def getUid(self):
+        return self._uid
+

@@ -4,12 +4,12 @@ from core.src.NotificationStatus import NotificationStatus
 
 class User:
 
-    def __init__(self, name, email, phone, enrollment, password=None, profileImage=None):
+    def __init__(self, name, email, phone, uid, password=None, profileImage=None):
 
         self._name = name
         self._email = email
         self._phone = phone
-        self._enrollment = enrollment
+        self._uid = uid
         self._password = password
         self._profileImage = profileImage
 
@@ -83,11 +83,11 @@ class User:
     def setEmail(self, email):
         self._email = email
 
-    def setEnrollment(self, enrollment):
-        self._enrollment = enrollment
+    def setEnrollment(self, uid):
+        self._uid = uid
 
     def getEnrollment(self):
-        return self._enrollment
+        return self._uid
 
     def getPhone(self):
         return self._phone
@@ -115,3 +115,4 @@ class User:
 
     def getRides(self):
         return self._rides
+

@@ -1,14 +1,12 @@
 
 class Address():
 
-    def __init__(self, street, number, district):
-
+    def __init__(self, street, district):
         self._street = street
-        self._number = number
         self._district = district
 
     def __str__(self):
-        return self._street + ' ' + self._number + ' ' + self._district
+        return '%s %s' % (self._street, self._district)
 
     """ Set and Get functions """
 
@@ -29,3 +27,4 @@ class Address():
 
     def setDistrict(self, district):
         self._district = district
+        
