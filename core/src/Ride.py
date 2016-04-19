@@ -6,7 +6,6 @@ class Ride:
     uid_counter = 1
 
     def __init__(self, driver, numberOfVacancies, date=date.today(), weekly=False):
-
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
         
@@ -19,7 +18,7 @@ class Ride:
         self._passengers = []
 
     def addPassenger(self, passenger, address):
-        if not self.isFull() and passenger != self._driver and not self.findPassenger(passenger):
+        if not self.isFull() and passenger != self._driver and not self.containsPassenger(passenger):
             self._passengers.append((passenger, address))
 
     def removePassenger(self, passenger):
@@ -30,13 +29,13 @@ class Ride:
     def getNumberOfPassengers(self):
         return len(self._passengers)
 
-    def findPassenger(self, user):
+    def containsPassenger(self, user):
         for passenger in self._passengers:
             if passenger[0] == user: return True
         return False
     
     def isFull(self):
-        return self.getNumberOfPassengers == self.getNumberOfVacancies
+        return self.getNumberOfPassengers() == self.getNumberOfVacancies()
 
     """ Set and Get functions """
 
@@ -63,4 +62,15 @@ class Ride:
 
     def getUid(self):
         return self._uid
+    
+    """ Get view """
 
+    def getView(self):
+        result = {}
+        result['weekly'] = self.isWeekly()
+        result['date'] = str(self.getDate())
+        result['driver'] = self.getDriver().getName()
+        result['number_of_vacancies'] = self.getNumberOfVacancies()
+        for passenger in self.getPassengers:
+            result['passengers'].append(passenger.getName())
+        return result

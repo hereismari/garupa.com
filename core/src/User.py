@@ -4,14 +4,14 @@ from core.src.NotificationStatus import NotificationStatus
 
 class User:
 
-    def __init__(self, name, email, phone, uid, password=None, profileImage=None):
+    def __init__(self, name, email, phone, uid, password=None, photo=None):
 
         self._name = name
         self._email = email
         self._phone = phone
         self._uid = uid
         self._password = password
-        self._profileImage = profileImage
+        self._photo = photo
 
         self._friends = []
         self._notifications = []
@@ -65,7 +65,7 @@ class User:
         return password
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__
+        return self._uid == other.getUid()
 
     def __str__(self):
         return self._name
@@ -83,10 +83,7 @@ class User:
     def setEmail(self, email):
         self._email = email
 
-    def setEnrollment(self, uid):
-        self._uid = uid
-
-    def getEnrollment(self):
+    def getUid(self):
         return self._uid
 
     def getPhone(self):
@@ -95,11 +92,11 @@ class User:
     def setPhone(self, phone):
         self._phone = phone
 
-    def getProfileImage(self):
-        return self._profileImage
+    def getPhoto(self):
+        return self._photo
 
-    def setProfileImage(self, profileImage):
-        self._profileImage = profileImage
+    def setPhoto(self, photo):
+        self._photo = photo
 
     def getPassword(self):
         return self._password
@@ -115,4 +112,51 @@ class User:
 
     def getRides(self):
         return self._rides
+
+    """ getView method """
+    def getView(self, otherUser):
+        
+        result = {}
+        relationship = self.getRelationship(otherUser)
+        
+        if relationship != 'friends': result = getPublicView()
+        else: result = getPrivateView()
+
+        result['relationship'] = relationship
+        return result
+
+    def getRelationship(self, otherUser):
+        
+        isfriendOf = self.isFriendOf(otherUser)
+        otherIsFriendOf = othterUser.isFriendOf(self)
+
+        result = ''
+        if not isFriendOf and not otherIsFriendOf: result = 'none'
+        elif isFriendOf and not otherIsFriendOf: result = 'pending'
+        elif not isFriendOf and otherIsFriendOf: result = 'available'
+        else: result = 'friends'
+        
+    def getPublicView(self):
+        result = {'name' : self.getName(), 'uid' : self.getUid(), 'photo' : self.getPhoto()}
+        return result
+
+    def getPrivateView(self):
+        
+        result = getPublicView()
+        
+        result['email'] = self.getEmail()
+        result['phone'] = self.getPhone()
+        result['rides'] = []
+
+        rides = self.getRides()
+        for ride in rides:
+            result['rides'].append({                              
+                'driver' : {                                      
+                    'name': '%s' % ride.getDriver().getName(),    
+                    'uid' : '%s' % ride.getDriver().getUid(),     
+                    'photo': '%s' % ride.getDriver().getPhoto(),  
+                },                                                
+                'passengers': [ {'name': passenger.getName(), 'uid' : passenger.getUid()} for passenger in passengers]})
+
+        return result
 

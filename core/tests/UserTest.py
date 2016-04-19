@@ -28,7 +28,7 @@ class UserTest(unittest.TestCase):
         self.assertEqual(user.getName(), 'User')
         self.assertEqual(user.getEmail(), 'user@gmail.com')
         self.assertEqual(user.getPhone(), '(83)91234-56789')
-        self.assertEqual(user.getEnrollment(), '114110478')
+        self.assertEqual(user.getUid(), '114110478')
         self.assertEqual(user.getPassword(), '123456789')
         
         user = User('User', 'user3@gmail.com', '(83)91234-56789', '114110478')
