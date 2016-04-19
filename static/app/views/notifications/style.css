@@ -5,9 +5,8 @@
 }
 
 #notification form li {
-	background-color: #fff289;
+	background-color: #ffde99;
 	margin-bottom: 10px;
-	box-shadow: 1px 1px 3px #ffd946;
 }
 
 #notification form li .pull-right:hover {
@@ -17,6 +16,24 @@
 
 #notification form li h6 {
 	font-size: 16pt;
+}
+
+#notification form li p {
+	font-size: 12pt;
+}
+
+#notification form li:hover {
+	cursor: default;
+	background-color: #fff289;
+}
+
+#notification form .without-notifications {
+	color: #777;
+	display: none;
+}
+
+#notification .rating span {
+	cursor: pointer;
 }
 
 #notification .rating span:hover {
@@ -36,3 +53,4 @@
 .list-group-item-heading span {
 	margin-left: 5px;
 }
+
