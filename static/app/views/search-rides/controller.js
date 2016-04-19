@@ -5,7 +5,7 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
 
     $scope.form = {
         dest: Destination.UFCG,
-        repeat: false,
+        weekly: false,
         page: 1
     };
 

@@ -40,7 +40,7 @@
 
       <div class='form-group'>
         <label class='checkbox'> Toda semana?
-          <input type='checkbox' ng-model='form.repeat' class='custom-checkbox'>
+          <input type='checkbox' ng-model='form.weekly' class='custom-checkbox'>
           <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
       </label></div>
 
@@ -79,7 +79,7 @@
             <div class='col-md-4'>
               {{ride.driver.name}} <br>
               {{ride.date | date : 'H:mm'}} <br>
-              {{ride.repeat? 'Sim' : 'Não'}} <br>
+              {{ride.weekly? 'Sim' : 'Não'}} <br>
               {{ride.seats}} <br>
             </div>
 

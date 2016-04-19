@@ -129,7 +129,7 @@ class Controller(object):
         # true se usuario existe
         # false caso contrario
 
-    def register_ride(self, driver, date, dest, origin, route, repeat, seats):
+    def register_ride(self, driver, date, dest, origin, route, weekly, seats):
         u = self.get_user(driver)
         if u == None: return False
         ride = {
@@ -138,7 +138,7 @@ class Controller(object):
             'dest': dest,
             'origin': origin,
             'route': route,
-            'repeat': repeat,
+            'weekly': weekly,
             'seats': seats,
             'passengers': [],
             'rid': self.ride_count

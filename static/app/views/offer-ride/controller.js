@@ -6,7 +6,7 @@ app.controller('offer-ride', function($scope, $location, Users, Districts, Desti
 
     $scope.form = {
         dest: Destination.UFCG,
-        repeat: false
+        weekly: false
     };
 
     $scope.submit = function() {
