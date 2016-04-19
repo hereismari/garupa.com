@@ -16,7 +16,7 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
 
     $scope.search = function() {
         var form = $scope.form;
-        Api.searchRides(form.dest, form.district, form.date, Users.logged.uid, $scope.form.page)
+        Api.searchRides(form.dest, form.district, form.date, Users.logged.uid, form.page)
             .then(function(resp) {
                 $scope.search_result = resp.data.result;
                 $scope.pages = _.range(1, resp.data.pages+1);
@@ -24,7 +24,8 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
     };
 
     $scope.setPage = function(page) {
-        console.log('Not implemented.'); // TODO
+        $scope.form.page = page;
+        $scope.search();
     };
 
     $scope.joinRide = function(ride) {
