@@ -27,19 +27,6 @@
 	background-color: #fff289;
 }
 
-#notification form .without-notifications {
-	color: #777;
-	display: none;
-}
-
-#notification .rating span {
-	cursor: pointer;
-}
-
-#notification .rating span:hover {
-	color: lightblue;
-}
-
 .list-group-item {
 	border-color: #f3db99;
 }
