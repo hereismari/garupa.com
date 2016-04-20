@@ -1,11 +1,10 @@
-from NotificationStatus import NotificationStatus
 
 from datetime import datetime
 from time import time
 
 class Notification:
 
-    def __init__(self, date=int(time()*1000), status=NotificationStatus.new):
+    def __init__(self, date=int(time()*1000), status=False):
         self._status = status
         self._date = date
         self._message = 'Nova atividade!'
@@ -13,7 +12,7 @@ class Notification:
     def __str__(self):
         result = 'Notification\n'
         result += 'date: ' + str(self._date) + '\n'
-        result += 'status: ' + str(self._status) + '\n'
+        result += 'status: ' + ('vista' if self._status else 'nao vista') + '\n'
         result += 'message: ' + str(self._message) + '\n'
         return result
 
@@ -36,4 +35,3 @@ class Notification:
 
     def setStatus(self, status):
         self._status = status
-

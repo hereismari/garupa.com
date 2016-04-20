@@ -1,4 +1,3 @@
-from NotificationStatus import NotificationStatus
 
 import os, random, string
 from datetime import datetime
@@ -47,11 +46,11 @@ class User:
     def numberOfUnseenNotifications(self):
         result = 0
         for notification in self._notifications:
-            if notification.getStatus() == NotificationStatus.new: result += 1
+            if not notification.getStatus(): result += 1
         return result
 
     def addRide(self, ride):
-        if not ride in self._rides:
+        if ride not in self._rides:
             self._rides.append(ride)
 
     def removeRide(self, ride):
@@ -164,6 +163,4 @@ class User:
     """ Update rides """
     def updateRides(self):
         self._rides = [ride for ride in self._rides if ride.update()]
-       
-    
     
