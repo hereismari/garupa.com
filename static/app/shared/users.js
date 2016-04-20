@@ -41,8 +41,8 @@ app.service('Users', function($q, Api, Cookie) {
             return Api.registerRide(ride).then(self.sync);
         };
 
-        this.joinRide = function(rid) {
-            return Api.joinRide(self.uid, rid).then(self.sync);
+        this.joinRide = function(rid, district, complement) {
+            return Api.joinRide(self.uid, rid, district, complement).then(self.sync);
         };
 
         this.cancelRide = function(rid) {
@@ -92,5 +92,7 @@ app.service('Users', function($q, Api, Cookie) {
     };
 
     var uid = this.cacheUID.get();
-    if(uid != null) this.login(uid);
+    if(uid != null) this.login(uid).then(function(success) {
+        if(success == false) location.reload();
+    });
 });

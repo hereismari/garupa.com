@@ -13,7 +13,7 @@ app.service('Api', function($http) {
         return $http({
             method: 'GET',
             url: '/api/users/' + uid,
-            params: {'vuid': vuid}
+            params: {vuid: vuid}
         });
     };
 
@@ -40,11 +40,23 @@ app.service('Api', function($http) {
         });
     };
 
-    this.joinRide = function(uid, rid) {
+    this.registerRide = function(ride) {
+        return $http({
+            method: 'POST',
+            url: '/api/rides',
+            data: ride
+        });
+    };
+
+    this.joinRide = function(uid, rid, district, complement) {
         return $http({
             method: 'POST',
             url: '/api/users/' + uid + '/rides',
-            data: rid
+            data: {
+                rid: rid,
+                district: district,
+                complement: complement
+            }
         });
     };
 
@@ -55,23 +67,16 @@ app.service('Api', function($http) {
         });
     };
 
-    this.registerRide = function(ride) {
-        return $http({
-            method: 'POST',
-            url: '/api/rides',
-            data: ride
-        });
-    };
-
-    this.searchRides = function(dest, district, date, uid, page, limit) {
+    this.searchRides = function(dest, district, date, weekly, uid, page, limit) {
         return $http({
             method: 'GET',
             url: '/api/rides',
             params: {
                 dest: dest, district: district,
-                date: date, uid:  uid,
+                date: date, weekly: weekly, uid:  uid,
                 page: page, limit: limit
             }
         });
     };
+
 });

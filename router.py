@@ -1,6 +1,7 @@
 import json, validation
+from distutils.util import strtobool
 from flask import Flask, request, redirect
-from logic import Controller
+from core import Controller
 
 #----------------------------------CONFIG---------------------------------------
 
@@ -95,21 +96,6 @@ def remove_friend(uid, fuid):
     if success: return UPDATED
     return NOT_FOUND
 
-@app.route('/api/users/<int:uid>/rides', methods=['POST'])
-def join_ride(uid):
-    try: rid = int(request.data)
-    except: return BAD_REQUEST
-    else: success = controller.join_ride(uid, rid)
-
-    if success: return UPDATED
-    return NOT_FOUND
-
-@app.route('/api/users/<int:uid>/rides/<int:rid>', methods=['DELETE'])
-def cancel_ride(uid, rid):
-    success = controller.cancel_ride(uid, rid)
-    if success: return UPDATED
-    return NOT_FOUND
-
 @app.route('/api/rides', methods=['POST'])
 def register_ride():
     try:
@@ -122,25 +108,49 @@ def register_ride():
     if success: return CREATED
     return NOT_FOUND
 
+@app.route('/api/users/<int:uid>/rides', methods=['POST'])
+def join_ride(uid):
+    try:
+        rid = int(request.json['rid'])
+        district = request.json['district']
+        complement = request.json['complement']
+
+    except: return BAD_REQUEST
+    else: success = controller.join_ride(uid, rid, district, complement)
+
+    if success: return UPDATED
+    return NOT_FOUND
+
+@app.route('/api/users/<int:uid>/rides/<int:rid>', methods=['DELETE'])
+def cancel_ride(uid, rid):
+    success = controller.cancel_ride(uid, rid)
+    if success: return UPDATED
+    return NOT_FOUND
+
 @app.route('/api/rides', methods=['GET'])
 def search_ride():
     try:
         page = request.args.get('page', 1)
         limit = request.args.get('limit', 10)
 
+        assert 1 <= page
+        assert 1 <= limit
+
         dest = request.args['dest']
         district = request.args['district']
         date = request.args['date']
+        weekly = request.args['weekly']
         uid = request.args['uid']
 
         page, limit = int(page), int(limit)
         date, uid = int(date), int(uid)
+        weekly = strtobool(weekly)
 
     except: return BAD_REQUEST
-    else: result = controller.search_rides(dest, district, date, uid)
+    else: result = controller.search_rides(dest, district, date, weekly, uid)
 
     return json.dumps({
-        'result': result[(page-1)*limit:page*limit],
+        'results': result[(page-1)*limit:page*limit],
         'pages': (len(result) + limit - 1) / limit
     })
 

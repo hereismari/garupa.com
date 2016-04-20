@@ -14,24 +14,26 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
         NOTIFY_ME : { title: 'Quero ser notificado', message: 'Voce sera notificado assim que uma carona desse tipo surgir!'}
     };
 
-    $scope.search = function() {
-        var form = $scope.form;
-        Api.searchRides(form.dest, form.district, form.date, Users.logged.uid, form.page)
-            .then(function(resp) {
-                $scope.search_result = resp.data.result;
-                $scope.pages = _.range(1, resp.data.pages+1);
-            });
-    };
-
     $scope.setPage = function(page) {
         $scope.form.page = page;
         $scope.search();
     };
 
+    $scope.search = function() {
+        var form = $scope.form;
+        Api.searchRides(form.dest, form.district, form.date, form.weekly, Users.logged.uid, form.page)
+            .then(function(resp) {
+                $scope.search_result = resp.data.results;
+                $scope.pages = _.range(1, resp.data.pages+1);
+            });
+    };
+
     $scope.joinRide = function(ride) {
-        Users.logged.joinRide(ride.rid).then(function() {
-            alert('Bigu aceito!');
-        });
+        var form = $scope.form;
+        Users.logged.joinRide(ride.rid, form.district, form.complement)
+            .then(function() {
+                alert('Bigu aceito!');
+            });
     };
 
     $scope.setModalMessage = function(evt) {

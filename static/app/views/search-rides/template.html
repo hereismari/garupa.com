@@ -28,9 +28,10 @@
 
       <div class='form-group'>
         <label> Seu endereço </label>
-        <input type='text' class='form-control vert-offset-bottom-1' placeholder='eg. Rua Almirante Barbosa, 438' required />
-        <select id='district' class='select select-primary' ng-model='form.district' ng-options='d for d in Districts' required>
-          <option></option></select>
+        <input type='text' class='form-control vert-offset-bottom-1' ng-model='form.complement'
+            placeholder='eg. Rua Almirante Barbosa, 438' required />
+        <select id='district' class='select select-primary' ng-model='form.district'
+            ng-options='d for d in Districts' required><option></option></select>
       </div>
 
       <div class='form-group'>
