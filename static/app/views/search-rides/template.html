@@ -28,9 +28,10 @@
 
       <div class='form-group'>
         <label> Seu endereço </label>
-        <input type='text' class='form-control vert-offset-bottom-1' placeholder='ie.: Rua Almirante Barbosa, 438' required />
-        <select id='district' class='select select-primary' ng-model='carpool.district' ng-options='d for d in Districts' required>
-          <option></option></select>
+        <input type='text' class='form-control vert-offset-bottom-1' ng-model='form.complement'
+            placeholder='eg. Rua Almirante Barbosa, 438' required />
+        <select id='district' class='select select-primary' ng-model='form.district'
+            ng-options='d for d in Districts' required><option></option></select>
       </div>
 
       <div class='form-group'>
@@ -40,7 +41,7 @@
 
       <div class='form-group'>
         <label class='checkbox'> Toda semana?
-          <input type='checkbox' ng-model='carpool.recurrent' class='custom-checkbox'>
+          <input type='checkbox' ng-model='form.weekly' class='custom-checkbox'>
           <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
       </label></div>
 
@@ -58,36 +59,36 @@
 
       <ul class='list-group'>
         <li class='list-group-item text-muted text-center'
-            style='padding: 60px 0px' ng-if='search_result.length === 0'>
+            style='padding: 60px 0px' ng-if='search_result.length == 0'>
             <h6> Nenhum bigu encontrado </h6></li>
 
         <li class='list-group-item' ng-repeat='ride in search_result'><div class='row'>
 
-          <div class='col-md-3'><a href='./perfil/{{ride.driver.id}}'>
-            <img class='img-responsive img-rounded' ng-src='{{ride.driver.photo_url}}' />
+          <div class='col-md-3'><a href='./perfil/{{ride.driver.uid}}'>
+            <img class='img-responsive img-rounded' ng-src='{{ride.driver.photo}}' />
           </a></div>
 
           <div class='vert-offset-top-1 small'>
 
             <div class='col-md-2'>
               <b> Motorista <br>
-                  Telefone <br>
+                  Hora <br>
                   Semanal <br>
                   Vagas <br>
             </b></div>
 
             <div class='col-md-4'>
               {{ride.driver.name}} <br>
-              {{ride.driver.phone}} <br>
-              {{ride.recurrent? 'Sim' : 'Não'}} <br>
-              {{ride.vacancies}} <br>
+              {{ride.date | date : 'H:mm'}} <br>
+              {{ride.weekly? 'Sim' : 'Não'}} <br>
+              {{ride.seats}} <br>
             </div>
 
           </div>
 
           <div class='col-md-3'>
-            <button ng-click='setModalMessage($event)' class='btn btn-md btn-primary pull-right'
-                data-toggle='modal' id='send-invitation' data-target='#modal'> Pedir carona </button>
+            <button ng-click='joinRide(ride)' class='btn btn-md btn-primary pull-right'>
+              Pedir carona </button>
           </div>
 
         </div></li></ul>
@@ -98,11 +99,16 @@
             assim que uma nova carona do jeito que você pediu surja. </div>
 
           <div class='col-md-4'>
-            <button ng-click='setModalMessage($event)' class='btn btn-md btn-default btn-block' data-toggle='modal'
-                data-target='#modal' id='notify-me'> Me notifique </button></div>
+            <button class='btn btn-md btn-default btn-block'>
+              Me notifique </button></div>
         </div></div>
-
     </div>
+
+    <div class='text-center' ng-if='pages.length > 1'><ul class='pagination'>
+      <li ng-repeat='page in pages' ng-class="form.page == page? 'active' : null">
+        <a href='#' ng-click='setPage(page)'> {{page}} </a></li>
+    </ul></div>
+
   </div></div>
 </div>
 

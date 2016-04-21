@@ -7,4 +7,3 @@ class NotificationStatus(Enum):
 
     def __str__(self):
         return 'status name: %s, status number: %d' % (self.name, self.value)
-

@@ -1,8 +1,8 @@
 
 #profile .user-image {
-  border-radius: 4px;
   overflow: hidden;
   position: relative;
+  border-radius: 4px;
 }
 
 #profile .user-image .action {
@@ -20,6 +20,10 @@
 
 #profile .user-image * {
   border-radius: 0px;
+}
+
+#profile .user-image img {
+  width: 100%;
 }
 
 #profile .panel .fa {

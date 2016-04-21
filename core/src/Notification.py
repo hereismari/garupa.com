@@ -36,4 +36,3 @@ class Notification:
 
     def setStatus(self, status):
         self._status = status
-

@@ -1,13 +1,13 @@
 
 <div class='wrapper'>
   <div class='column' ng-repeat='day in Day'>
-    <div class='day'> {{day}} </div>
-    <div class='event bg-primary' ng-repeat='ride in user.rides | orderBy:"time" ' ng-if='ride.day === day'>
-      <div> {{ride.time | time}} &nbsp;
-      <i ng-class='ride.way === Way.TO? "fa fa-home" : "fa fa-graduation-cap" '></i></div>
+    <div class='day'> {{day.short}} </div>
+    <div class='event bg-primary' ng-repeat='ride in rides | orderBy:"date" ' ng-if='check(ride.date, day)'>
+      <div> {{ride.date | date : 'H:mm'}} &nbsp;
+      <i ng-class='ride.dest == Destination.HOME? "fa fa-home" : "fa fa-graduation-cap" '></i></div>
       <div class='driver'> {{ride.driver.name}} </div>
 </div></div></div>
 
-<h5 ng-if='user.rides.length === 0' class='vert-offset-top-3 vert-offset-bottom-3'>
-  NENHUM BIGU MARCADO
+<h5 ng-if='rides.length == 0' class='vert-offset-top-3 vert-offset-bottom-3'>
+  NENHUM BIGU ESSA SEMANA
 </h5>

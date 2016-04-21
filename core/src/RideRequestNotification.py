@@ -16,4 +16,3 @@ class RideRequestNotification(Notification):
 
     def getAssociatedUser(self):
         return self._associatedUser
-

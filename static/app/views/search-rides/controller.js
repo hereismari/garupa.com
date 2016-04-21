@@ -1,13 +1,12 @@
-app.controller('search-rides', function($scope, Users, Districts) {
+app.controller('search-rides', function($scope, Api, Users, Districts, Destination) {
 
     $scope.Districts = Districts;
     $scope.search_result = null;
 
-    $scope.carpool = {
-        destination: 'UFCG',
-        district: undefined,
-        date: undefined,
-        recurrent: false
+    $scope.form = {
+        dest: Destination.UFCG,
+        weekly: false,
+        page: 1
     };
 
     var ModalMessage = {
@@ -15,8 +14,26 @@ app.controller('search-rides', function($scope, Users, Districts) {
         NOTIFY_ME : { title: 'Quero ser notificado', message: 'Voce sera notificado assim que uma carona desse tipo surgir!'}
     };
 
+    $scope.setPage = function(page) {
+        $scope.form.page = page;
+        $scope.search();
+    };
+
     $scope.search = function() {
-        $scope.search_result = Users.getAllRides();
+        var form = $scope.form;
+        Api.searchRides(form.dest, form.district, form.date, form.weekly, Users.logged.uid, form.page)
+            .then(function(resp) {
+                $scope.search_result = resp.data.results;
+                $scope.pages = _.range(1, resp.data.pages+1);
+            });
+    };
+
+    $scope.joinRide = function(ride) {
+        var form = $scope.form;
+        Users.logged.joinRide(ride.rid, form.district, form.complement)
+            .then(function() {
+                alert('Bigu aceito!');
+            });
     };
 
     $scope.setModalMessage = function(evt) {
@@ -33,15 +50,18 @@ app.controller('search-rides', function($scope, Users, Districts) {
     $scope.ready = function() {
 
         $('.calendar-input').datetimepicker({
-            language: 'pt-BR',
-            format: 'd MM yyyy (h:ii)',
-            fontAwesome: true,
-            autoclose: true,
+            language: 'pt-BR', format: 'd MM yyyy (h:ii)',
+            fontAwesome: true, autoclose: true,
             startDate: new Date()
-        });
+        })
+            .on('changeDate', function(event) {
+                event.date.setSeconds(0, 0);
+                $scope.form.date = event.date.getTime();
+                $scope.$apply();
+            });
 
         $('#destination').bootstrapSwitch('onSwitchChange', function(event, state) {
-            $scope.carpool.from = state?  'UFCG' : 'Casa';
+            $scope.form.dest = state?  Destination.UFCG : Destination.HOME;
             $scope.$apply();
         });
 

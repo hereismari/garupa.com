@@ -33,7 +33,7 @@ class RideTest(unittest.TestCase):
         self.assertEquals(ride.getReadableDate(), datetime.fromtimestamp(int(time())).strftime('%Y-%m-%d'))
         self.assertEqual(ride.isFull(), False)
         self.assertEqual(ride.getNumberOfPassengers(), 0)
-        
+
         #  Test UID
 
         self.assertEqual(self.ride1.getUid(), 4)
@@ -70,7 +70,7 @@ class RideTest(unittest.TestCase):
 
         self.assertEqual(self.ride1.isFull(), False)
         self.assertEqual(self.ride1.getNumberOfPassengers(), 1)
-        
+
         self.ride1.removePassenger(self.user2)
 
         self.assertEqual(self.ride1.isFull(), False)
@@ -78,4 +78,3 @@ class RideTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

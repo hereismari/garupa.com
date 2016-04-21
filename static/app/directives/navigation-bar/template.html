@@ -13,28 +13,28 @@
     </div>
 
     <div class='navbar-collapse collapse'>
-      <ul class='nav navbar-nav navbar-right' ng-if='Users.loggedUser'>
-        <li><a href='' class='nav-icon'><i class='fa fa-comments fa-lg'></i></a></li>
+      <ul class='nav navbar-nav navbar-right' ng-if='Users.logged'>
+        <li><a href='#' class='nav-icon'><i class='fa fa-comments fa-lg'></i></a></li>
         <li><a href='./notificacoes' class='nav-icon'><i class='fa fa-bell fa-lg'></i></a></li>
 
         <li class='dropdown'>
-          <a href='' class='dropdown-toggle' data-toggle='dropdown'>
-            <img class='img-circle' ng-src='{{Users.loggedUser.photo_url}}'>
-            <span> {{Users.loggedUser.name}} </span>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
+            <img class='img-circle' ng-src='{{Users.logged.photo}}'>
+            <span> {{Users.logged.name}} </span>
             <b class='caret'></b>
           </a>
 
           <ul class='dropdown-menu'>
             <li><a href='./perfil'> Meu perfil </a></li>
-            <li><a href=''> Configurações </a></li>
-            <li><a href='' ng-click='logout()'> Sair </a></li>
+            <li><a href='#'> Configurações </a></li>
+            <li><a href='#' ng-click='logout()'> Sair </a></li>
         </ul></li>
       </ul>
 
-      <ul class='nav navbar-nav navbar-right' ng-if='!Users.loggedUser'>
+      <ul class='nav navbar-nav navbar-right' ng-if='!Users.logged'>
         <form class='navbar-form navbar-right' ng-submit='login(uid)'>
           <div class='form-group'>
-            <input type='text' placeholder='Matricula' ng-model='uid' class='form-control'>
+            <input type='text' placeholder='Matrícula' ng-model='uid' class='form-control'>
             <input type='password' placeholder='Senha' class='form-control'></div>
           <button type='submit' class='btn btn-primary'> Entrar </button>
       </form></ul>

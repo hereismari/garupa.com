@@ -10,26 +10,26 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .when('', '/')
 
         .when(/login|recuperar-senha/, function($state, $match, Users) {
-            return Users.loggedUser != null? '/perfil':
+            return Users.cacheUID.get() != null? '/perfil':
                 $state.go($match == 'recuperar-senha'? 'recover' : 'login');
         })
 
         .when(/\/.+/, function($state, $location, Users) {
-            return Users.loggedUser != null? false:
+            return Users.cacheUID.get() != null? false:
                 $state.go('login', { redirect: $location.url() });
         })
 
         .when('/perfil', function($state, Users) {
-            return '/perfil/' + Users.loggedUser.id;
+            return '/perfil/' + Users.cacheUID.get();
         })
 
         .when('/perfil/:uid', function($state, $location, $match, Users) {
-            var user = Users.get($match.uid);
-            if(user == null) return $state.go('404');
-
-            $state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
-                'profile' : 'add-friend', { uid: user.id });
-            })
+            return Users.get($match.uid).then(function(user) {
+                if(user == null) $state.go('404');
+                else $state.go(/self|friend/.test(user.relationship)?
+                    'profile' : 'add-friend', { uid: user.uid });
+            });
+        })
 
         .otherwise(function($injector) {
             $injector.get('$state').go('404')
@@ -39,8 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .state('home', {
             url: '/',
             controller: 'home',
-            templateUrl: '/app/views/home/template.html',
-            css: '/app/views/home/style.css'
+            templateUrl: '/app/views/home/template.html'
         })
 
         .state('login', {
