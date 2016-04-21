@@ -81,7 +81,7 @@ class Controller(object):
     def register_ride(self, driver, date, dest, origin, route, weekly, seats):
         u = self.users.get(driver, None)
         if u == None: return False
-
+        
         date = datetime.fromtimestamp(date / 1000)
         r = Ride(u, date, dest, origin, route, weekly, seats)
 
@@ -90,7 +90,7 @@ class Controller(object):
         return True
 
     def update_rides(self):
-        self.rides = [r for r in self.rides if r.update()]
+        self.rides = { rid : self.rides[rid] for rid in self.rides if self.rides[rid].update() }
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.users.get(uid, None)
@@ -98,7 +98,7 @@ class Controller(object):
 
         self.update_rides()
 
-        return [r.getView() for r in self.rides.values() if
+        return [r.getView() for r in self.rides.itervalues() if
             r.getDestination() == dest and
             district in r.getRoute() and
             r.happensOn(date) and
