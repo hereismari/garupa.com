@@ -1,24 +1,23 @@
 from datetime import datetime
-from time import time
 
 """Classe usada como uma abstracao de uma notificacao, nao devera ser instanciada"""
 
 class Notification:
 
-    def __init__(self, date=int(time()*1000), status=False):
+    def __init__(self, date=datetime.now(), status=False):
         self._status = status
         self._date = date
         self._message = 'Nova atividade!'
 
     def __str__(self):
         result = 'Notification\n'
-        result += 'date: ' + str(self._date) + '\n'
-        result += 'status: ' + ('vista' if self._status else 'nao vista') + '\n'
+        result += 'date: ' + self._date + '\n'
+        result += 'status: ' + ('senn' if self._status else 'unseen') + '\n'
         result += 'message: ' + str(self._message) + '\n'
         return result
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__
+        return abs(self.getDate() - other.getDate())
 
     """ Set and Get functions """
 
@@ -29,10 +28,30 @@ class Notification:
         return self._date
 
     def getReadableDate(self):
-        return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
+        return self._date.strftime('%d-%m-%Y')
 
     def getStatus(self):
         return self._status
 
     def setStatus(self, status):
         self._status = status
+
+# PARTE DE TESTES GAMBIARROSAMENTE FEITA
+
+if __name__ == '__main__':
+	d1 = datetime.now()
+	not1 = Notification()
+	print not1.getReadableDate()
+	print not1.getDate(), d1
+
+
+    # fazer passar alguns segundos
+	x = 0
+	while x != 10000000000:
+		x += 100
+
+	not2 = Notification()
+	d2 = datetime.now()
+	print not2.getReadableDate()
+
+	print abs(not1.getDate() - not2.getDate()).total_seconds()

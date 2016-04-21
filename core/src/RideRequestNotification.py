@@ -1,10 +1,10 @@
 from core.src.Notification import Notification
 
-from time import time
+from datetime import datetime
 
 class RideRequestNotification(Notification):
 
-    def __init__(self, ride, associatedUser, date=int(time()*1000), status=False):
+    def __init__(self, ride, associatedUser, date=datetime.now(), status=False):
         Notification.__init__(self, date, status)
         self._ride = ride
         self._associatedUser = associatedUser

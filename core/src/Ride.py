@@ -1,4 +1,3 @@
-from time import time
 from datetime import datetime
 
 class Ride:
@@ -6,7 +5,7 @@ class Ride:
     # variavel estatica
     uid_counter = 1
 
-    def __init__(self, driver, numberOfVacancies, routes, toUFCG=False, date = int(time()*1000), weekly=False):
+    def __init__(self, driver, numberOfVacancies, routes, toUFCG=False, date=datetime.now(), weekly=False):
 
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
@@ -19,7 +18,7 @@ class Ride:
         self._toUFCG = toUFCG
 
         self._passengers = []
-        self._routes = []
+        self._routes = routes
 
     def addPassenger(self, passenger, address):
         if not self.isFull() and passenger != self._driver and not self.containsPassenger(passenger):
@@ -45,13 +44,15 @@ class Ride:
     def __eq__(self, otherRide):
         return self.getUid() == otherRide.getUid()
         
-    def update(self):
+    def weekly_update(self):
         sunday = self.getLastSunday()
-        ride_date = datetime.fromtimestamp(ride.getDate()/1000)
-        if ride_date < sunday and ride.isWeekly():
+        ride_date = self.getDate()
+
+        print ride_date, sunday
+
+        if ride_date < sunday and self.isWeekly():
             new_date = ride_date + datetime.timedelta(weeks=1)
-            new_timestamp = time.mktime(new_date.timetuple())
-            ride._date = (int(new_timestamp) * 1000)
+            self_date = new_date
             return True
         return False
                     
@@ -92,8 +93,8 @@ class Ride:
     def getToUFCG(self):
         return self._toUFCG
     
-    def setToUfcg(self, newValue):
-        self._toUFCG = newValue
+    def setToUfcg(self, toUFCG):
+        self._toUFCG = toUFCG
 
     def getRoutes(self):
         return self._routes
@@ -109,3 +110,12 @@ class Ride:
         for passenger in self.getPassengers:
             result['passengers'].append(passenger.getName())
         return result
+
+if __name__ == '__main__':
+    ride = Ride('', 2, [], date=datetime(2016, 04, 15))
+
+    ride.setWeekly(True)
+
+    ride.weekly_update()
+
+    print ride.getDate()
