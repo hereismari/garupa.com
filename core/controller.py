@@ -1,16 +1,39 @@
 from src import User, Ride, Address
 from datetime import datetime
+from generator import Generator
 
 class Controller(object):
 
     users = dict()
     rides = dict()
+    generator = Generator()
+
+    def get_user(self, uid):
+        return self.users.get(uid, None)
+
+    def get_uid_from_email(self, email):
+        for uid in self.users.iteritems():
+            if self[uid].getEmail() == email:
+                return uid
+        return None
 
     def register_user(self, name, uid, email, passwd):
-        if uid in self.users:
+        if uid in self.users.iteritems():
             return False
 
-        self.users[uid] = User(name, uid, email, passwd)
+        if passwd == '': passwd = self.generator.password()
+        
+        user = User(name, uid, email, passwd)
+        self.users[uid] = user
+        return True
+
+    def recover_passwd(self, email):
+        
+        uid = self.get_uid_from_email(email)
+        if uid == None: return False
+
+        new_passwd = self.generator.password()
+        self.users[uid].setPassword(new_passwd)
         return True
 
     def view_user(self, uid, vuid):
@@ -90,7 +113,7 @@ class Controller(object):
         return True
 
     def update_rides(self):
-        self.rides = { ride[0] : ride[1] for ride in self.rides.iteritems() if ride[1].update() }
+        self.rides = { rid : self.rides[rid] for rid in self.rides if self.rides[rid].update() }
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.users.get(uid, None)
@@ -105,3 +128,4 @@ class Controller(object):
             r.isWeekly() == weekly and
             not r.containsUser(u)
         ]
+

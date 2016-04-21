@@ -2,14 +2,24 @@ import json, logging, validation
 from distutils.util import strtobool
 from flask import Flask, request, redirect
 from core import Controller
+from emails import Email
 
 #----------------------------------CONFIG---------------------------------------
 
 app = Flask(__name__)
-controller = Controller()
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['DEBUG'] = True
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465 
+app.config['MAIL_USERNAME'] = 'sitegarupa@gmail.com'
+app.config['MAIL_PASSWORD'] = 'garupa.com'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True 
+app.config['MAIL_DEFAULT_SENDER'] = 'sitegarupa@gmail.com'
+
+controller = Controller()
+emailHelper = Email(app)
 
 @app.after_request
 def add_header(response):
@@ -44,6 +54,7 @@ def serve_static(url):
 @app.route('/api/users', methods=['POST'])
 def register_user():
     try:
+        
         args = request.json.copy()
         assert set(args) == validation.REQUIRED
 
@@ -56,7 +67,11 @@ def register_user():
     except: return BAD_REQUEST
     else: success = controller.register_user(**args)
 
-    if success: return CREATED
+    if success:
+        print args
+        print args['uid']
+        emailHelper.send_welcome(controller.get_user(args['uid']))
+        return CREATED
     return CONFLICT
 
 @app.route('/api/users/<int:uid>', methods=['GET'])
@@ -79,6 +94,26 @@ def update_user(uid, attr):
     else: success = controller.update_user(uid, attr, value)
 
     if success: return UPDATED
+    return NOT_FOUND
+
+@app.route('/api/recover/', methods=['PUT'])
+def recover_passwd():
+    try:
+        args = request.json.copy()
+        assert set(args) == validation.REQUIRED
+
+        for attr, value in args.iteritems():
+            assert validation.check(attr, value)
+
+        for attr, value in args.iteritems():
+            args[attr] = validation.cast(attr, value)
+
+    except: return BAD_REQUEST
+    else: success = controller.recover_passwd(**args)
+
+    if success: 
+        emailHelper.send_passwd(controller.get_user(get_uid_from_email(args['email'])))
+        return UPDATED
     return NOT_FOUND
 
 @app.route('/api/users/<int:uid>/friends', methods=['POST'])
@@ -157,5 +192,5 @@ def search_ride():
 #-----------------------------------MAIN----------------------------------------
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='info.log',level=logging.DEBUG)
+    #logging.basicConfig(filename='info.log',level=logging.DEBUG)
     app.run(host='0.0.0.0', port=8000)

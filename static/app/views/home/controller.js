@@ -2,7 +2,8 @@
 app.controller('home', function($scope, $state, Api) {
 
 	$scope.form = new Object();
-
+	$scope.form.passwd = '';
+	
 	$scope.toggleForm = function() {
 		$('#welcome').fadeOut('slow', function() {
 			$('form').fadeIn('slow');
@@ -10,6 +11,7 @@ app.controller('home', function($scope, $state, Api) {
 	};
 
 	$scope.submit = function() {
+		if($scope.generate) $scope.form.passwd = '';
 		Api.registerUser($scope.form).then(
 			function(resp) {
 				alert('Cadastro realizado com sucesso!');

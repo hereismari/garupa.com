@@ -1,5 +1,4 @@
 
-
 <div id='welcome' class='col-md-8 col-md-offset-2 text-center'>
   <div class='img-container'><img src='#'></div>
 
@@ -32,13 +31,23 @@
     </div>
 
     <div class='form-group'>
-      <label> Senha </label>
-      <input ng-model='form.passwd' type='password' class='form-control' required>
+      <label class='checkbox'>
+        <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' ng-model='generate'>
+        <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
+        <a> Gerar senha aleatória </a>
+      </label>
     </div>
 
-    <div class='form-group'>
-      <label> Confirmar Senha </label>
-      <input type='password' class='form-control' required>
+    <div ng-if='!generate'>
+	    <div class='form-group'>
+	      <label> Senha </label>
+	      <input ng-model='form.passwd' type='password' class='form-control'>
+	    </div>
+
+	    <div class='form-group'>
+	      <label> Confirmar Senha </label>
+	      <input type='password' class='form-control'>
+	    </div>
     </div>
 
     <div class='form-group'>
