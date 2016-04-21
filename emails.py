@@ -1,8 +1,10 @@
 from flask_mail import Mail, Message
+from threading import Thread
 
 class Email():
 
     def __init__(self, app):
+        self.app = app
         self.mail = Mail(app)
 
     def send_welcome(self, user):
@@ -25,4 +27,9 @@ class Email():
     def send(self, subject, recipients, text_body):
         msg = Message(subject, recipients=recipients)
         msg.body = text_body
-        self.mail.send(msg)
+        thr = Thread(target=self.send_async, args=[msg])
+        thr.start()
+
+    def send_async(self, msg):
+        with self.app.app_context():
+            self.mail.send(msg)
