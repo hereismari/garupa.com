@@ -98,7 +98,7 @@ class Controller(object):
 
         self.update_rides()
 
-        return [r.getView() for r in self.rides.itervalues() if
+        return [r.getView() for r in self.rides.values() if
             r.getDestination() == dest and
             district in r.getRoute() and
             r.happensOn(date) and
