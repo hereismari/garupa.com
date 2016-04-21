@@ -89,7 +89,7 @@ class Controller(object):
         self.rides[r.getRid()] = r
         return True
 
-    def update_rides():
+    def update_rides(self):
         self.rides = [r for r in self.rides if r.update()]
 
     def search_rides(self, dest, district, date, weekly, uid):
