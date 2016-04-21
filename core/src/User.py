@@ -163,4 +163,4 @@ class User:
     """ Update rides """
     def updateRides(self):
         self._rides = [ride for ride in self._rides if ride.update()]
-    
+

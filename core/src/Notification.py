@@ -1,6 +1,7 @@
-
 from datetime import datetime
 from time import time
+
+"""Classe usada como uma abstracao de uma notificacao, nao devera ser instanciada"""
 
 class Notification:
 

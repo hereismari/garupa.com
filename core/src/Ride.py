@@ -6,7 +6,7 @@ class Ride:
     # variavel estatica
     uid_counter = 1
 
-    def __init__(self, driver, numberOfVacancies, date = int(time()*1000), weekly=False):
+    def __init__(self, driver, numberOfVacancies, routes, toUFCG=False, date = int(time()*1000), weekly=False):
 
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
@@ -16,8 +16,10 @@ class Ride:
     
         self._date = date
         self._weekly = weekly
+        self._toUFCG = toUFCG
 
         self._passengers = []
+        self._routes = []
 
     def addPassenger(self, passenger, address):
         if not self.isFull() and passenger != self._driver and not self.containsPassenger(passenger):
@@ -86,7 +88,16 @@ class Ride:
 
     def getUid(self):
         return self._uid
+
+    def getToUFCG(self):
+        return self._toUFCG
     
+    def setToUfcg(self, newValue):
+        self._toUFCG = newValue
+
+    def getRoutes(self):
+        return self._routes
+
     """ Get view """
 
     def getView(self):

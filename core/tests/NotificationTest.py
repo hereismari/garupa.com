@@ -16,6 +16,8 @@ class NotificationTest(unittest.TestCase):
         notification.setStatus(True)
         self.assertEqual(notification.getStatus(), True)
 
+        
+
 if __name__ == '__main__':
     unittest.main()
 
