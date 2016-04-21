@@ -1,4 +1,5 @@
 import re
+from numbers import Integral
 from distutils.util import strtobool
 
 _required = {
@@ -23,23 +24,23 @@ _pattern = {
 }
 
 _type = {
-    'uid'   : int,
+    'uid'   : Integral,
     'passwd': unicode,
     'name'  : unicode,
     'email' : unicode,
     'phone' : unicode,
     'photo' : unicode,
 
-    'date'  : long,
+    'date'  : Integral,
     'dest'  : unicode,
     'origin': unicode,
     'route' : list,
     'weekly': bool,
-    'seats' : int
+    'seats' : Integral
 }
 
 def check(attr, value):
-    typed = type(value) is _type[attr]
+    typed = isinstance(value, _type[attr])
     formated = re.match(_pattern[attr], unicode(value))
     return typed and formated
 
