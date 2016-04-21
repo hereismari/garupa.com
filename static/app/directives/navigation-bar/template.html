@@ -32,10 +32,10 @@
       </ul>
 
       <ul class='nav navbar-nav navbar-right' ng-if='!Users.logged'>
-        <form class='navbar-form navbar-right' ng-submit='login(uid)'>
+        <form class='navbar-form navbar-right' ng-submit='login(uid, passwd)'>
           <div class='form-group'>
             <input type='text' placeholder='Matrícula' ng-model='uid' class='form-control'>
-            <input type='password' placeholder='Senha' class='form-control'></div>
+            <input type='password' placeholder='Senha' ng-model='passwd' class='form-control'></div>
           <button type='submit' class='btn btn-primary'> Entrar </button>
       </form></ul>
     </div>

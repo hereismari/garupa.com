@@ -9,8 +9,8 @@ app.directive('navigationBar', function() {
         controller: function($scope, $location, Users) {
             $scope.Users = Users;
 
-            $scope.login = function(uid) {
-                Users.login(uid).then(function(success) {
+            $scope.login = function(uid, passwd) {
+                Users.login(uid, passwd).then(function(success) {
                     $location.path(success? '/perfil' : '/login');
                 });
             };

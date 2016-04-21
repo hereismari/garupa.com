@@ -2,8 +2,6 @@
 app.service('Users', function($q, Api, Cookie) {
     var self = this;
 
-    this.cacheUID = new Cookie('garupa.uid');
-
     function User() {
         var self = this;
 
@@ -51,13 +49,11 @@ app.service('Users', function($q, Api, Cookie) {
     }
 
     this.get = function(uid) {
-        vuid = self.cacheUID.get();
-
         return $q(function(resolve, reject) {
             if(self.logged && uid == self.logged.uid)
                 return resolve(self.logged);
 
-            Api.viewUser(uid, vuid).then(
+            Api.viewUser(uid).then(
                 function(resp) {
                     var user = new User();
                     _.extend(user, resp.data);
@@ -65,34 +61,33 @@ app.service('Users', function($q, Api, Cookie) {
                 },
 
                 function(resp) {
-                    if(resp.status == 404) resolve(null);
-                    else reject(resp);
+                    resolve(null);
                 });
         });
     };
 
-    this.login = function(uid) {
-        return self.get(uid).then(
-            function(user) {
-                if(user == null) {
-                    self.logged = null;
-                    self.cacheUID.erase();
-                    return false;
-                }
+    this.login = function(uid, passwd) {
+        if(uid == null) uid = Api.getCache().uid;
+        else Api.setCache(uid, passwd);
 
-                self.logged = user;
-                self.cacheUID.set(uid);
-                return true;
-            });
+        return self.get(uid).then(function(user) {
+            if(user == null) {
+                self.logout();
+                return false;
+            }
+
+            self.logged = user;
+            return true;
+        });
     };
 
     this.logout = function() {
         self.logged = null;
-        self.cacheUID.erase();
+        Api.clearCache();
     };
 
-    var uid = this.cacheUID.get();
-    if(uid != null) this.login(uid).then(function(success) {
+    if(Api.getCache().uid != null)
+    this.login().then(function(success) {
         if(success == false) location.reload();
     });
 });

@@ -1,7 +1,7 @@
 import re
 
 EDITABLE = {'name', 'email', 'phone', 'photo'}
-REQUIRED = {'name', 'uid', 'email', 'passwd'}
+REQUIRED = {'uid', 'passwd', 'name', 'email'}
 
 _pattern = {
     'name'  : '.{3,}',

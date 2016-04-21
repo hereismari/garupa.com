@@ -3,12 +3,12 @@ from NotificationStatus import NotificationStatus
 
 class User(object):
 
-    def __init__(self, name, uid, email, password):
+    def __init__(self, uid, passwd, name, email):
 
         self._name = name
         self._uid = uid
         self._email = email
-        self._password = password
+        self._password = passwd
 
         self._photo = '/assets/img/default-profile-pic.png'
         self._phone = 'N/A'

@@ -6,12 +6,17 @@ class Controller(object):
     users = dict()
     rides = dict()
 
-    def register_user(self, name, uid, email, passwd):
+    def register_user(self, uid, passwd, name, email):
         if uid in self.users:
             return False
 
-        self.users[uid] = User(name, uid, email, passwd)
+        self.users[uid] = User(uid, passwd, name, email)
         return True
+
+    def get_credentials(self, uid):
+        u = self.users.get(uid, None)
+        if u == None: return None
+        return u.getPassword()
 
     def view_user(self, uid, vuid):
         u = self.users.get(uid, None)
@@ -89,8 +94,8 @@ class Controller(object):
         self.rides[r.getRid()] = r
         return True
 
-    def update_rides():
-        self.rides = [r for r in self.rides if r.update()]
+    def update_rides(self):
+        self.rides = {rid: r for rid, r in self.rides.iteritems() if r.update()}
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.users.get(uid, None)
