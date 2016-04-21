@@ -1,4 +1,4 @@
-import json, validation
+import json, logging, validation
 from distutils.util import strtobool
 from flask import Flask, request, redirect
 from flask_digest import Stomach
@@ -194,4 +194,5 @@ def search_ride():
 #-----------------------------------MAIN----------------------------------------
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='info.log', level=logging.DEBUG)
     app.run(host='0.0.0.0', port=8000)

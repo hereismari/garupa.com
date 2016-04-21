@@ -96,7 +96,7 @@ class Controller(object):
         return True
 
     def update_rides(self):
-        self.rides = {rid: r for rid, r in self.rides.iteritems() if r.update()}
+        self.rides = { rid: r for rid, r in self.rides.iteritems() if r.update() }
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.users.get(uid, None)
