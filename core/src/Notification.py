@@ -12,12 +12,12 @@ class Notification:
     def __str__(self):
         result = 'Notification\n'
         result += 'date: ' + self._date + '\n'
-        result += 'status: ' + ('senn' if self._status else 'unseen') + '\n'
+        result += 'status: ' + ('seen' if self._status else 'unseen') + '\n'
         result += 'message: ' + str(self._message) + '\n'
         return result
 
     def __eq__(self, other):
-        return abs(self.getDate() - other.getDate())
+        return abs(self.getDate() - other.getDate()).total_seconds() < 10
 
     """ Set and Get functions """
 
