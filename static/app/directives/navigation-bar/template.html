@@ -31,11 +31,11 @@
         </ul></li>
       </ul>
 
-      <ul class='nav navbar-nav navbar-right' ng-if='!Users.logged'>
-        <form class='navbar-form navbar-right' ng-submit='login(uid, passwd)'>
+      <ul class='nav navbar-nav navbar-right' ng-if='showForm()'>
+        <form class='navbar-form navbar-right' ng-submit='login(form)'>
           <div class='form-group'>
-            <input type='text' placeholder='Matrícula' ng-model='uid' class='form-control'>
-            <input type='password' placeholder='Senha' ng-model='passwd' class='form-control'></div>
+            <input type='text' placeholder='Matrícula' ng-model='form.uid' class='form-control'>
+            <input type='password' placeholder='Senha' ng-model='form.passwd' class='form-control'></div>
           <button type='submit' class='btn btn-primary'> Entrar </button>
       </form></ul>
     </div>

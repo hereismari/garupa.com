@@ -35,7 +35,6 @@ app.service('Users', function($q, Api, Cookie) {
         };
 
         this.registerRide = function(ride) {
-            ride = _.clone(ride); ride.driver = self.uid;
             return Api.registerRide(ride).then(self.sync);
         };
 

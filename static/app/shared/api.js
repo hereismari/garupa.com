@@ -74,7 +74,7 @@ app.service('Api', function($q, $http, Cookie) {
                     stale: /stale="(.*?)"/.exec(header)
                 };
 
-                var stale = header.realm[1] == 'true';
+                var stale = header.stale && header.stale[1] == 'true';
                 var repeat = stale || args.headers == null;
 
                 realm = header.realm[1];
@@ -117,6 +117,7 @@ app.service('Api', function($q, $http, Cookie) {
         cachePWD.erase();
     };
 
+
     this.registerUser = function(user) {
         return request({
             method: 'POST',
@@ -136,7 +137,7 @@ app.service('Api', function($q, $http, Cookie) {
         return request({
             method: 'PUT',
             url: '/api/users/' + uid + '/' + attr,
-            data: value
+            data: {value: value}
         });
     };
 
@@ -144,7 +145,7 @@ app.service('Api', function($q, $http, Cookie) {
         return request({
             method: 'POST',
             url: '/api/users/' + uid + '/friends',
-            data: fuid
+            data: {fuid: fuid}
         });
     };
 

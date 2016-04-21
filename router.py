@@ -19,7 +19,7 @@ def add_header(response):
 
     if 'WWW-Authenticate' in headers:
         headers['WWW-Authenticate'] = \
-        headers['WWW-Authenticate'].replace('Digest', 'Bigu')
+        headers['WWW-Authenticate'].replace('Digest', 'X-Digest')
 
     headers['Cache-Control'] = 'max-age=0'
     return response
@@ -52,7 +52,9 @@ def serve_static(url):
 
 @stomach.access
 def get_credentials(uid):
-    return controller.get_credentials(int(uid))
+    try: uid = int(uid)
+    except: return None
+    return controller.get_credentials(uid)
 
 @stomach.register
 def register_credentials(uid, passwd, name, email):
@@ -66,14 +68,11 @@ def logged_user():
 @app.route('/api/users', methods=['POST'])
 def register_user():
     try:
-        args = request.json.copy()
-        assert set(args) == validation.REQUIRED
+        args = request.json
+        assert validation.complete('user', args)
 
         for attr, value in args.iteritems():
             assert validation.check(attr, value)
-
-        for attr, value in args.iteritems():
-            args[attr] = validation.cast(attr, value)
     except:
         return BAD_REQUEST
 
@@ -96,9 +95,8 @@ def view_user(uid):
 @stomach.protect
 def update_user(uid, attr):
     try:
-        value = request.data
+        value = request.json['value']
         assert validation.check(attr, value)
-        assert attr in validation.EDITABLE
     except:
         return BAD_REQUEST
 
@@ -110,7 +108,7 @@ def update_user(uid, attr):
 @app.route('/api/users/<int:uid>/friends', methods=['POST'])
 @stomach.protect
 def add_friend(uid):
-    try: fuid = int(request.data)
+    try: fuid = request.json['fuid']
     except: return BAD_REQUEST
 
     if uid != logged_user(): return UNAUTHORIZED
@@ -130,12 +128,15 @@ def remove_friend(uid, fuid):
 @stomach.protect
 def register_ride():
     try:
-        args = request.json.copy()
-        # Missing validation
+        args = request.json
+        assert validation.complete('ride', args)
+
+        for attr, value in args.iteritems():
+            assert validation.check(attr, value)
     except:
         return BAD_REQUEST
 
-    if args['driver'] != logged_user(): return UNAUTHORIZED
+    args['driver'] = logged_user()
 
     success = controller.register_ride(**args)
     return CREATED if success else NOT_FOUND
@@ -144,7 +145,7 @@ def register_ride():
 @stomach.protect
 def join_ride(uid):
     try:
-        rid = int(request.json['rid'])
+        rid = request.json['rid']
         district = request.json['district']
         complement = request.json['complement']
     except:
@@ -179,7 +180,7 @@ def search_ride():
         weekly = request.args['weekly']
 
         page, limit = int(page), int(limit)
-        weekly, date = strtobool(weekly), int(date)
+        weekly, date = strtobool(weekly), long(date)
     except:
         return BAD_REQUEST
 

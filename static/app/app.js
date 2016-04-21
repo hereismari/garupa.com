@@ -46,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             url: '/login',
             controller: 'login',
             templateUrl: '/app/views/login/template.html',
-            params: { redirect: '/perfil' }
+            params: { redirect: '/perfil', uid: null }
         })
 
         .state('recover', {

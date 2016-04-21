@@ -10,6 +10,8 @@ app.controller('home', function($scope, $state, Api) {
 	};
 
 	$scope.submit = function() {
+		$scope.form.uid = parseInt($scope.form.uid)
+
 		Api.registerUser($scope.form).then(
 			function(resp) {
 				alert('Cadastro realizado com sucesso!');

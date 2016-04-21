@@ -34,6 +34,7 @@ class Controller(object):
         elif attr == 'photo': u.setPhoto(value)
         elif attr == 'phone': u.setPhone(value)
 
+        else: return False
         return True
 
     def add_friend(self, uid, fuid):
