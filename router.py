@@ -68,8 +68,6 @@ def register_user():
     else: success = controller.register_user(**args)
 
     if success:
-        print args
-        print args['uid']
         emailHelper.send_welcome(controller.get_user(args['uid']))
         return CREATED
     return CONFLICT
@@ -96,23 +94,12 @@ def update_user(uid, attr):
     if success: return UPDATED
     return NOT_FOUND
 
-@app.route('/api/recover/', methods=['PUT'])
-def recover_passwd():
-    try:
-        args = request.json.copy()
-        assert set(args) == validation.REQUIRED
-
-        for attr, value in args.iteritems():
-            assert validation.check(attr, value)
-
-        for attr, value in args.iteritems():
-            args[attr] = validation.cast(attr, value)
-
-    except: return BAD_REQUEST
-    else: success = controller.recover_passwd(**args)
-
+@app.route('/api/users/<int:uid>/password-reset', methods=['POST'])
+def recover_passwd(uid):
+    print uid
+    success = controller.recover_passwd(uid)
     if success: 
-        emailHelper.send_passwd(controller.get_user(get_uid_from_email(args['email'])))
+        emailHelper.send_recover_passwd(controller.get_user(uid))
         return UPDATED
     return NOT_FOUND
 

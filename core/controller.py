@@ -11,12 +11,6 @@ class Controller(object):
     def get_user(self, uid):
         return self.users.get(uid, None)
 
-    def get_uid_from_email(self, email):
-        for uid in self.users.iteritems():
-            if self[uid].getEmail() == email:
-                return uid
-        return None
-
     def register_user(self, name, uid, email, passwd):
         if uid in self.users.iteritems():
             return False
@@ -27,11 +21,8 @@ class Controller(object):
         self.users[uid] = user
         return True
 
-    def recover_passwd(self, email):
-        
-        uid = self.get_uid_from_email(email)
-        if uid == None: return False
-
+    def recover_passwd(self, uid):
+        if self.get_user(uid) == None: return False
         new_passwd = self.generator.password()
         self.users[uid].setPassword(new_passwd)
         return True
@@ -113,7 +104,7 @@ class Controller(object):
         return True
 
     def update_rides(self):
-        self.rides = { rid : self.rides[rid] for rid in self.rides if self.rides[rid].update() }
+        self.rides = { ride[0] : ride[1] for ride in self.rides.iteritems() if ride[1].update() }
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.users.get(uid, None)

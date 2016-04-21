@@ -9,6 +9,13 @@ app.service('Api', function($http) {
         });
     };
 
+   this.recoverPassword = function(uid) {
+        return $http({
+            method: 'POST',
+            url: '/api/users/' + uid + '/password-reset'
+        });
+    };
+
     this.viewUser = function(uid, vuid) {
         return $http({
             method: 'GET',
