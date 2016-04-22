@@ -1,11 +1,12 @@
-from datetime import datetime
+#from datetime import datetime
+import datetime
 
 class Ride:
 
     # variavel estatica
     uid_counter = 1
 
-    def __init__(self, driver, numberOfVacancies, routes, toUFCG=False, date=datetime.now(), weekly=False):
+    def __init__(self, driver, numberOfVacancies, routes, toUFCG=False, date=datetime.datetime.now(), weekly=False):
 
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
@@ -48,18 +49,22 @@ class Ride:
         sunday = self.getLastSunday()
         ride_date = self.getDate()
 
-        print ride_date, sunday
-
         if ride_date < sunday and self.isWeekly():
             new_date = ride_date + datetime.timedelta(weeks=1)
-            self_date = new_date
+            self._date = new_date
             return True
         return False
-                    
+
     def getLastSunday(self):
-        today = datetime.today().toordinal()
-        week_day = datetime.today().isoweekday() % 7
-        return datetime.fromordinal(today - week_day)
+        today = datetime.datetime.today().toordinal()
+        week_day = datetime.datetime.today().isoweekday() % 7
+        return datetime.datetime.fromordinal(today - week_day)
+
+    def isInTheRoute(self, targetNeighborhood):
+    	for neighborhood in routes:
+    		if neighborhood == targetNeighborhood:
+    			return True
+    	return False
 
     """ Set and Get functions """
 
@@ -67,7 +72,7 @@ class Ride:
         return self._date
 
     def getReadableDate(self):
-        return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
+        return datetime.datetime.strftime(self._date, '%d-%m-%Y')
 
     def getDriver(self):
         return self._driver
@@ -111,11 +116,17 @@ class Ride:
             result['passengers'].append(passenger.getName())
         return result
 
+
+
+# LEMBRE DE COLOCAR ISSO NOS TESTES
 if __name__ == '__main__':
-    ride = Ride('', 2, [], date=datetime(2016, 04, 15))
 
-    ride.setWeekly(True)
+    ride1 = Ride('', 2, [], date=datetime.datetime(2016, 04, 15))
 
-    ride.weekly_update()
+    ride1.setWeekly(True)
 
-    print ride.getDate()
+    print ride1.getDate()
+
+    ride1.weekly_update()
+
+    print ride1.getReadableDate()

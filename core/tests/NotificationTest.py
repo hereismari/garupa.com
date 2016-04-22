@@ -1,5 +1,5 @@
 import unittest, sys
-from datetime import date
+import datetime
 
 sys.path.append('../../')
 sys.path.append('../')
@@ -10,7 +10,7 @@ class NotificationTest(unittest.TestCase):
     def test_basic(self):
 
         notification = Notification();
-        self.assertEqual(notification.getReadableDate(), str(date.today()))
+        self.assertEqual(notification.getReadableDate(), datetime.datetime.now().strftime('%d-%m-%Y'))
         self.assertEqual(notification.getStatus(), False)
 
         notification.setStatus(True)

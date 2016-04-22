@@ -8,7 +8,7 @@ class RideRequestNotification(Notification):
         Notification.__init__(self, date, status)
         self._ride = ride
         self._associatedUser = associatedUser
-        self._message = '%s quer participar da carona do dia %s.' % (associatedUser.getName(), str(ride.getReadableDate()))
+        self._message = '%s quer participar da carona do dia %s.' % (associatedUser.getName(), ride.getReadableDate())
 
     def getRide(self):
         return self._ride

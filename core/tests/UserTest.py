@@ -18,8 +18,8 @@ class UserTest(unittest.TestCase):
         self.not1 = Notification()
         self.not2 = Notification()
 
-        self.ride1 = Ride(self.user1, 3)
-        self.ride2 = Ride(self.user2, 5)
+        self.ride1 = Ride(self.user1, 3, [])
+        self.ride2 = Ride(self.user2, 5, [])
 
     def test_constructor(self):
         
