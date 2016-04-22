@@ -7,9 +7,19 @@ ul, ol {
 	max-width: 997px;
 }
 
-#notification form li .pull-right:hover {
-	cursor: pointer;
+.reading-status {
+	float: right;
+    margin-right: 15px;
+    position: relative;
+    margin-top: -6px;
+}
+
+.pull-right:hover, .reading-status:hover {
 	color: black;
+}
+
+.ocapacity {
+	opacity: 0.1;
 }
 
 #notification form li h6 {
@@ -53,11 +63,15 @@ ul, ol {
 	border-bottom: 1px solid #ddd;
 }
 
-.notificationsNav .selected {
+.notificationsNav .filter-option {
 	color: #444;
 	font-size: 14px;
 	width: 90%;
 	padding: 2px 0px;
+}
+
+.selected {
+	font-weight: bold;
 }
 
 .notificationsList .list-group-item-heading {

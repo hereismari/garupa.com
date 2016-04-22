@@ -2,14 +2,20 @@
 app.controller('notifications', function($scope, $timeout) {
 
     var removable = false;
-    $scope.active = null;
-
+    
     // notifications types
     $scope.FRIEND_REQUEST  = 1;
     $scope.NEW_FRIEND      = 2;
     $scope.RIDE_FOUND      = 3;
     $scope.RIDE_REQUEST    = 4;
 
+    // notification status
+    $scope.VIEWED = 0;
+   
+    // notification selected
+    $scope.active = null;
+    
+    // user abstraction is the same on the server side
     function User(uid) {
         this.uid = uid;
         this.password = null;
@@ -60,6 +66,7 @@ app.controller('notifications', function($scope, $timeout) {
     user3.photo = "http://blogdomarioflavio.com.br/vs1/wp-content/uploads/2016/01/Michel-Temer-foto-Ag%C3%AAncia-Brasil-150x150.jpg";
 
     var ride2 = new Ride();
+    ride2.date = "25 de abr às 12:15";
     ride2.routes.push("Alto Branco");
 
     user3.rides.push(ride2);
@@ -102,21 +109,23 @@ app.controller('notifications', function($scope, $timeout) {
           ride           : "",
           associatedUser : user3
         }
-
     ];
     
-    // Notification actions
+    // notification actions
     $scope.filter = "$";
     $scope.search = "";
     
-    $scope.changeFilterTo = function(attr) {
+    $scope.changeFilterTo = function(pr, attr) {
+        $scope.filter = pr;
         $scope.search = attr;
     }
 
     $scope.getFilter = function() {
         if ($scope.filter == 'uid')
             return {uid: $scope.search};
-        else if ($scope.filter == 'type');
+        else if ($scope.filter == 'status')
+            return {status: $scope.search};
+        else if ($scope.filter == 'type')
             return {type: $scope.search};
         return {$: $scope.search};
     }
@@ -139,7 +148,13 @@ app.controller('notifications', function($scope, $timeout) {
         var index = $scope.getIndex(uid);
         $scope.notifications_list[ index ].status = 0;
         $scope.removeNotificationByIndex( index );
-    }    
+    }  
+
+    $scope.markAsReadNotification = function(uid) {
+        var index = $scope.getIndex(uid);
+        var status = $scope.notifications_list[ index ].status;
+        $scope.notifications_list[ index ].status = 1 - status;
+    }
     
     $scope.acceptFriendRequest = function(uid) {
         $scope.removeNotificationByIndex( $scope.getIndex(uid) );
@@ -171,5 +186,4 @@ app.controller('notifications', function($scope, $timeout) {
     $scope.hoverOut = function() {
         this.removable = false;
     }
-    
 });
