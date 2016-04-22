@@ -1,4 +1,5 @@
 <span id='profile'>
+<ride-info show='showRide'></ride-info>
 
 <div class='row vert-offset-bottom-3'>
 
@@ -18,7 +19,7 @@
 </div>
 
 <div class='row vert-offset-bottom-4'>
-  <div class='col-md-12'><calendar user='user' /></div>
+  <div class='col-md-12'><calendar user='user' show='showRide' /></div>
 </div>
 
 <div class='row'>
@@ -30,10 +31,10 @@
     </div>
 
     <div class='list-group'>
-      <a class='list-group-item' ng-repeat='ride in rides | orderBy: "date" '
-          engrave='{{ride.dest == Destination.HOME? "home" : "graduation-cap"}}'>
-          {{ ride.date | date: "dd 'de' MMM HH:mm" }} &nbsp;
-          <small class='text-muted'> {{ride.driver.name}} </small></a>
+      <a href='#' class='list-group-item' ng-repeat='ride in rides | orderBy: "date"'
+          engrave='{{ride.dest == Destination.HOME? "home" : "graduation-cap"}}'
+          ng-click='showRide(ride)'> {{ ride.date | date: "dd 'de' MMM HH:mm" }}
+          &nbsp; <small class='text-muted'> {{ride.driver.name}} </small></a>
     </div>
   </div></div>
 

@@ -89,9 +89,9 @@ class Controller(object):
 
         u.removeRide(r)
         if r.getDriver() == u:
-            del rides[rid]
+            del self.rides[rid]
             for p in r.getPassengers():
-                p.removeRide(p)
+                p[0].removeRide(r)
         else: r.removePassenger(u)
         return True
 

@@ -1,0 +1,49 @@
+
+<div class='modal fade'><div class='modal-dialog'><div class='modal-content'>
+
+  <div class='modal-header'><h6 class='modal-title'>
+    Informações do Bigu
+  </h6></div>
+
+  <div class='modal-body'>
+    <div class='vert-offset-bottom-1'>
+      <small> Motorista: </small> &nbsp;
+      <a href='#' ng-click='go(ride.driver.uid)'> {{ride.driver.name}} </a>
+    </div>
+
+    <div class='row vert-offset-bottom-1'>
+      <div class='col-md-4'>
+        <small> Destino: </small> &nbsp; {{ride.dest == Destination.HOME? 'Casa' : 'UFCG'}} <br>
+        <small> Semanal: </small> &nbsp; {{ride.weekly? 'Sim' : 'Não'}} <br>
+        <small> Vagas: </small> &nbsp; {{ride.seats}}
+      </div>
+
+      <div class='col-md-8'>
+        <small> Data: </small> &nbsp; {{ride.date | date : "d 'de' MMMM"}} <br>
+        <small> Dia: </small> &nbsp; {{ride.date | date : 'EEEE'}} <br>
+        <small> Hora: </small>  &nbsp; {{ride.date | date : "H:mm"}}
+    </div></div>
+
+    <div class='vert-offset-bottom-1'>
+      Rota: <br><small ng-repeat='district in ride.route'>
+        {{district}} &nbsp;&nbsp;&nbsp; </small>
+    </div>
+
+    <div> Passageiros: <br>
+      <small ng-if='ride.passengers.length == 0' class='text-muted'>
+        Nenhum passageiro </small>
+      <div ng-repeat='user in ride.passengers'>
+        <a href='#' ng-click='go(user.uid)'> {{user.name}} </a> &nbsp;
+        <small class='text-muted'> {{user.address.complement}} </small> &nbsp;
+        <small> ({{user.address.district}}) </small>
+    </div></div>
+
+  </div>
+
+  <div class='modal-footer'>
+    <button class='btn btn-default' data-dismiss='modal'> Fechar </button>
+    <button class='btn btn-danger' data-dismiss='modal' ng-click='cancelRide()'>
+      Cancelar bigu </button>
+  </div>
+
+</div></div></div>

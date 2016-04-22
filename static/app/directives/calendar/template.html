@@ -2,9 +2,10 @@
 <div class='wrapper'>
   <div class='column' ng-repeat='day in Day'>
     <div class='day'> {{day.short}} </div>
-    <div class='event bg-primary' ng-repeat='ride in rides | orderBy:"date" ' ng-if='check(ride.date, day)'>
+    <div class='event bg-primary' ng-repeat='ride in rides | orderBy:"date"'
+        ng-click='show(ride)' ng-if='check(ride.date, day)'>
       <div> {{ride.date | date : 'H:mm'}} &nbsp;
-      <i ng-class='ride.dest == Destination.HOME? "fa fa-home" : "fa fa-graduation-cap" '></i></div>
+      <i ng-class='ride.dest == Destination.HOME? "fa fa-home" : "fa fa-graduation-cap"'></i></div>
       <div class='driver'> {{ride.driver.name}} </div>
 </div></div></div>
 
