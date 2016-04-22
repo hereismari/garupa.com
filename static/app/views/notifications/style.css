@@ -1,12 +1,10 @@
 
-#notification {
-	border-radius: 5px;
-	width: 60%;
+ul, ol {
+	text-decoration: none;
+	list-style: none;
 }
-
-#notification form li {
-	background-color: #ffde99;
-	margin-bottom: 10px;
+.container {
+	max-width: 997px;
 }
 
 #notification form li .pull-right:hover {
@@ -22,13 +20,85 @@
 	font-size: 12pt;
 }
 
-#notification form li:hover {
-	cursor: default;
-	background-color: #fff289;
+#notification form li:hover + span {
+	cursor: pointer;
+	background-color: #fbfbfb;
+}
+
+.notificationsNav {
+	float: left;
+	width: 20%;
+	height: auto;
+	position: relative;
+}
+
+.notificationsList {
+	position: relative;
+	float: left;
+	width: 500px;
+}
+
+.notificationsNav a {
+	color: #666;
+}
+
+.notificationsNav a:hover {
+	color: #16a085;
+}
+
+.notificationsNav .lnk {
+	color: #444;
+	font-size: 16px;
+	width: 75%;
+	border-bottom: 1px solid #ddd;
+}
+
+.notificationsNav .selected {
+	color: #444;
+	font-size: 14px;
+	width: 90%;
+	padding: 2px 0px;
+}
+
+.notificationsList .list-group-item-heading {
+	font-size: 14px;
+}
+
+.notificationsList .info {
+	font-size: 14px;
+}
+
+.notificationsList .info span {
+	margin-left: 35px;
+}
+
+.friend-request {
+	/*background: #ddd; */
+}
+
+.img-rounded {
+    border-radius: 50px;
+}
+
+.friend-request button {
+    width: 219px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 2px;
+    padding: 4px;
+    margin-left: 36px;
 }
 
 .list-group-item {
-	border-color: #f3db99;
+	border: 1px solid transparent;
+	margin-bottom: 1px;
+	border-top: 1px solid #f0f0f0;
+}
+
+.list-group-item:hover {
+	cursor: pointer;
+	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
 }
 
 .list-group-item-heading img {
@@ -41,3 +111,10 @@
 	margin-left: 5px;
 }
 
+.list-group-item-heading span.date {
+	color: #888;
+}
+
+.fui-location {
+	width: 25px;
+}
