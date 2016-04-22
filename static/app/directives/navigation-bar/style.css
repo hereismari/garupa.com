@@ -1,10 +1,10 @@
 
 navigation-bar .logo {
-  padding: 0 10px;
+  padding: 10px 10px 0px 10px;
 }
 
 navigation-bar .logo img {
-  height: 50px;
+  height: 35px;
 }
 
 navigation-bar .dropdown img {

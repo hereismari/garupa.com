@@ -24,6 +24,11 @@ calendar .event {
   margin: 8px 4px;
   padding: 2px 8px;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+calendar .event:hover {
+  filter: brightness(110%);
 }
 
 calendar .driver {

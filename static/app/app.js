@@ -1,6 +1,6 @@
 
 var app = angular.module('app', [
-    'ui.router', 'door3.css', 'ngCookies'
+    'ui.router', 'door3.css', 'ngCookies', 'angular-loading-bar'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider) {
