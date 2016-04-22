@@ -2,6 +2,7 @@
 app.controller('notifications', function($scope, $timeout) {
 
     var removable = false;
+    $scope.active = null;
 
     // notifications types
     $scope.FRIEND_REQUEST  = 1;
@@ -54,10 +55,20 @@ app.controller('notifications', function($scope, $timeout) {
     user2.name = "Albert Einsten";
     user2.photo = "https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg";
 
-    var user3 = new User('einsten2.0');
-    user3.name = "Albert Einsten";
-    user3.photo = "https://pbs.twimg.com/profile_images/435830531951837184/Z50DeEtx.jpeg";
+    var user3 = new User('temer');
+    user3.name = "Temer babadi";
+    user3.photo = "http://blogdomarioflavio.com.br/vs1/wp-content/uploads/2016/01/Michel-Temer-foto-Ag%C3%AAncia-Brasil-150x150.jpg";
 
+    var ride2 = new Ride();
+    ride2.routes.push("Alto Branco");
+
+    user3.rides.push(ride2);
+
+    var user4 = new User('billy');
+    user4.name = "Billy the Kid";
+    user4.photo = "https://upload.wikimedia.org/wikipedia/en/thumb/7/79/Brushy_Bill_Roberts.jpg/220px-Brushy_Bill_Roberts.jpg";
+
+    // Notification list
 
     $scope.notifications_list = [
         { status         : 1,
@@ -65,18 +76,18 @@ app.controller('notifications', function($scope, $timeout) {
           date           : "21 de abr",
           message        : "enviou uma solicitação de amizade",
           ride           : "",
-          associatedUser : user1
+          associatedUser : user2
         },
 
-        { status         : 0,
+        { status         : 1,
           type           : 2,
           date           : "21 de abr",
           message        : "aceitou seu pedido de amizade",
           ride           : "20 de abr",
-          associatedUser : user2
+          associatedUser : user4
         },
 
-        { status         : 0,
+        { status         : 1,
           type           : 3,
           date           : "26 de mai",
           message        : "Uma carona surgiu.",
@@ -89,36 +100,73 @@ app.controller('notifications', function($scope, $timeout) {
           date           : "19 de abr",
           message        : "quer participar de uma carona",
           ride           : "",
-          associatedUser : user1
+          associatedUser : user3
         }
 
     ];
     
     // Notification actions
+    $scope.filter = "$";
+
+    $scope.search = "";
     
-    $scope.acceptFriendRequest = function(index, uid) {
-        $scope.notifications_list.splice(index, 1);
+    $scope.changeFilterTo = function(attr) {
+        //$scope.filter = pr;
+        $scope.search = attr;
+    }
+
+   $scope.getFilter = function() {
+        if ($scope.filter == 'uid')
+            return {uid: $scope.search};
+        else if ($scope.filter == 'type');
+            return {type: $scope.search};
+        
+        return {$: $scope.search};
+    }
+
+    $scope.getIndex = function (uid) {
+        for (var index = 0; index < $scope.notifications_list.length; index++) {
+            if (uid === $scope.notifications_list[index].associatedUser.uid)
+                return index;
+        }
+        return null;
+    }
+
+    $scope.removeNotificationByIndex = function(index) {
+        if (index != null) {
+            $scope.notifications_list.splice(index, 1);
+        }
+    }
+    
+    $scope.hideNotification = function(uid) {
+        var index = $scope.getIndex(uid);
+        $scope.notifications_list[ index ].status = 0;
+        $scope.removeNotificationByIndex( index );
+    }    
+    
+    $scope.acceptFriendRequest = function(uid) {
+        $scope.removeNotificationByIndex( $scope.getIndex(uid) );
         // add <uid> to friends
     }
 
-    $scope.acceptRideRequest = function(index, uid) {
-        $scope.notifications_list.splice(index, 1);
+    $scope.acceptRideRequest = function(uid) {
+        $scope.removeNotificationByIndex( $scope.getIndex(uid) );
         // send notification to uid
         // add <uid> to rides
     }
 
-    $scope.refuseRideRequest = function(index, uid) {
-        $scope.notifications_list.splice(index, 1);
+    $scope.refuseRideRequest = function(uid) {
+        $scope.removeNotificationByIndex( $scope.getIndex(uid) );
         // send notification to uid
     }
 
-    $scope.collapse = function() {
-       this.isExpanded  = !this.isExpanded;
-    }
+    $scope.collapse = function(uid) {
+        if ($scope.active != uid)
+            $scope.active = uid;
+        else
+            $scope.active = null;
+    };
 
-    $scope.delete = function(index) {
-        $scope.notifications_list.splice(index, 1);
-    }    
 
     $scope.hoverIn = function() {
         this.removable = true;
@@ -127,4 +175,30 @@ app.controller('notifications', function($scope, $timeout) {
     $scope.hoverOut = function() {
         this.removable = false;
     }
+    
 });
+
+app.filter('makeUppercase', function () {
+  return function (item) {
+      return item.toUpperCase();
+  };
+});
+
+
+/*
+app.filter('notificationFilter', function() {
+    return function(notifications, search) {
+        if (!search) {
+            return notifications;
+        }
+
+        var carType = search.carType;
+        if (!carType || '' === carType) {
+            return notifications;
+        }
+
+        return notifications.filter(function(element, index, array) {
+            return element.carType.name === search.carType;
+        });
+    };
+});*/
