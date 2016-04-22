@@ -29,6 +29,7 @@
   <link href='/libs/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
   <link href='/libs/bootstrap-plugins/bootstrap-vert-offset-shim.css' rel='stylesheet'>
   <link href='/libs/bootstrap-plugins/bootstrap-fixes.css' rel='stylesheet'>
+  <link href='/style.css' rel='stylesheet'>
 
   <script src='/app/app.js'></script>
   <script src='/app/shared/directives.js'></script>
@@ -52,9 +53,26 @@
 </head>
 
 <body>
-  <navigation-bar></navigation-bar>
-  <div class='container vert-offset-top-6 vert-offset-bottom-4'>
-    <div class='col-md-10 col-md-offset-1' ui-view></div></div>
+  <div id='wrapper'>
+	  
+    <navigation-bar></navigation-bar>
+    
+    <div id='content'>
+      <div class='container vert-offset-top-6 vert-offset-bottom-4'>
+        <div class='col-md-10 col-md-offset-1' ui-view></div></div>
+    </div>
+    
+    <div id='footer'>
+      <div class="container"><div class='col-md-10 col-md-offset-1'>
+        <div class="navbar-text pull-left">
+          <span> Garupa © 2016 | 4Xemeas+1 Inc. </span>
+          <span> Queremos o seu bigu! </span>
+        </div>
+      </div></div>
+      
+    </div>
+    
+  </div>
 </body>
 
 </html>
