@@ -6,10 +6,10 @@ class Ride(object):
     # variavel estatica
     rid_counter = 1
 
-    def __init__(self, driver, date, dest, origin, route, weekly, numberOfVacancies):
+    def __init__(self, driver, date, dest, origin, route, weekly, seats):
 
         self._driver = driver
-        self._numberOfVacancies = numberOfVacancies
+        self._numberOfVacancies = seats
 
         self._rid = Ride.rid_counter
         Ride.rid_counter += 1
@@ -118,7 +118,7 @@ class Ride(object):
             'origin': self.getOrigin(),
             'route': self.getRoute(),
             'weekly': self.isWeekly(),
-            'seats': self.getNumberOfVacancies(),
+            'seats': self.getNumberOfVacancies() - self.getNumberOfPassengers(),
 
             'passengers': [{
                 'name': p[0].getName(),
