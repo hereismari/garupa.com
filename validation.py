@@ -1,6 +1,5 @@
 import re
 from numbers import Integral
-from distutils.util import strtobool
 
 _required = {
     'user': {'uid', 'passwd', 'name', 'email'},
