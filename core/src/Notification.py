@@ -48,6 +48,8 @@ class Notification:
     	result = self.getData()
     	result['date'] = int(self.getTimestamp() * 1000)
 
+    	return result
+
 # PARTE DE TESTES GAMBIARROSAMENTE FEITA
 
 if __name__ == '__main__':
