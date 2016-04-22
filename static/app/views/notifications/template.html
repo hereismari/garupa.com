@@ -70,8 +70,10 @@
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
             <div ng-show="notification.associatedUser.rides.length != 0 && displayInfo" class="info">
               <div ng-repeat=" ride in notification.associatedUser.rides">
-                <span> Motorista : {{ ride.driver }} </span><br>
+                <span> Motorista : <a href="#"> {{ ride.driver }} </a></span><br>
                 <span> Nº de vagas : {{ ride.numberOfVacancies }} </span> <br>
+                <span> Data : <a href="#"> {{ ride.date }} </a></span> <br>
+                <span> Para : <a href="#"> {{ notification.ride }} </a></span> <br>
                 <span> Semanal : {{ ride.weekly ? "Sim" : "Não" }} </span> <br>
                 <span> Passageiros :
                   <a href="#" ng-repeat="passenger in ride.passengers"> {{ passenger.uid }} </a> 

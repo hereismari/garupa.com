@@ -65,11 +65,10 @@ ul, ol {
 }
 
 .notificationsList .info {
+	margin-left: 30px;
 	font-size: 14px;
-}
-
-.notificationsList .info span {
-	margin-left: 35px;
+	padding-left: 5px;
+	border-left: 2px solid #ccc;
 }
 
 .friend-request {

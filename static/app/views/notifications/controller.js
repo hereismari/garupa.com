@@ -76,21 +76,22 @@ app.controller('notifications', function($scope, $timeout) {
           associatedUser : user2
         },
 
+        { status         : 0,
+          type           : 3,
+          date           : "26 de mai",
+          message        : "Uma carona surgiu.",
+          ride           : "UFCG",
+          associatedUser : user1
+        },
+
         { status         : 1,
           type           : 4,
           date           : "19 de abr",
           message        : "quer participar da carona do dia 25/04/2016",
           ride           : "",
           associatedUser : user1
-        },
-
-        { status         : 0,
-          type           : 3,
-          date           : "26 de mai",
-          message        : "Uma carona surgiu.",
-          ride           : "",
-          associatedUser : user1
         }
+
     ];
     
     // Notification actions
