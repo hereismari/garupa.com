@@ -21,7 +21,7 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
 
     $scope.search = function() {
         var form = $scope.form;
-        Api.searchRides(form.dest, form.district, form.date, form.weekly, Users.logged.uid, form.page)
+        Api.searchRides(form.dest, form.district, form.date, form.weekly, form.page)
             .then(function(resp) {
                 $scope.search_result = resp.data.results;
                 $scope.pages = _.range(1, resp.data.pages+1);

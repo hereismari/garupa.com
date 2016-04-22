@@ -6,12 +6,17 @@ class Controller(object):
     users = dict()
     rides = dict()
 
-    def register_user(self, name, uid, email, passwd):
+    def register_user(self, uid, passwd, name, email):
         if uid in self.users:
             return False
 
-        self.users[uid] = User(name, uid, email, passwd)
+        self.users[uid] = User(uid, passwd, name, email)
         return True
+
+    def get_credentials(self, uid):
+        u = self.users.get(uid, None)
+        if u == None: return None
+        return u.getPassword()
 
     def view_user(self, uid, vuid):
         u = self.users.get(uid, None)
@@ -29,6 +34,7 @@ class Controller(object):
         elif attr == 'photo': u.setPhoto(value)
         elif attr == 'phone': u.setPhone(value)
 
+        else: return False
         return True
 
     def add_friend(self, uid, fuid):
@@ -81,7 +87,7 @@ class Controller(object):
     def register_ride(self, driver, date, dest, origin, route, weekly, seats):
         u = self.users.get(driver, None)
         if u == None: return False
-        
+
         date = datetime.fromtimestamp(date / 1000)
         r = Ride(u, date, dest, origin, route, weekly, seats)
 
@@ -90,7 +96,7 @@ class Controller(object):
         return True
 
     def update_rides(self):
-        self.rides = { ride[0] : ride[1] for ride in self.rides.iteritems() if ride[1].update() }
+        self.rides = { rid: r for rid, r in self.rides.iteritems() if r.update() }
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.users.get(uid, None)

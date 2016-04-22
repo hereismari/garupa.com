@@ -1,28 +1,47 @@
 import re
+from numbers import Integral
 
-EDITABLE = {'name', 'email', 'phone', 'photo'}
-REQUIRED = {'name', 'uid', 'email', 'passwd'}
+_required = {
+    'user': {'uid', 'passwd', 'name', 'email'},
+    'ride': {'date', 'dest', 'origin', 'route', 'weekly', 'seats'}
+}
 
 _pattern = {
-    'name'  : '.{3,}',
     'uid'   : '\d{9}$',
-    'email' : '.+@.+\..+',
     'passwd': '.+',
+    'name'  : '.{3,}',
+    'email' : '.+@.+\..+',
     'phone' : '\(\d\d\) \d{4,5}-\d{4}$',
-    'photo' : 'data:image/.+;base64,[A-Za-z0-9+/]*={0,2}$'
+    'photo' : 'data:image/.+;base64,[A-Za-z0-9+/]*={0,2}$',
+
+    'date'  : '\d{13}$',
+    'dest'  : '(HOME|UFCG)$',
+    'origin': '.{12,}',
+    'route' : "\[u'[^']{5,}'(, u'[^']{5,}')*]$",
+    'weekly': '(True|False)$',
+    'seats' : '\d{1,2}$'
 }
 
 _type = {
-    'name'  : str,
-    'uid'   : int,
-    'email' : str,
-    'passwd': str,
-    'phone' : str,
-    'photo' : str
+    'uid'   : Integral,
+    'passwd': unicode,
+    'name'  : unicode,
+    'email' : unicode,
+    'phone' : unicode,
+    'photo' : unicode,
+
+    'date'  : Integral,
+    'dest'  : unicode,
+    'origin': unicode,
+    'route' : list,
+    'weekly': bool,
+    'seats' : Integral
 }
 
-def cast(attr, value):
-    return _type[attr](value)
-
 def check(attr, value):
-    return re.match(_pattern[attr], str(value))
+    typed = isinstance(value, _type[attr])
+    formated = re.match(_pattern[attr], unicode(value))
+    return typed and formated
+
+def complete(mode, obj):
+    return set(obj) == _required[mode]

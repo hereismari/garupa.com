@@ -9,18 +9,18 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
     $urlRouterProvider
         .when('', '/')
 
-        .when(/login|recuperar-senha/, function($state, $match, Users) {
-            return Users.cacheUID.get() != null? '/perfil':
+        .when(/login|recuperar-senha/, function($state, $match, Api) {
+            return Api.getCache().uid != null? '/perfil':
                 $state.go($match == 'recuperar-senha'? 'recover' : 'login');
         })
 
-        .when(/\/.+/, function($state, $location, Users) {
-            return Users.cacheUID.get() != null? false:
+        .when(/\/.+/, function($state, $location, Api) {
+            return Api.getCache().uid != null? false:
                 $state.go('login', { redirect: $location.url() });
         })
 
-        .when('/perfil', function($state, Users) {
-            return '/perfil/' + Users.cacheUID.get();
+        .when('/perfil', function($state, Api) {
+            return '/perfil/' + Api.getCache().uid;
         })
 
         .when('/perfil/:uid', function($state, $location, $match, Users) {
@@ -46,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
             url: '/login',
             controller: 'login',
             templateUrl: '/app/views/login/template.html',
-            params: { redirect: '/perfil' }
+            params: { redirect: '/perfil', uid: null }
         })
 
         .state('recover', {

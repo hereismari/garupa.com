@@ -29,7 +29,7 @@
       <div class='form-group'>
         <label> Seu endereço </label>
         <input type='text' class='form-control vert-offset-bottom-1' ng-model='form.complement'
-            placeholder='eg. Rua Almirante Barbosa, 438' required />
+            pattern='.{12,}' placeholder='eg. Rua Almirante Barbosa, 438' required />
         <select id='district' class='select select-primary' ng-model='form.district'
             ng-options='d for d in Districts' required><option></option></select>
       </div>
@@ -73,14 +73,14 @@
             <div class='col-md-2'>
               <b> Motorista <br>
                   Hora <br>
-                  Semanal <br>
+                  Passageiros <br>
                   Vagas <br>
             </b></div>
 
             <div class='col-md-4'>
               {{ride.driver.name}} <br>
               {{ride.date | date : 'H:mm'}} <br>
-              {{ride.weekly? 'Sim' : 'Não'}} <br>
+              {{ride.passengers.length}} <br>
               {{ride.seats}} <br>
             </div>
 
