@@ -126,6 +126,13 @@ app.service('Api', function($q, $http, Cookie) {
         });
     };
 
+   this.recoverPassword = function(uid) {
+        return request({
+            method: 'POST',
+            url: '/api/users/' + uid + '/password-reset'
+        });
+    };
+
     this.viewUser = function(uid) {
         return request({
             method: 'GET',

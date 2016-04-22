@@ -24,7 +24,7 @@ _pattern = {
 
 _type = {
     'uid'   : Integral,
-    'passwd': unicode,
+    'passwd': object,
     'name'  : unicode,
     'email' : unicode,
     'phone' : unicode,

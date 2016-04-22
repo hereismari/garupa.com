@@ -1,17 +1,35 @@
 import json, logging, validation
 from distutils.util import strtobool
+
 from flask import Flask, request, redirect
 from flask_digest import Stomach
+from flask_digest.hasher import hash_all
+
 from core import Controller
+from core.mailing import Email
+from core.generator import Generator
 
 #----------------------------------CONFIG---------------------------------------
 
 app = Flask(__name__)
 stomach = Stomach('garupa.com')
-controller = Controller()
 
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-app.config['DEBUG'] = True
+app.config.update(
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 465,
+    MAIL_USERNAME = 'sitegarupa@gmail.com',
+    MAIL_PASSWORD = 'garupa.com',
+    MAIL_USE_TLS = False,
+    MAIL_USE_SSL = True,
+    MAIL_DEFAULT_SENDER = 'sitegarupa@gmail.com',
+
+    MAX_CONTENT_LENGTH = 1024 * 1024,
+    DEBUG = True
+)
+
+email_manager = Email(app)
+controller = Controller()
+generator = Generator()
 
 @app.after_request
 def add_header(response):
@@ -76,11 +94,12 @@ def register_user():
     except:
         return BAD_REQUEST
 
-    uid, passwd = args['uid'], args['passwd']
-    name, email = args['name'], args['email']
+    uid, name, email = args['uid'], args['name'], args['email']
+    passwd = args['passwd'] or generator.password()
 
-    success = register_credentials(uid, passwd, name, email)
-    return CREATED if success else CONFLICT
+    user = register_credentials(uid, passwd, name, email)
+    if user: email_manager.send_welcome(user, passwd)
+    return CREATED if user else CONFLICT
 
 @app.route('/api/users/<int:uid>', methods=['GET'])
 @stomach.protect
@@ -103,6 +122,16 @@ def update_user(uid, attr):
     if uid != logged_user(): return UNAUTHORIZED
 
     success = controller.update_user(uid, attr, value)
+    return UPDATED if success else NOT_FOUND
+
+@app.route('/api/users/<int:uid>/password-reset', methods=['POST'])
+def recover_passwd(uid):
+    new_passwd = generator.password()
+    hashed_passwd = hash_all(uid, stomach.realm, new_passwd)
+    user = controller.get_user(uid)
+
+    success = controller.recover_passwd(uid, hashed_passwd)
+    if success: email_manager.send_recover_passwd(user, new_passwd)
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/friends', methods=['POST'])

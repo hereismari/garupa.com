@@ -6,27 +6,38 @@ class Controller(object):
     users = dict()
     rides = dict()
 
-    def register_user(self, uid, passwd, name, email):
-        if uid in self.users:
-            return False
+    def get_user(self, uid):
+        return self.users.get(uid, None)
 
-        self.users[uid] = User(uid, passwd, name, email)
+    def get_ride(self, uid):
+        return self.rides.get(uid, None)
+
+    def recover_passwd(self, uid, new_passwd):
+        u = self.get_user(uid)
+        if u == None: return False
+
+        u.setPassword(new_passwd)
         return True
 
+    def register_user(self, uid, passwd, name, email):
+        if uid in self.users: return None
+        self.users[uid] = User(uid, passwd, name, email)
+        return self.get_user(uid)
+
     def get_credentials(self, uid):
-        u = self.users.get(uid, None)
+        u = self.get_user(uid)
         if u == None: return None
         return u.getPassword()
 
     def view_user(self, uid, vuid):
-        u = self.users.get(uid, None)
-        v = self.users.get(vuid, None)
+        u = self.get_user(uid)
+        v = self.get_user(vuid)
 
         if u == None or v == None: return None
         return u.getView(v)
 
     def update_user(self, uid, attr, value):
-        u = self.users.get(uid, None)
+        u = self.get_user(uid)
         if u == None: return False
 
         if attr == 'name': u.setName(value)
@@ -38,8 +49,8 @@ class Controller(object):
         return True
 
     def add_friend(self, uid, fuid):
-        u = self.users.get(uid, None)
-        f = self.users.get(fuid, None)
+        u = self.get_user(uid)
+        f = self.get_user(fuid)
 
         if u == None or f == None:
             return False
@@ -48,8 +59,8 @@ class Controller(object):
         return True
 
     def remove_friend(self, uid, fuid):
-        u = self.users.get(uid, None)
-        f = self.users.get(fuid, None)
+        u = self.get_user(uid)
+        f = self.get_user(fuid)
 
         if u == None or f == None:
             return False
@@ -58,8 +69,8 @@ class Controller(object):
         return True
 
     def join_ride(self, uid, rid, district, complement):
-        u = self.users.get(uid, None)
-        r = self.rides.get(rid, None)
+        u = self.get_user(uid)
+        r = self.get_ride(rid)
 
         if u == None or r == None: return False
         if r.isFull(): return False
@@ -70,8 +81,8 @@ class Controller(object):
         return True
 
     def cancel_ride(self, uid, rid):
-        u = self.users.get(uid, None)
-        r = self.rides.get(rid, None)
+        u = self.get_user(uid)
+        r = self.get_ride(rid)
 
         if u == None or r == None:
             return False
@@ -85,7 +96,7 @@ class Controller(object):
         return True
 
     def register_ride(self, driver, date, dest, origin, route, weekly, seats):
-        u = self.users.get(driver, None)
+        u = self.get_user(driver)
         if u == None: return False
 
         date = datetime.fromtimestamp(date / 1000)
@@ -99,7 +110,7 @@ class Controller(object):
         self.rides = { rid: r for rid, r in self.rides.iteritems() if r.update() }
 
     def search_rides(self, dest, district, date, weekly, uid):
-        u = self.users.get(uid, None)
+        u = self.get_user(uid)
         date = datetime.fromtimestamp(date / 1000)
 
         self.update_rides()
