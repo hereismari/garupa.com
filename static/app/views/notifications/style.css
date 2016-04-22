@@ -64,15 +64,28 @@ ul, ol {
 	font-size: 14px;
 }
 
-.notificationsList .info {
+.notificationsList .info, .info-rides {
 	margin-left: 30px;
 	font-size: 14px;
 	padding-left: 5px;
 	border-left: 2px solid #ccc;
+	margin-bottom: 15px;
+}
+
+.info-rides {
+	border-left: 2px solid transparent;
 }
 
 .friend-request {
 	/*background: #ddd; */
+}
+
+.accept-request, .refuse-request {
+	font-size: 14px;
+    font-weight: 400;
+    padding: 5px;
+    border-radius: 2px;
+    width: 107px;
 }
 
 .img-rounded {

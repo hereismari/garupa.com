@@ -3,26 +3,13 @@
   <div class="notificationsNav">
     <ul>
       <li class="lnk"> Notifica&ccedil;&otilde;es</li>
-      <li class="selected">
-        <a href="#">Todas as notifica&ccedil;&otilde;es</a>
-      </li>
-      <br>
+      <li class="selected"> <a href="#">Todas as notifica&ccedil;&otilde;es</a> </li> <br>
       <li class="lnk">Filtrar por tipo</li>
-      <li class="selected">
-        <a href="#">Recentes</a> 
-      </li>      
-      <li class="selected">
-        <a href="#">Pedidos de Amizade</a> 
-      </li>
-      <li class="selected">
-        <a href="#">Pedidos de Carona</a>
-      </li>
-      <li class="selected">
-        <a href="#">Caronas encontradas</a>
-      </li>
-      <li class="selected">
-        <a href="#">Avalia&ccedil;&otilde;es</a>
-      </li>
+      <li class="selected"> <a href="#">Recentes</a> </li>      
+      <li class="selected"> <a href="#">Pedidos de Amizade</a> </li>
+      <li class="selected"> <a href="#">Pedidos de Carona</a> </li>
+      <li class="selected"> <a href="#">Caronas encontradas</a> </li>
+      <!--<li class="selected"> <a href="#">Avalia&ccedil;&otilde;es</a> </li>-->
     </ul>
   </div>
   <div class="notificationsList">
@@ -30,7 +17,7 @@
     <form> 
       <ol class="list-group list_of_items">
         <li class="list-group-item" ng-repeat="notification in notifications_list" 
-          ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+          ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-init="isExpanded = false" ng-click="collapse()">
 
           <!-- Friend request -->
           <div ng-if="notification.type == FRIEND_REQUEST">
@@ -42,7 +29,7 @@
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
              <span class="friend-request">
-                <button class="btn btn-block btn-lg btn-primary" ng-click="acceptFriendRequest($index, notification.associatedUser.uid)">
+                <button class="btn btn-block btn-lg btn-success" ng-click="acceptFriendRequest($index, notification.associatedUser.uid)">
                   Adicionar aos amigos!
                 </button>
              </span>
@@ -62,13 +49,13 @@
           <!-- Ride found -->
           <div ng-if="notification.type == RIDE_FOUND">
             <span class="fa fa-remove pull-right" ng-show="removable" ng-click="delete($index)"></span>
-            <div class="list-group-item-heading" ng-click="showInfo()">
+            <div class="list-group-item-heading">
             <img class='img-responsive img-rounded' src="https://cdn4.iconfinder.com/data/icons/map/500/map-2-512.png"/>
               <span> {{ notification.message }} </span>
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
-            <div ng-show="notification.associatedUser.rides.length != 0 && displayInfo" class="info">
+            <div ng-show="notification.associatedUser.rides.length != 0 && isExpanded" class="info">
               <div ng-repeat=" ride in notification.associatedUser.rides">
                 <span> Motorista : <a href="#"> {{ ride.driver }} </a></span><br>
                 <span> Nº de vagas : {{ ride.numberOfVacancies }} </span> <br>
@@ -77,9 +64,15 @@
                 <span> Semanal : {{ ride.weekly ? "Sim" : "Não" }} </span> <br>
                 <span> Passageiros :
                   <a href="#" ng-repeat="passenger in ride.passengers"> {{ passenger.uid }} </a> 
-                </span>
+                </span>            
               </div>
             </div>
+            <span class="friend-request">
+              <button class="btn btn-block btn-lg btn-success" ng-click="acceptFriendRequest($index, notification.associatedUser.uid)">
+                Pegar Bigu!
+              </button>
+            </span>
+          
           </div>
 
           <!-- Ride request -->
@@ -91,11 +84,24 @@
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
-          </div>
+            <div ng-show="isExpanded" class="info">
+              <div ng-repeat=" ride in notification.associatedUser.rides">
+                <span> Bairro : <a href="#"> {{ ride.routes[0] }} </a></span><br>
+                <span> Data e horário: {{ ride.date }} </span> <br>           
+              </div>
+            </div>
 
+            <div class="info-rides">
+              <button class="btn btn-lg btn-success accept-request" ng-click="acceptRideRequest($index, notification.associatedUser.uid)">
+                Aceitar
+              </button>
+              <button class="btn btn-lg btn-danger refuse-request" ng-click="refuseRideRequest($index, notification.associatedUser.uid)">
+                Recusar
+              </button>
+            </div>
+          </div>
         </li>
       </ol>
     </form>
   </div>
-  
 </div>

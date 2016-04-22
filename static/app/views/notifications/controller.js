@@ -2,7 +2,6 @@
 app.controller('notifications', function($scope, $timeout) {
 
     var removable = false;
-    var displayInfo = false;
 
     // notifications types
     $scope.FRIEND_REQUEST  = 1;
@@ -42,9 +41,10 @@ app.controller('notifications', function($scope, $timeout) {
     var ride1 = new Ride();
     ride1.driver = "Fulano";
     ride1.numberOfVacancies = 2;
-    ride1.date = "25 de abr";
+    ride1.date = "25 de abr às 12:15";
     ride1.weekly = false;
     ride1.toUFCG = true;
+    ride1.routes.push("Alto Branco");
     ride1.passengers.push(new User("cicrano"));
     ride1.passengers.push(new User("deutrano"));
 
@@ -87,7 +87,7 @@ app.controller('notifications', function($scope, $timeout) {
         { status         : 1,
           type           : 4,
           date           : "19 de abr",
-          message        : "quer participar da carona do dia 25/04/2016",
+          message        : "quer participar de uma carona",
           ride           : "",
           associatedUser : user1
         }
@@ -101,8 +101,19 @@ app.controller('notifications', function($scope, $timeout) {
         // add <uid> to friends
     }
 
-    $scope.showInfo = function() {
-        $scope.displayInfo = !$scope.displayInfo; 
+    $scope.acceptRideRequest = function(index, uid) {
+        $scope.notifications_list.splice(index, 1);
+        // send notification to uid
+        // add <uid> to rides
+    }
+
+    $scope.refuseRideRequest = function(index, uid) {
+        $scope.notifications_list.splice(index, 1);
+        // send notification to uid
+    }
+
+    $scope.collapse = function() {
+       this.isExpanded  = !this.isExpanded;
     }
 
     $scope.delete = function(index) {
