@@ -1,5 +1,5 @@
 
-app.controller('login', function($scope, $stateParams, $location, Users) {
+app.controller('login', function($scope, $state, $stateParams, $location, Users) {
     $scope.uid = $stateParams.uid;
     $scope.passwd = null;
 
@@ -8,5 +8,9 @@ app.controller('login', function($scope, $stateParams, $location, Users) {
             if(success) $location.path($stateParams.redirect);
             else $scope.passwd = null;
         });
+    };
+
+    $scope.recuperarSenha = function() {
+        $state.go('recover', { uid: $scope.uid });
     };
 });

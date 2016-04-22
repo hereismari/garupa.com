@@ -1,7 +1,7 @@
 import random, string, os
 
-class Generator():
-    
+class Generator(object):
+
     def password(self, length=10):
         chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
         random.seed = (os.urandom(1024))

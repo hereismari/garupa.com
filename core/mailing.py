@@ -1,7 +1,7 @@
 from flask_mail import Mail, Message
 from threading import Thread
 
-class Email():
+class Email(object):
 
     def __init__(self, app):
         self.app = app
@@ -11,7 +11,7 @@ class Email():
         subject = 'Bem vindo ao garupa.com!'
         recipients = [user.getEmail()]
         body = 'Oi %s,\n' % user.getName()
-        body += 'Sua conta no garupa.com foi realizada com sucesso!\n\n'
+        body += 'Sua conta no garupa.com foi criada com sucesso!\n\n'
         body += 'Sua matricula: %s\n' % user.getUid()
         body += 'Sua senha: %s (nao va perder em?)\n' % passwd
         self.send(subject, recipients, body)

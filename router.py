@@ -1,8 +1,10 @@
 import json, logging, validation
 from distutils.util import strtobool
+
 from flask import Flask, request, redirect
 from flask_digest import Stomach
 from flask_digest.hasher import hash_all
+
 from core import Controller
 from core.mailing import Email
 from core.generator import Generator
@@ -11,20 +13,23 @@ from core.generator import Generator
 
 app = Flask(__name__)
 stomach = Stomach('garupa.com')
-generator = Generator()
 
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-app.config['DEBUG'] = True
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465 
-app.config['MAIL_USERNAME'] = 'sitegarupa@gmail.com'
-app.config['MAIL_PASSWORD'] = 'garupa.com'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True 
-app.config['MAIL_DEFAULT_SENDER'] = 'sitegarupa@gmail.com'
+app.config.update(
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 465,
+    MAIL_USERNAME = 'sitegarupa@gmail.com',
+    MAIL_PASSWORD = 'garupa.com',
+    MAIL_USE_TLS = False,
+    MAIL_USE_SSL = True,
+    MAIL_DEFAULT_SENDER = 'sitegarupa@gmail.com',
 
+    MAX_CONTENT_LENGTH = 1024 * 1024,
+    DEBUG = True
+)
+
+email_manager = Email(app)
 controller = Controller()
-emailHelper = Email(app)
+generator = Generator()
 
 @app.after_request
 def add_header(response):
@@ -88,21 +93,13 @@ def register_user():
             assert validation.check(attr, value)
     except:
         return BAD_REQUEST
-    
-    if args['passwd'] == '': 
-        real_passwd = generator.password()
-        args['passwd'] = real_passwd
-    else: 
-        real_passwd = args['passwd']
-    
-    uid, passwd = args['uid'], args['passwd']
-    name, email = args['name'], args['email']
-  
-    success = register_credentials(uid, passwd, name, email)
-    if success:
-        emailHelper.send_welcome(controller.get_user(args['uid']), real_passwd)
-    
-    return CREATED if success else CONFLICT
+
+    uid, name, email = args['uid'], args['name'], args['email']
+    passwd = args['passwd'] or generator.password()
+
+    user = register_credentials(uid, passwd, name, email)
+    if user: email_manager.send_welcome(user, passwd)
+    return CREATED if user else CONFLICT
 
 @app.route('/api/users/<int:uid>', methods=['GET'])
 @stomach.protect
@@ -130,11 +127,12 @@ def update_user(uid, attr):
 @app.route('/api/users/<int:uid>/password-reset', methods=['POST'])
 def recover_passwd(uid):
     new_passwd = generator.password()
-    success = controller.recover_passwd(uid, hash_all(uid, stomach.realm, new_passwd))
-    if success: 
-        emailHelper.send_recover_passwd(controller.get_user(uid), new_passwd)
-        return UPDATED
-    return NOT_FOUND
+    hashed_passwd = hash_all(uid, stomach.realm, new_passwd)
+    user = controller.get_user(uid)
+
+    success = controller.recover_passwd(uid, hashed_passwd)
+    if success: email_manager.send_recover_passwd(user, new_passwd)
+    return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/friends', methods=['POST'])
 @stomach.protect

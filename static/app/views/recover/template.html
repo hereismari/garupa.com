@@ -1,13 +1,9 @@
 
-<div class='col-md-6 col-md-offset-3'>
-		<form id='recovery-form' ng-submit='recover_passwd()'>
-			<div class='form-group'>
-				<label> Matrícula </label>
-				<input ng-model='form.uid' pattern='[0-9]{9}' type='text' class='form-control'
-          placeholder='eg. 114110376' spellcheck='false' required>
-			</div>
-		
-		<button class='btn btn-primary' type='submit'> Recuperar Senha </button>		
-		</form>
-
-</div>
+<div class='col-md-6 col-md-offset-3'><form ng-submit='recover()'>
+  <div class='form-group'>
+    <label> Matrícula </label>
+    <input ng-model='uid' type='text' class='form-control'
+        placeholder='eg. 114110376' spellcheck='false' required></div>
+  <button class='btn btn-primary' type='submit'>
+    Recuperar Senha </button>
+</form></div>

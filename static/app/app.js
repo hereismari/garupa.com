@@ -52,7 +52,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .state('recover', {
             url: '/recuperar-senha',
             controller: 'recover',
-            templateUrl: '/app/views/recover/template.html'
+            templateUrl: '/app/views/recover/template.html',
+            params: { uid: null }
         })
 
         .state('profile', {

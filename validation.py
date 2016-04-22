@@ -8,12 +8,12 @@ _required = {
 
 _pattern = {
     'uid'   : '\d{9}$',
-    'email' : '.+@.+\..+',
-    'passwd': '.*',
+    'passwd': '.+',
     'name'  : '.{3,}',
     'email' : '.+@.+\..+',
     'phone' : '\(\d\d\) \d{4,5}-\d{4}$',
     'photo' : 'data:image/.+;base64,[A-Za-z0-9+/]*={0,2}$',
+
     'date'  : '\d{13}$',
     'dest'  : '(HOME|UFCG)$',
     'origin': '.{12,}',
@@ -24,7 +24,7 @@ _pattern = {
 
 _type = {
     'uid'   : Integral,
-    'passwd': unicode,
+    'passwd': object,
     'name'  : unicode,
     'email' : unicode,
     'phone' : unicode,
