@@ -107,20 +107,17 @@ app.controller('notifications', function($scope, $timeout) {
     
     // Notification actions
     $scope.filter = "$";
-
     $scope.search = "";
     
     $scope.changeFilterTo = function(attr) {
-        //$scope.filter = pr;
         $scope.search = attr;
     }
 
-   $scope.getFilter = function() {
+    $scope.getFilter = function() {
         if ($scope.filter == 'uid')
             return {uid: $scope.search};
         else if ($scope.filter == 'type');
             return {type: $scope.search};
-        
         return {$: $scope.search};
     }
 
@@ -167,7 +164,6 @@ app.controller('notifications', function($scope, $timeout) {
             $scope.active = null;
     };
 
-
     $scope.hoverIn = function() {
         this.removable = true;
     }
@@ -177,28 +173,3 @@ app.controller('notifications', function($scope, $timeout) {
     }
     
 });
-
-app.filter('makeUppercase', function () {
-  return function (item) {
-      return item.toUpperCase();
-  };
-});
-
-
-/*
-app.filter('notificationFilter', function() {
-    return function(notifications, search) {
-        if (!search) {
-            return notifications;
-        }
-
-        var carType = search.carType;
-        if (!carType || '' === carType) {
-            return notifications;
-        }
-
-        return notifications.filter(function(element, index, array) {
-            return element.carType.name === search.carType;
-        });
-    };
-});*/
