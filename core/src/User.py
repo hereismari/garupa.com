@@ -46,7 +46,7 @@ class User:
     def numberOfUnseenNotifications(self):
         result = 0
         for notification in self._notifications:
-            if not notification.getStatus(): result += 1
+            if not notification.getSeen(): result += 1
         return result
 
     def addRide(self, ride):

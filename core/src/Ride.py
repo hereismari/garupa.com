@@ -1,25 +1,24 @@
-#from datetime import datetime
 import datetime
 
 class Ride:
 
     # variavel estatica
-    uid_counter = 1
+    rid_counter = 1
 
-    def __init__(self, driver, numberOfVacancies, routes, toUFCG=False, date=datetime.datetime.now(), weekly=False):
+    def __init__(self, driver, numberOfVacancies, route, toUFCG=False, date=datetime.datetime.now(), weekly=False):
 
         self._driver = driver
         self._numberOfVacancies = numberOfVacancies
         
-        self._uid = Ride.uid_counter
-        Ride.uid_counter += 1
+        self._rid = Ride.rid_counter
+        Ride.rid_counter += 1
     
         self._date = date
         self._weekly = weekly
         self._toUFCG = toUFCG
 
         self._passengers = []
-        self._routes = routes
+        self._route = route
 
     def addPassenger(self, passenger, address):
         if not self.isFull() and passenger != self._driver and not self.containsPassenger(passenger):
@@ -43,7 +42,7 @@ class Ride:
         return (self.getNumberOfPassengers() == self.getNumberOfVacancies())
 
     def __eq__(self, otherRide):
-        return self.getUid() == otherRide.getUid()
+        return self.getRid() == otherRide.getRid()
         
     def weekly_update(self):
         sunday = self.getLastSunday()
@@ -61,10 +60,21 @@ class Ride:
         return datetime.datetime.fromordinal(today - week_day)
 
     def isInTheRoute(self, targetNeighborhood):
-    	for neighborhood in routes:
+    	for neighborhood in self._route:
     		if neighborhood == targetNeighborhood:
     			return True
     	return False
+
+    # caso precise desses metodos
+    def addNeighborhoodToRoute(self, neighborhood):
+        if neighborhood not in self._route:
+            self._route.append(neighborhood)
+
+    def removeNeighborhoodFromRoute(self, neighborhood):
+        old_size = len(self._route)
+
+        self._passengers = [r for r in self._route if r != neighborhood]
+        return old_size != len(self._route)
 
     """ Set and Get functions """
 
@@ -92,8 +102,8 @@ class Ride:
     def getPassengers(self):
         return self._passengers
 
-    def getUid(self):
-        return self._uid
+    def getRid(self):
+        return self._rid
 
     def getToUFCG(self):
         return self._toUFCG
@@ -101,8 +111,8 @@ class Ride:
     def setToUfcg(self, toUFCG):
         self._toUFCG = toUFCG
 
-    def getRoutes(self):
-        return self._routes
+    def getRoute(self):
+        return self._route
 
     """ Get view """
 
@@ -112,21 +122,7 @@ class Ride:
         result['date'] = str(self.getDate())
         result['driver'] = self.getDriver().getName()
         result['number_of_vacancies'] = self.getNumberOfVacancies()
-        for passenger in self.getPassengers:
+        for passenger in self.getPassengers():
             result['passengers'].append(passenger.getName())
+        result['route'] = self.getRoute()
         return result
-
-
-
-# LEMBRE DE COLOCAR ISSO NOS TESTES
-if __name__ == '__main__':
-
-    ride1 = Ride('', 2, [], date=datetime.datetime(2016, 04, 15))
-
-    ride1.setWeekly(True)
-
-    print ride1.getDate()
-
-    ride1.weekly_update()
-
-    print ride1.getReadableDate()

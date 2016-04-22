@@ -9,12 +9,12 @@ class NotificationTest(unittest.TestCase):
 
     def test_basic(self):
 
-        notification = Notification();
+        notification = Notification({});
         self.assertEqual(notification.getReadableDate(), datetime.datetime.now().strftime('%d-%m-%Y'))
-        self.assertEqual(notification.getStatus(), False)
+        self.assertEqual(notification.getSeen(), False)
 
-        notification.setStatus(True)
-        self.assertEqual(notification.getStatus(), True)
+        notification.setSeen(True)
+        self.assertEqual(notification.getSeen(), True)
 
         
 

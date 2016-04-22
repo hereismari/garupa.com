@@ -1,18 +1,20 @@
 from datetime import datetime
+from time import mktime
 
 """Classe usada como uma abstracao de uma notificacao, nao devera ser instanciada"""
 
 class Notification:
 
-    def __init__(self, date=datetime.now(), status=False):
-        self._status = status
-        self._date = date
+    def __init__(self, associatedData):
+        self._seen = False
+        self._date = datetime.now()
+        self._data = associatedData
         self._message = 'Nova atividade!'
 
     def __str__(self):
         result = 'Notification\n'
         result += 'date: ' + self._date + '\n'
-        result += 'status: ' + ('seen' if self._status else 'unseen') + '\n'
+        result += 'status: ' + ('seen' if self._seen else 'unseen') + '\n'
         result += 'message: ' + str(self._message) + '\n'
         return result
 
@@ -30,11 +32,21 @@ class Notification:
     def getReadableDate(self):
         return self._date.strftime('%d-%m-%Y')
 
-    def getStatus(self):
-        return self._status
+    def getSeen(self):
+        return self._seen
 
-    def setStatus(self, status):
-        self._status = status
+    def setSeen(self, seen):
+        self._seen = seen
+
+    def getData(self):
+    	return self._data
+
+    def getTimestamp(self):
+        return mktime(self.getDate().timetuple())
+
+    def getView(self):
+    	result = self.getData()
+    	result['date'] = int(self.getTimestamp() * 1000)
 
 # PARTE DE TESTES GAMBIARROSAMENTE FEITA
 

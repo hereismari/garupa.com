@@ -33,10 +33,10 @@ class RideTest(unittest.TestCase):
         self.assertEqual(ride.getDriver(), self.user1)
         self.assertEqual(ride.getNumberOfVacancies(), 2)
         self.assertEqual(ride.isWeekly(), False)
-        self.assertEquals(ride.getReadableDate(), datetime.datetime.now().strftime('%d-%m-%Y'))
+        self.assertEqual(ride.getReadableDate(), datetime.datetime.now().strftime('%d-%m-%Y'))
         self.assertEqual(ride.isFull(), False)
         self.assertEqual(ride.getNumberOfPassengers(), 0)
-        self.assertEqual(ride.getRoutes(), self.neighborhoods3)
+        self.assertEqual(ride.getRoute(), self.neighborhoods3)
         self.assertEqual(ride.getToUFCG(), False)
         
         #  Test UID
@@ -81,29 +81,49 @@ class RideTest(unittest.TestCase):
         self.assertEqual(self.ride1.isFull(), False)
         self.assertEqual(self.ride1.getNumberOfPassengers(), 0)
 
+    def test_addNeighborhoodToRoute(self):
+
+        self.assertEqual(len(self.ride1.getRoute()), 4)
+
+        self.ride1.addNeighborhoodToRoute('um bairro bem legal')
+        self.ride1.addNeighborhoodToRoute('um bairro nao tao legal')
+
+        self.assertEqual(len(self.ride1.getRoute()), 6)
+
+
     def test_weeklyUpdate(self):
 
         self.ride3 = Ride(self.user1, 2, self.neighborhoods1, date=datetime.datetime(2016, 04, 15))
         self.ride4 = Ride(self.user2, 5, self.neighborhoods2, date=datetime.datetime(2016, 04, 05))
 
-        self.assertEquals(self.ride3.getReadableDate(), '15-04-2016')
-        self.assertEquals(self.ride4.getReadableDate(), '05-04-2016')
+        self.assertEqual(self.ride3.getReadableDate(), '15-04-2016')
+        self.assertEqual(self.ride4.getReadableDate(), '05-04-2016')
 
         self.ride3.setWeekly(True)
         self.ride4.setWeekly(True)
 
-        self.assertEquals(self.ride3.weekly_update(), True)
-        self.assertEquals(self.ride4.weekly_update(), True)
+        self.assertEqual(self.ride3.weekly_update(), True)
+        self.assertEqual(self.ride4.weekly_update(), True)
 
-        self.assertEquals(self.ride3.getReadableDate(), '22-04-2016')
-        self.assertEquals(self.ride4.getReadableDate(), '12-04-2016')
+        self.assertEqual(self.ride3.getReadableDate(), '22-04-2016')
+        self.assertEqual(self.ride4.getReadableDate(), '12-04-2016')
 
         self.ride3.setWeekly(False)
-        self.assertEquals(self.ride3.weekly_update(), False)
+        self.assertEqual(self.ride3.weekly_update(), False)
 
-        self.assertEquals(self.ride4.weekly_update(), True)
+        self.assertEqual(self.ride4.weekly_update(), True)
 
-        self.assertEquals(self.ride4.getReadableDate(), '19-04-2016')
+        self.assertEqual(self.ride4.getReadableDate(), '19-04-2016')
+
+    def test_isInTheRoute(self):
+
+        self.assertEqual(self.ride1.isInTheRoute('bairro da minha amiga'), True)
+        self.assertEqual(self.ride1.isInTheRoute('alarodrigo'),True)
+        self.assertEqual(self.ride1.isInTheRoute('bodocongs'),False)
+        self.assertEqual(self.ride1.isInTheRoute('bairro da minha amig'), False)
+        self.assertEqual(self.ride2.isInTheRoute('bairro da minha amiga'), False)
+        self.assertEqual(self.ride2.isInTheRoute('bodocongs'), True)
+
 
 
 if __name__ == '__main__':
