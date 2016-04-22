@@ -83,6 +83,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 
         .state('notifications', {
 			url: '/notificacoes',
+            controller: 'notifications',
 			templateUrl: '/app/views/notifications/template.html',
 			css: '/app/views/notifications/style.css'
 		})
