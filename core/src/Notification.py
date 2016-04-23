@@ -3,9 +3,9 @@ from time import mktime
 
 """Classe usada como uma abstracao de uma notificacao, nao devera ser instanciada"""
 
-class Notification:
+class Notification(object):
 
-    def __init__(self, associatedData):
+    def __init__(self):
         self._seen = False
         self._date = datetime.now()
 
@@ -41,8 +41,11 @@ class Notification:
         return mktime(self.getDate().timetuple())
 
     def getView(self):
+        result = {}
+
+        result['status'] = self.getSeen()
     	result['data'] = self.getData()
-	result['type'] = 'NOTIFICATION'
+	result['type'] = self.getType()
     	result['date'] = int(self.getTimestamp() * 1000)
 
     	return result
