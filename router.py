@@ -153,6 +153,18 @@ def remove_friend(uid, fuid):
     success = controller.remove_friend(uid, fuid)
     return UPDATED if success else NOT_FOUND
 
+@app.route('/api/users/<int:uid>/notifications', methods=['GET'])
+@stomach.protect
+def get_notifications(uid):
+    if uid != logged_user(): return UNAUTHORIZED
+
+    notifications = controller.get_notifications(uid)
+    print notifications
+    print 'ok'
+
+    if notifications == None: return NOT_FOUND
+    return json.dumps(notifications)
+
 @app.route('/api/rides', methods=['POST'])
 @stomach.protect
 def register_ride():
@@ -223,5 +235,5 @@ def search_ride():
 #-----------------------------------MAIN----------------------------------------
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='info.log', level=logging.DEBUG)
+    #logging.basicConfig(filename='info.log', level=logging.DEBUG)
     app.run(host='0.0.0.0', port=8000)

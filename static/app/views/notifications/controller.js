@@ -1,8 +1,8 @@
 
-app.controller('notifications', function($scope, $timeout) {
+app.controller('notifications', function($scope, $state, $stateParams, Api, Users) {
 
-    var removable = false;
-    
+    //$scope.uid = Api.getCache().uid;
+
     // notifications types
     $scope.FRIEND_REQUEST  = 1;
     $scope.NEW_FRIEND      = 2;
@@ -11,10 +11,15 @@ app.controller('notifications', function($scope, $timeout) {
 
     // notification status
     $scope.VIEWED = 0;
-   
-    // notification selected
-    $scope.active = null;
-    
+
+    // Notification list
+    /*
+    Api.get_notifications($scope.uid)
+    .then(function(resp) {
+            $scope.notifications_list = resp.data;
+    });
+    */
+
     // user abstraction is the same on the server side
     function User(uid) {
         this.uid = uid;
@@ -34,10 +39,10 @@ app.controller('notifications', function($scope, $timeout) {
 
         self.weekly = false;
         self.toUFCG = false;
-        
+
         this.passengers = new Array();
         this.routes = new Array();
-        
+
         this.associatedUser = null;
     }
 
@@ -74,8 +79,12 @@ app.controller('notifications', function($scope, $timeout) {
     var user4 = new User('billy');
     user4.name = "Billy the Kid";
     user4.photo = "https://upload.wikimedia.org/wikipedia/en/thumb/7/79/Brushy_Bill_Roberts.jpg/220px-Brushy_Bill_Roberts.jpg";
+    // notification actions
+    $scope.filter = "$";
+    $scope.search = "";
 
-    // Notification list
+    // notification selected
+    $scope.active = null;
 
     $scope.notifications_list = [
         { status         : 1,
@@ -110,11 +119,7 @@ app.controller('notifications', function($scope, $timeout) {
           associatedUser : user3
         }
     ];
-    
-    // notification actions
-    $scope.filter = "$";
-    $scope.search = "";
-    
+
     $scope.changeFilterTo = function(pr, attr) {
         $scope.filter = pr;
         $scope.search = attr;
@@ -143,28 +148,29 @@ app.controller('notifications', function($scope, $timeout) {
             $scope.notifications_list.splice(index, 1);
         }
     }
-    
+
     $scope.hideNotification = function(uid) {
         var index = $scope.getIndex(uid);
         $scope.notifications_list[ index ].status = 0;
         $scope.removeNotificationByIndex( index );
-    }  
+    }
 
     $scope.markAsReadNotification = function(uid) {
         var index = $scope.getIndex(uid);
         var status = $scope.notifications_list[ index ].status;
         $scope.notifications_list[ index ].status = 1 - status;
     }
-    
+
     $scope.acceptFriendRequest = function(uid) {
         $scope.removeNotificationByIndex( $scope.getIndex(uid) );
-        // add <uid> to friends
+        //Users.addFriend(uid);
     }
 
     $scope.acceptRideRequest = function(uid) {
         $scope.removeNotificationByIndex( $scope.getIndex(uid) );
         // send notification to uid
         // add <uid> to rides
+        //Users.registerRide(uid);
     }
 
     $scope.refuseRideRequest = function(uid) {
@@ -187,3 +193,5 @@ app.controller('notifications', function($scope, $timeout) {
         this.removable = false;
     }
 });
+
+
