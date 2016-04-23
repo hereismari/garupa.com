@@ -202,4 +202,50 @@ app.service('Api', function($q, $http, Cookie) {
         });
     };
 
+    this.request_ride = function(uid, rid, district, complement) {
+        return request({
+            method: 'POST',
+            url: '/api/rides/' + uid + '/requests',
+            data: {
+                rid: rid,
+                district: district,
+                complement: complement
+            }
+        });
+    };
+
+    this.accept_ride = function(uid, rid) {
+        return request({
+            method: 'POST',
+            url: '/api/users/' + uid + '/rides',
+            data: {
+                rid: rid
+            }
+        });
+    };
+    
+    this.get_notifications = function(uid) {
+        return request({
+            method: 'GET',
+            url: '/api/users/' + uid + '/notifications',
+        });
+    };
+
+    this.mark_notification = function(uid, nid) {
+        return request({
+            method: 'POST',
+            url: '/api/users/' + uid + '/notifications/' + nid + '/seen',
+            data: {
+                status: 1
+            }
+        });
+    };
+
+    this.remove_notification = function(uid, nid) {
+         return request({
+            method: 'DELETE',
+            url: '/api/users/' + uid + '/notifications/' + nid,
+         });   
+    };
+
 });
