@@ -1,4 +1,5 @@
-from src import User, Ride, Address, Notification, NotificationStatus, FriendRequestNotification, NewFriendNotification
+from src import User, Ride, Address
+from src import FriendRequestNotification, NewFriendNotification
 from datetime import datetime
 
 class Controller(object):
@@ -56,15 +57,15 @@ class Controller(object):
             return False
 
         u.addFriend(f)
-        relation = u.getRelationship(f) 
-        
+        relation = f.getRelationship(u)
+
         if relation == 'pending':
 			notification = FriendRequestNotification(uid)
-			fuid.addNotification(notification)
+			f.addNotification(notification)
         elif relation == 'friend':
 			notification = NewFriendNotification(uid)
-			fuid.addNotification(notification)
-			
+			f.addNotification(notification)
+
         return True
 
     def remove_friend(self, uid, fuid):
@@ -76,13 +77,13 @@ class Controller(object):
 
         u.removeFriend(f)
         return True
-        
+
     def get_notifications(self, uid):
         u = self.get_user(uid)
-        
+
         if u == None:
             return None
-            
+
         return [n.getView() for n in u.getNotifications()]
 
     def join_ride(self, uid, rid, district, complement):
