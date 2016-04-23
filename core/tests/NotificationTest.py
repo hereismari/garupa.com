@@ -1,22 +1,22 @@
 import unittest, sys
-from datetime import date
+import datetime
 
 sys.path.append('../../')
 sys.path.append('../')
 from core.src.Notification import Notification
-from core.src.NotificationStatus import NotificationStatus
 
 class NotificationTest(unittest.TestCase):
 
     def test_basic(self):
 
         notification = Notification();
-        self.assertEqual(notification.getReadableDate(), str(date.today()))
-        self.assertEqual(notification.getStatus(), NotificationStatus.new)
+        self.assertEqual(notification.getReadableDate(), datetime.datetime.now().strftime('%d-%m-%Y'))
+        self.assertEqual(notification.getSeen(), False)
 
-        notification.setStatus(NotificationStatus.seen)
-        self.assertEqual(notification.getStatus(), NotificationStatus.seen)
+        notification.setSeen(True)
+        self.assertEqual(notification.getSeen(), True)
+
+
 
 if __name__ == '__main__':
     unittest.main()
-

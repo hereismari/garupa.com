@@ -51,6 +51,20 @@ class Ride(object):
     def isFull(self):
         return self.getNumberOfPassengers() == self.getNumberOfVacancies()
 
+    def isInTheRoute(self, district):
+    	return district in self._route
+
+    # caso precise desses metodos
+    def addNeighborhoodToRoute(self, neighborhood):
+        if neighborhood not in self._route:
+            self._route.append(neighborhood)
+
+    def removeNeighborhoodFromRoute(self, neighborhood):
+        old_size = len(self._route)
+
+        self._passengers = [r for r in self._route if r != neighborhood]
+        return old_size != len(self._route)
+
     def update(self):
         sunday = self.getLastSunday()
         if self.isWeekly() and self._date.date() < sunday:

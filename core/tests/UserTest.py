@@ -7,7 +7,6 @@ sys.path.append('../')
 from core.src.User import User
 from core.src.Notification import Notification
 from core.src.Ride import Ride
-from core.src.NotificationStatus import NotificationStatus
 
 class UserTest(unittest.TestCase):
 
@@ -16,11 +15,11 @@ class UserTest(unittest.TestCase):
         self.user1 = User('User1', 'user1@gmail.com', '(83)91234-56789', '114110478', '123456789')
         self.user2 = User('User2', 'user2@gmail.com', '(83)91234-56789', '114110478')
 
-        self.not1 = Notification()
-        self.not2 = Notification()
+        self.not1 = Notification({})
+        self.not2 = Notification({})
 
-        self.ride1 = Ride(self.user1, 3)
-        self.ride2 = Ride(self.user2, 5)
+        self.ride1 = Ride(self.user1, 3, [])
+        self.ride2 = Ride(self.user2, 5, [])
 
     def test_constructor(self):
 

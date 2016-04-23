@@ -1,14 +1,18 @@
+from datetime import datetime
 from Notification import Notification
-from NotificationStatus import NotificationStatus
-
-from time import time
 
 class RideFoundNotification(Notification):
 
-    def __init__(self, ride, date=int(time()*1000), status=NotificationStatus.new):
-        Notification.__init__(self, date, status)
+    def __init__(self, ride):
+        Notification.__init__(self)
+
         self._ride = ride
-        self._message = 'Uma carona na data %s surgiu.' % (str(ride.getReadableDate()))
 
     def getRide(self):
-        return self._ride
+    	return self._ride
+
+    def getType(self):
+        return 'RIDE_FOUND'
+
+    def getData(self):
+        return ride.getView()

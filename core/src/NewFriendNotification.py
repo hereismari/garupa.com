@@ -1,14 +1,18 @@
+from datetime import datetime
 from Notification import Notification
-from NotificationStatus import NotificationStatus
-
-from time import time
 
 class NewFriendNotification(Notification):
 
-    def __init__(self, associatedUser, date=int(time()*1000),  status=NotificationStatus.new):
-        Notification.__init__(self, date, status)
+    def __init__(self, associatedUser):
+        Notification.__init__(self)
+
         self._associatedUser = associatedUser
-        self._message = '%s aceitou seu pedido de amizade.' % (associatedUser.getName())
+
+    def getType(self):
+        return 'NEW_FRIEND'
 
     def getAssociatedUser(self):
-        return self._associatedUser
+    	return self._associatedUser
+
+    def getData(self):
+        return associatedUser.getPublicView()

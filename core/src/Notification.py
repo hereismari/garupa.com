@@ -1,24 +1,24 @@
-from NotificationStatus import NotificationStatus
-
+from time import mktime
 from datetime import datetime
-from time import time
 
-class Notification:
+"""Classe usada como uma abstracao de uma notificacao, nao devera ser instanciada"""
 
-    def __init__(self, date=int(time()*1000), status=NotificationStatus.new):
-        self._status = status
-        self._date = date
-        self._message = 'Nova atividade!'
+class Notification(object):
+
+    def __init__(self):
+        self._seen = False
+        self._date = datetime.now()
 
     def __str__(self):
         result = 'Notification\n'
-        result += 'date: ' + str(self._date) + '\n'
-        result += 'status: ' + str(self._status) + '\n'
+        result += 'date: ' + self._date + '\n'
+        result += 'status: ' + ('seen' if self._seen else 'unseen') + '\n'
         result += 'message: ' + str(self._message) + '\n'
         return result
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__
+        if isinstance(other, Notification): return False
+        return abs(self.getDate() - other.getDate()).total_seconds() < 10
 
     """ Set and Get functions """
 
@@ -29,10 +29,23 @@ class Notification:
         return self._date
 
     def getReadableDate(self):
-        return datetime.fromtimestamp(self.getDate()/1000).strftime('%Y-%m-%d')
+        return self._date.strftime('%d-%m-%Y')
 
-    def getStatus(self):
-        return self._status
+    def getSeen(self):
+        return self._seen
 
-    def setStatus(self, status):
-        self._status = status
+    def setSeen(self, seen):
+        self._seen = seen
+
+    def getTimestamp(self):
+        return mktime(self.getDate().timetuple())
+
+    def getView(self):
+        result = {}
+
+        result['status'] = self.getSeen()
+        result['data'] = self.getData()
+        result['type'] = self.getType()
+        result['date'] = int(self.getTimestamp() * 1000)
+
+        return result
