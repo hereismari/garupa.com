@@ -11,6 +11,3 @@ class RideFoundNotification(Notification):
 
     def getRide(self):
     	return self._ride
-
-    def getType(self):
-        return 'RIDEFOUNDNOTIFICATION'

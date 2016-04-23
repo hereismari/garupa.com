@@ -42,7 +42,6 @@ class Ride:
         return (self.getNumberOfPassengers() == self.getNumberOfVacancies())
 
     def __eq__(self, otherRide):
-	if type(otherRide) != Ride: return False
         return self.getRid() == otherRide.getRid()
         
     def weekly_update(self):
@@ -60,8 +59,11 @@ class Ride:
         week_day = datetime.datetime.today().isoweekday() % 7
         return datetime.datetime.fromordinal(today - week_day)
 
-    def isInTheRoute(self, district):
-    	return district in self._route
+    def isInTheRoute(self, targetNeighborhood):
+    	for neighborhood in self._route:
+    		if neighborhood == targetNeighborhood:
+    			return True
+    	return False
 
     # caso precise desses metodos
     def addNeighborhoodToRoute(self, neighborhood):

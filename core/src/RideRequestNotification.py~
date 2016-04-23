@@ -6,8 +6,10 @@ class RideRequestNotification(Notification):
 
     def __init__(self, ride, associatedUser):
         Notification.__init__(self, {
-        		'ride' : ride.getView()
-                        'user' : associatedUser.getPublicoView()
+        		'name'     : associatedUser.getName(),
+        		'rideDate' : ride.getReadableDate(),
+        		'Rid'      : str(ride.getRid()),
+        		'Uid'	   : str(associatedUser.getUid())
         	})
 
         self._ride = ride
