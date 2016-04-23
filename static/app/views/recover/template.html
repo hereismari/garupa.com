@@ -1,17 +1,9 @@
 
-<div class='col-md-6 col-md-offset-3'>
-
-		<div id='form-confirmation' style='display: none'>
-			<h6> <i class='fui-mail'></i> &nbsp; Verifique sua caixa de email. </h6>
-			<a href='./' class='small pull-left'> Retornar para página principal </a>
-		</div>
-
-		<form id='recovery-form' ng-submit='recover()'>
-			<div class='form-group'>
-				<label> E-mail </label>
-				<input ng-model='user.email' type='email' class='form-control'
-						placeholder='ie.: fulano@silva.com' spellcheck='false' required></div>
-			<button class='btn btn-primary' type='submit'> Recuperar Senha </button>
-		</form>
-
-</div>
+<div class='col-md-6 col-md-offset-3'><form ng-submit='recover()'>
+  <div class='form-group'>
+    <label> Matrícula </label>
+    <input ng-model='uid' type='text' class='form-control'
+        placeholder='eg. 114110376' spellcheck='false' required></div>
+  <button class='btn btn-primary' type='submit'>
+    Recuperar Senha </button>
+</form></div>

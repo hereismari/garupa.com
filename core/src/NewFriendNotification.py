@@ -1,6 +1,5 @@
-from Notification import Notification
-
 from datetime import datetime
+from Notification import Notification
 
 class NewFriendNotification(Notification):
 
@@ -10,7 +9,7 @@ class NewFriendNotification(Notification):
         self._associatedUser = associatedUser
 
     def getType(self):
-        return 'NEWFRIENDNOTIFICATION'
+        return 'NEW_FRIEND'
 
     def getAssociatedUser(self):
     	return self._associatedUser

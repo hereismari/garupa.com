@@ -1,6 +1,5 @@
-from Notification import Notification
-
 from datetime import datetime
+from Notification import Notification
 
 class FriendRequestNotification(Notification):
 
@@ -13,7 +12,7 @@ class FriendRequestNotification(Notification):
     	return self._associatedUser
 
     def getType(self):
-        return 'FRIENDREQUESTNOTIFICATION'
+        return 'FRIEND_REQUEST'
 
     def getData(self):
         return associatedUser.getPublicView()

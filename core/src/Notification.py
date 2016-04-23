@@ -1,5 +1,5 @@
-from datetime import datetime
 from time import mktime
+from datetime import datetime
 
 """Classe usada como uma abstracao de uma notificacao, nao devera ser instanciada"""
 
@@ -17,7 +17,7 @@ class Notification(object):
         return result
 
     def __eq__(self, other):
-	if type(other) == Notification: return False
+        if isinstance(other, Notification): return False
         return abs(self.getDate() - other.getDate()).total_seconds() < 10
 
     """ Set and Get functions """
@@ -44,9 +44,8 @@ class Notification(object):
         result = {}
 
         result['status'] = self.getSeen()
-    	result['data'] = self.getData()
-	result['type'] = self.getType()
-    	result['date'] = int(self.getTimestamp() * 1000)
+        result['data'] = self.getData()
+        result['type'] = self.getType()
+        result['date'] = int(self.getTimestamp() * 1000)
 
-    	return result
-
+        return result

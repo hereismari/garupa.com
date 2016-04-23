@@ -1,32 +1,32 @@
 
 <div class='row'>
   <div class='col-md-3 col-md-offset-2'>
-    <img class='img-rounded img-responsive' ng-src='{{user.photo_url}}'/>
+    <img class='img-rounded img-responsive' ng-src='{{user.photo}}'/>
   </div>
 
-  <div class='col-md-5 text-justify' ng-switch='state'>
-    <span ng-switch-when='request'>
-      O perfil de <b>{{user.name}}</b> não pode ser acessado, pois você ainda não
-      adicionou este usuário a sua lista de amigos.
+  <div class='col-md-5 text-justify' ng-switch='user.relationship'>
+    <span ng-switch-when='none'>
+      O perfil de <b>{{user.name}}</b> não pode ser acessado, pois você ainda
+      não adicionou este usuário a sua lista de amigos.
 
-      <a class='btn btn-block btn-primary vert-offset-top-2'>
-        <i class='fa fa-user-plus'></i> &nbsp; Requisitar Amizade </a>
+      <button class='btn btn-block btn-primary vert-offset-top-2'
+        ng-click='add()' engrave='user-plus'> Requisitar Amizade </button>
     </span>
 
-    <span ng-switch-when='accept'>
+    <span ng-switch-when='available'>
       O usuário <b>{{user.name}}</b> convidou você para adicioná-lo a sua lista
       de amigos. Para ver seu perfil, aceite sua requisição de amizade.
 
-      <a class='btn btn-block btn-primary vert-offset-top-2'>
-        <i class='fa fa-user-plus'></i> &nbsp; Aceitar Amizade </a>
+      <button class='btn btn-block btn-primary vert-offset-top-2'
+        ng-click='add()' engrave='user-plus'> Aceitar Amizade </button>
     </span>
 
-    <span ng-switch-when='cancel'>
+    <span ng-switch-when='pending'>
       O perfil de <b>{{user.name}}</b> não pode ser acessado, pois este usuário
       ainda não lhe adicionou a sua lista de amigos.
 
-      <a class='btn btn-block btn-danger vert-offset-top-2'>
-        <i class='fa fa-user-times'></i> &nbsp; Cancelar Requisição </a>
+      <button class='btn btn-block btn-danger vert-offset-top-2'
+        ng-click='cancel()' engrave='user-times'> Cancelar Requisição </button>
     </span>
   </div>
 </div>

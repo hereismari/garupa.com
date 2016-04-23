@@ -1,6 +1,5 @@
-from core.src.Notification import Notification
-
 from datetime import datetime
+from Notification import Notification
 
 class RideRequestNotification(Notification):
 
@@ -17,11 +16,10 @@ class RideRequestNotification(Notification):
         return self._associatedUser
 
     def getType(self):
-        return 'RIDEREQUESTNOTIFICATION'
+        return 'RIDE_REQUEST'
 
     def getData(self):
         return {
-		'ride' : ride.getView()
-                'user' : associatedUser.getPublicoView()
-	}
-
+            'ride': ride.getView(),
+            'user': associatedUser.getPublicoView()
+        }

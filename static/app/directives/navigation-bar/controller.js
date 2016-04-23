@@ -6,12 +6,21 @@ app.directive('navigationBar', function() {
         templateUrl: '/app/directives/navigation-bar/template.html',
         css: '/app/directives/navigation-bar/style.css',
 
-        controller: function($scope, $location, Users) {
+        controller: function($scope, $state, $location, Users) {
             $scope.Users = Users;
+            $scope.form = new Object();
 
-            $scope.login = function(uid) {
-                var success = Users.login(uid);
-                $location.path(success? '/perfil' : '/login');
+            $scope.showForm = function() {
+                if($state.current.name == 'login') return false;
+                return Users.logged == null;
+            }
+
+            $scope.login = function(form) {
+                Users.login(form.uid, form.passwd).then(function(success) {
+                    if(success) $location.path('/perfil');
+                    else $state.go('login', { uid: form.uid });
+                    form.uid = form.passwd = null;
+                });
             };
 
             $scope.logout = function() {

@@ -75,7 +75,7 @@ class RideTest(unittest.TestCase):
 
         self.assertEqual(self.ride1.isFull(), False)
         self.assertEqual(self.ride1.getNumberOfPassengers(), 1)
-        
+
         self.ride1.removePassenger(self.user2)
 
         self.assertEqual(self.ride1.isFull(), False)
@@ -128,4 +128,3 @@ class RideTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

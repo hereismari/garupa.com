@@ -1,7 +1,151 @@
 
-#main {
-	background-color: #ffffff;
-	border-radius: 5px;
-	width: 60%;
-	border: 1px solid #bbbbbb;
+ul, ol {
+	text-decoration: none;
+	list-style: none;
+}
+.container {
+	max-width: 997px;
+}
+
+.reading-status {
+	float: right;
+    margin-right: 15px;
+    position: relative;
+    margin-top: -6px;
+}
+
+.pull-right:hover, .reading-status:hover {
+	color: black;
+}
+
+.ocapacity {
+	opacity: 0.1;
+}
+
+#notification form li h6 {
+	font-size: 16pt;
+}
+
+#notification form li p {
+	font-size: 12pt;
+}
+
+#notification form li:hover + span {
+	cursor: pointer;
+	background-color: #fbfbfb;
+}
+
+.notificationsNav {
+	float: left;
+	width: 20%;
+	height: auto;
+	position: relative;
+}
+
+.notificationsList {
+	position: relative;
+	float: left;
+	width: 500px;
+}
+
+.notificationsNav a {
+	color: #666;
+}
+
+.notificationsNav a:hover {
+	color: #16a085;
+}
+
+.notificationsNav .lnk {
+	color: #444;
+	font-size: 16px;
+	width: 75%;
+	border-bottom: 1px solid #ddd;
+}
+
+.notificationsNav .filter-option {
+	color: #444;
+	font-size: 14px;
+	width: 90%;
+	padding: 2px 0px;
+}
+
+.selected {
+	font-weight: bold;
+}
+
+.notificationsList .list-group-item-heading {
+	font-size: 14px;
+}
+
+.notificationsList .info, .info-rides {
+	margin-left: 30px;
+	font-size: 14px;
+	padding-left: 5px;
+	border-left: 2px solid #ccc;
+	margin-bottom: 15px;
+}
+
+.info-rides {
+	border-left: 2px solid transparent;
+}
+
+.friend-request {
+	/*background: #ddd; */
+}
+
+.accept-request, .refuse-request {
+	font-size: 14px;
+    font-weight: 400;
+    padding: 5px;
+    border-radius: 2px;
+    width: 107px;
+}
+
+.img-rounded {
+    border-radius: 50px;
+}
+
+.friend-request button {
+    width: 219px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 2px;
+    padding: 4px;
+    margin-left: 36px;
+}
+
+.list-group-item {
+	border: 1px solid transparent;
+	margin-bottom: 1px;
+	border-top: 1px solid #f0f0f0;
+}
+
+.list-group-item:hover {
+	cursor: pointer;
+	background-color: #f9f9f9;
+	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.list-group-item:active {
+	background-color: #f4f4f4;
+}
+
+.list-group-item-heading img {
+	width: 30px;
+	height: 30px;
+	float : left;
+}
+
+.list-group-item-heading span {
+	margin-left: 5px;
+}
+
+.list-group-item-heading span.date {
+	color: #888;
+}
+
+.fui-location {
+	width: 25px;
 }

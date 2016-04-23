@@ -16,25 +16,31 @@
   <script src='/libs/bootstrap/js/flat-ui.min.js'></script>
   <script src='/libs/bootstrap-plugins/datetimepicker.min.js'></script>
   <script src='/libs/load-image.all.min.js'></script>
+  <script src='/libs/loading-bar.min.js'></script>
   <script src='/libs/underscore.js'></script>
   <script src='/libs/smartcrop.js'></script>
+  <script src='/libs/md5.js'></script>
 
   <link href='/libs/bootstrap/css/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet'>
   <link href='/libs/bootstrap/css/flat-ui.min.css' rel='stylesheet'>
   <link href='/libs/flat-ui-colors.css' rel='stylesheet'>
   <link href='/libs/bootstrap-plugins/datetimepicker.min.css' rel='stylesheet'>
+  <link href='/libs/loading-bar.min.css' rel='stylesheet'>
   <link href='/libs/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
   <link href='/libs/bootstrap-plugins/bootstrap-vert-offset-shim.css' rel='stylesheet'>
-  <link href='/libs/bootstrap-plugins/bootstrap-switch-fix.css' rel='stylesheet'>
+  <link href='/libs/bootstrap-plugins/bootstrap-fixes.css' rel='stylesheet'>
+  <link href='/style.css' rel='stylesheet'>
 
   <script src='/app/app.js'></script>
   <script src='/app/shared/directives.js'></script>
   <script src='/app/shared/constants.js'></script>
-  <script src='/app/shared/filters.js'></script>
+  <script src='/app/shared/factories.js'></script>
+  <script src='/app/shared/api.js'></script>
   <script src='/app/shared/users.js'></script>
   <script src='/app/directives/image-input/controller.js'></script>
   <script src='/app/directives/user-info/row/controller.js'></script>
   <script src='/app/directives/user-info/controller.js'></script>
+  <script src='/app/directives/ride-info/controller.js'></script>
   <script src='/app/directives/calendar/controller.js'></script>
   <script src='/app/directives/navigation-bar/controller.js'></script>
   <script src='/app/views/home/controller.js'></script>
@@ -44,12 +50,30 @@
   <script src='/app/views/add-friend/controller.js'></script>
   <script src='/app/views/search-rides/controller.js'></script>
   <script src='/app/views/offer-ride/controller.js'></script>
+  <script src='/app/views/notifications/controller.js'></script>
 </head>
 
 <body>
-  <navigation-bar></navigation-bar>
-  <div class='container vert-offset-top-6 vert-offset-bottom-4'>
-    <div class='col-md-10 col-md-offset-1' ui-view></div></div>
+  <div id='wrapper'>
+	  
+    <navigation-bar></navigation-bar>
+    
+    <div id='content'>
+      <div class='container vert-offset-top-6 vert-offset-bottom-4'>
+        <div class='col-md-10 col-md-offset-1' ui-view></div></div>
+    </div>
+    
+    <div id='footer'>
+      <div class="container"><div class='col-md-10 col-md-offset-1'>
+        <div class="navbar-text pull-left">
+          <span> Garupa © 2016 | 4Xemeas+1 Inc. </span>
+          <span> Queremos o seu bigu! </span>
+        </div>
+      </div></div>
+      
+    </div>
+    
+  </div>
 </body>
 
 </html>

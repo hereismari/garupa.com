@@ -1,6 +1,6 @@
 
 var app = angular.module('app', [
-    'ui.router', 'door3.css', 'ngCookies'
+    'ui.router', 'door3.css', 'ngCookies', 'angular-loading-bar'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider) {
@@ -9,27 +9,27 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
     $urlRouterProvider
         .when('', '/')
 
-        .when(/login|recuperar-senha/, function($state, $match, Users) {
-            return Users.loggedUser != null? '/perfil':
+        .when(/login|recuperar-senha/, function($state, $match, Api) {
+            return Api.getCache().uid != null? '/perfil':
                 $state.go($match == 'recuperar-senha'? 'recover' : 'login');
         })
 
-        .when(/\/.+/, function($state, $location, Users) {
-            return Users.loggedUser != null? false:
+        .when(/\/.+/, function($state, $location, Api) {
+            return Api.getCache().uid != null? false:
                 $state.go('login', { redirect: $location.url() });
         })
 
-        .when('/perfil', function($state, Users) {
-            return '/perfil/' + Users.loggedUser.id;
+        .when('/perfil', function($state, Api) {
+            return '/perfil/' + Api.getCache().uid;
         })
 
         .when('/perfil/:uid', function($state, $location, $match, Users) {
-            var user = Users.get($match.uid);
-            if(user == null) return $state.go('404');
-
-            $state.go(Users.areFriends(user, Users.loggedUser) || user === Users.loggedUser?
-                'profile' : 'add-friend', { uid: user.id });
-            })
+            return Users.get($match.uid).then(function(user) {
+                if(user == null) $state.go('404');
+                else $state.go(/self|friend/.test(user.relationship)?
+                    'profile' : 'add-friend', { uid: user.uid });
+            });
+        })
 
         .otherwise(function($injector) {
             $injector.get('$state').go('404')
@@ -39,21 +39,21 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
         .state('home', {
             url: '/',
             controller: 'home',
-            templateUrl: '/app/views/home/template.html',
-            css: '/app/views/home/style.css'
+            templateUrl: '/app/views/home/template.html'
         })
 
         .state('login', {
             url: '/login',
             controller: 'login',
             templateUrl: '/app/views/login/template.html',
-            params: { redirect: '/perfil' }
+            params: { redirect: '/perfil', uid: null }
         })
 
         .state('recover', {
             url: '/recuperar-senha',
             controller: 'recover',
-            templateUrl: '/app/views/recover/template.html'
+            templateUrl: '/app/views/recover/template.html',
+            params: { uid: null }
         })
 
         .state('profile', {
@@ -83,6 +83,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 
         .state('notifications', {
 			url: '/notificacoes',
+            controller: 'notifications',
 			templateUrl: '/app/views/notifications/template.html',
 			css: '/app/views/notifications/style.css'
 		})

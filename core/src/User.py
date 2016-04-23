@@ -1,35 +1,39 @@
-
 import os, random, string
-from datetime import datetime
-from time import time
 
-class User:
+class User(object):
 
-    def __init__(self, name, email, phone, uid, password=None, photo=None):
+    def __init__(self, uid, passwd, name, email):
 
         self._name = name
-        self._email = email
-        self._phone = phone
         self._uid = uid
-        self._password = password
-        self._photo = photo
+        self._email = email
+        self._password = passwd
 
-        self._friends = []
+        self._photo = '/assets/img/default-profile-pic.png'
+        self._phone = 'N/A'
+
+        self._friends = set()
         self._notifications = []
         self._rides = []
 
-        if password == None:
-            self._password = self.generatePassword()
+    def __eq__(self, other):
+        if type(other) is not User: return False
+        return self._uid == other.getUid()
+
+    def __hash__(self):
+        return self._uid
+
+    def __str__(self):
+        return self._name
 
     def addFriend(self, friend):
-        if friend not in self._friends:
-            self._friends.append(friend)
+        self._friends.add(friend)
 
     def removeFriend(self, friend):
         self._friends.remove(friend)
 
     def isFriendOf(self, user):
-        return (user in self._friends)
+        return user in self._friends
 
     def numberOfFriends(self):
         return len(self._friends)
@@ -64,12 +68,6 @@ class User:
         random.seed = (os.urandom(1024))
         password = ''.join(random.choice(chars) for i in range(length))
         return password
-
-    def __eq__(self, other):
-        return self._uid == other.getUid()
-
-    def __str__(self):
-        return self._name
 
     """ Set and Get functions """
     def getName(self):
@@ -115,52 +113,45 @@ class User:
         return self._rides
 
     """ getView method """
-    def getView(self, otherUser):
-        
-        relationship = self.getRelationship(otherUser)
-        if relationship not in ['self', 'friends']: result = getPublicView()
-        else: result = getPrivateView()
+    def getView(self, other):
+
+        relationship = self.getRelationship(other)
+        if relationship not in ['self', 'friend']: result = self.getPublicView()
+        else: result = self.getPrivateView()
 
         result['relationship'] = relationship
         return result
 
-    def getRelationship(self, otherUser):
-        
-        isfriendOf = self.isFriendOf(otherUser)
-        otherIsFriendOf = othterUser.isFriendOf(self)
+    def getRelationship(self, other):
 
-        result = ''
-        if self == otherUser: result = 'self'
-        if not isFriendOf and not otherIsFriendOf: result = 'none'
-        elif isFriendOf and not otherIsFriendOf: result = 'pending'
-        elif not isFriendOf and otherIsFriendOf: result = 'available'
-        else: result = 'friends'
-        
-    def getPublicView(self):
-        result = {'name' : self.getName(), 'uid' : self.getUid(), 'photo' : self.getPhoto()}
+        isFriendOf = self.isFriendOf(other)
+        otherIsFriendOf = other.isFriendOf(self)
+
+        if self == other: result = 'self'
+        elif not isFriendOf and not otherIsFriendOf: result = 'none'
+        elif isFriendOf and not otherIsFriendOf: result = 'available'
+        elif not isFriendOf and otherIsFriendOf: result = 'pending'
+        else: result = 'friend'
+
         return result
+
+    def getPublicView(self):
+        return {
+            'name' : self.getName(),
+            'uid' : self.getUid(),
+            'photo' : self.getPhoto()
+        }
 
     def getPrivateView(self):
-        
-        result = getPublicView()
-        
-        result['email'] = self.getEmail()
-        result['phone'] = self.getPhone()
-        result['rides'] = []
+        publicView = self.getPublicView()
+        self.updateRides()
 
-        rides = self.getRides()
-        for ride in rides:
-            result['rides'].append({                              
-                'driver' : {                                      
-                    'name': '%s' % ride.getDriver().getName(),    
-                    'uid' : '%s' % ride.getDriver().getUid(),     
-                    'photo': '%s' % ride.getDriver().getPhoto(),  
-                },                                                
-                'passengers': [ {'name': passenger.getName(), 'uid' : passenger.getUid()} for passenger in passengers]})
-
-        return result
+        return dict(publicView, **{
+            'email': self.getEmail(),
+            'phone': self.getPhone(),
+            'rides': [r.getView() for r in self.getRides()]
+        })
 
     """ Update rides """
     def updateRides(self):
-        self._rides = [ride for ride in self._rides if ride.update()]
-
+        self._rides = [r for r in self._rides if r.update()]

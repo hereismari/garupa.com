@@ -12,13 +12,13 @@ import datetime
 class RideFoundNotificationTest(unittest.TestCase):
 
     def setUp(self):
-        self.user1 = User('User1', 'user1@gmail.com', '(83)91234-56789', '114110478', '123456789')
-        self.ride1 = Ride(self.user1, 3, [])
+        self.user1 = User(114110478, '123456789', 'User1', 'user1@gmail.com')
+        self.user1.setPhone('(83)91234-56789')
+        self.ride1 = Ride(self.user1, 124142342, 'HOME', 'minha rua', [], False, 3)
 
     def test_basic(self):
         notification = RideFoundNotification(self.ride1)
         self.assertEqual(notification.getRide(), self.ride1)
-        self.assertEqual(notification.getMessage(), 'Uma carona na data %s surgiu.' % datetime.datetime.now().strftime('%d-%m-%Y'))
 
 if __name__ == '__main__':
     unittest.main()
