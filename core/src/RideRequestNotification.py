@@ -5,10 +5,7 @@ from datetime import datetime
 class RideRequestNotification(Notification):
 
     def __init__(self, ride, associatedUser):
-        Notification.__init__(self, {
-        		'ride' : ride.getView()
-                        'user' : associatedUser.getPublicoView()
-        	})
+        Notification.__init__(self)
 
         self._ride = ride
         self._associatedUser = associatedUser
@@ -21,4 +18,10 @@ class RideRequestNotification(Notification):
 
     def getType(self):
         return 'RIDEREQUESTNOTIFICATION'
+
+    def getData(self):
+        return {
+		'ride' : ride.getView()
+                'user' : associatedUser.getPublicoView()
+	}
 

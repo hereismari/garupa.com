@@ -5,7 +5,7 @@ from datetime import datetime
 class RideFoundNotification(Notification):
 
     def __init__(self, ride):
-        Notification.__init__(self, ride.getView())
+        Notification.__init__(self)
 
         self._ride = ride
 
@@ -14,3 +14,6 @@ class RideFoundNotification(Notification):
 
     def getType(self):
         return 'RIDEFOUNDNOTIFICATION'
+
+    def getData(self):
+        return ride.getView()

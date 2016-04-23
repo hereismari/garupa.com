@@ -8,8 +8,6 @@ class Notification:
     def __init__(self, associatedData):
         self._seen = False
         self._date = datetime.now()
-        self._data = associatedData
-        self._message = 'Nova atividade!'
 
     def __str__(self):
         result = 'Notification\n'
@@ -39,9 +37,6 @@ class Notification:
     def setSeen(self, seen):
         self._seen = seen
 
-    def getData(self):
-    	return self._data
-
     def getTimestamp(self):
         return mktime(self.getDate().timetuple())
 
@@ -52,22 +47,3 @@ class Notification:
 
     	return result
 
-# PARTE DE TESTES GAMBIARROSAMENTE FEITA
-
-if __name__ == '__main__':
-	d1 = datetime.now()
-	not1 = Notification()
-	print not1.getReadableDate()
-	print not1.getDate(), d1
-
-
-    # fazer passar alguns segundos
-	x = 0
-	while x != 10000000000:
-		x += 100
-
-	not2 = Notification()
-	d2 = datetime.now()
-	print not2.getReadableDate()
-
-	print abs(not1.getDate() - not2.getDate()).total_seconds()

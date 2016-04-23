@@ -5,7 +5,7 @@ from datetime import datetime
 class NewFriendNotification(Notification):
 
     def __init__(self, associatedUser):
-        Notification.__init__(self, associatedUser.getPublicView())
+        Notification.__init__(self)
 
         self._associatedUser = associatedUser
 
@@ -14,3 +14,6 @@ class NewFriendNotification(Notification):
 
     def getAssociatedUser(self):
     	return self._associatedUser
+
+    def getData(self):
+        return associatedUser.getPublicView()
