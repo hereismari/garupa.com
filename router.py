@@ -236,4 +236,6 @@ def search_ride():
 
 if __name__ == '__main__':
     logging.basicConfig(filename='info.log', level=logging.DEBUG)
+    register_credentials(114110428, "123" , "casfasfh", "safsafasf@gmail.com")
+    register_credentials(114110429, "123", "casfsadfsaf", "safsafgfgfdsf@gmail.com")
     app.run(host='0.0.0.0', port=8000)

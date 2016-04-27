@@ -1,5 +1,5 @@
 from src import User, Ride, Address
-from src import FriendRequestNotification, NewFriendNotification
+from src import FriendRequestNotification, NewFriendNotification, RideFoundNotification, RideRequestAcceptedNotification, RideRequestNotification
 from datetime import datetime
 
 class Controller(object):
@@ -56,15 +56,18 @@ class Controller(object):
         if u == None or f == None:
             return False
 
-        u.addFriend(f)
         relation = f.getRelationship(u)
 
-        if relation == 'pending':
-			notification = FriendRequestNotification(uid)
-			f.addNotification(notification)
-        elif relation == 'friend':
-			notification = NewFriendNotification(uid)
-			f.addNotification(notification)
+        if relation == 'none':
+            print "pedido enviado"
+            u.addFriend(f)
+            notification = FriendRequestNotification(u)
+            f.addNotification(notification)
+        elif relation == 'available':
+            print "amizade aceita"
+            u.addFriend(f)
+            notification = NewFriendNotification(u)
+            f.addNotification(notification)
 
         return True
 

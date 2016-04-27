@@ -7,6 +7,7 @@ class NewFriendNotification(Notification):
         Notification.__init__(self)
 
         self._associatedUser = associatedUser
+        self._message = "aceitou seu pedido de amizade"
 
     def getType(self):
         return 'NEW_FRIEND'
@@ -15,4 +16,13 @@ class NewFriendNotification(Notification):
     	return self._associatedUser
 
     def getData(self):
-        return associatedUser.getPublicView()
+        result = {}
+
+        result['status'] = self.getSeen()
+        result['type'] = self.getType()
+        result['date'] = int(self.getTimestamp() * 1000)
+        result['message'] = self.getMessage()
+        result['ride'] = ""
+        result['associatedUser'] = self.getAssociatedUser().getPublicView()
+
+        return result

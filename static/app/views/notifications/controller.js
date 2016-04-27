@@ -1,7 +1,7 @@
 
 app.controller('notifications', function($scope, $state, $stateParams, Api, Users) {
 
-    //$scope.uid = Api.getCache().uid;
+    $scope.uid = Api.getCache().uid;
 
     // notifications types
     $scope.FRIEND_REQUEST  = 1;
@@ -12,14 +12,19 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
     // notification status
     $scope.VIEWED = 0;
 
+    // notification selected
+    $scope.active = null;
+
     // Notification list
-    /*
-    Api.get_notifications($scope.uid)
-    .then(function(resp) {
+    Api.get_notifications($scope.uid).then(
+        function(resp) {
             $scope.notifications_list = resp.data;
     });
-    */
 
+    console.log(  Api.get_notifications($scope.uid) );
+    console.log(  $scope.notifications_list );
+
+    /*
     // user abstraction is the same on the server side
     function User(uid) {
         this.uid = uid;
@@ -119,6 +124,7 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
           associatedUser : user3
         }
     ];
+    */
 
     $scope.changeFilterTo = function(pr, attr) {
         $scope.filter = pr;
@@ -193,5 +199,3 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
         this.removable = false;
     }
 });
-
-

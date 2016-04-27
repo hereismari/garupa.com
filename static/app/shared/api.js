@@ -223,7 +223,7 @@ app.service('Api', function($q, $http, Cookie) {
             }
         });
     };
-    
+
     this.get_notifications = function(uid) {
         return request({
             method: 'GET',
@@ -245,7 +245,7 @@ app.service('Api', function($q, $http, Cookie) {
          return request({
             method: 'DELETE',
             url: '/api/users/' + uid + '/notifications/' + nid,
-         });   
+         });
     };
 
 });

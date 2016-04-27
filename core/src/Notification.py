@@ -42,10 +42,6 @@ class Notification(object):
 
     def getView(self):
         result = {}
-
-        result['status'] = self.getSeen()
         result['data'] = self.getData()
-        result['type'] = self.getType()
-        result['date'] = int(self.getTimestamp() * 1000)
 
         return result
