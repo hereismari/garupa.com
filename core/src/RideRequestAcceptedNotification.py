@@ -19,7 +19,6 @@ class RideRequestAcceptedNotification(Notification):
 
     def getData(self):
         return {
-		'ride' : ride.getView()
-                'user' : associatedUser.getPublicoView()
-	}
-
+            'ride' : ride.getView(),
+            'user' : self.getAssociatedUser().getPublicView()
+        }
