@@ -4,10 +4,10 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
     $scope.uid = Api.getCache().uid;
 
     // notifications types
-    $scope.FRIEND_REQUEST  = 1;
-    $scope.NEW_FRIEND      = 2;
-    $scope.RIDE_FOUND      = 3;
-    $scope.RIDE_REQUEST    = 4;
+    $scope.FRIEND_REQUEST  = "FRIEND_REQUEST";
+    $scope.NEW_FRIEND      = "NEW_FRIEND";
+    $scope.RIDE_FOUND      = "RIDE_FOUND";
+    $scope.RIDE_REQUEST    = "RIDE_REQUEST";
 
     // notification status
     $scope.VIEWED = 0;
@@ -15,14 +15,16 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
     // notification selected
     $scope.active = null;
 
+    // notification actions
+    $scope.filter = "$";
+    $scope.search = "";
+
     // Notification list
     Api.get_notifications($scope.uid).then(
         function(resp) {
             $scope.notifications_list = resp.data;
-    });
-
-    console.log(  Api.get_notifications($scope.uid) );
-    console.log(  $scope.notifications_list );
+        }
+    );
 
     /*
     // user abstraction is the same on the server side
@@ -169,7 +171,7 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
 
     $scope.acceptFriendRequest = function(uid) {
         $scope.removeNotificationByIndex( $scope.getIndex(uid) );
-        //Users.addFriend(uid);
+        Users.logged.addFriend(uid);
     }
 
     $scope.acceptRideRequest = function(uid) {
@@ -181,7 +183,6 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
 
     $scope.refuseRideRequest = function(uid) {
         $scope.removeNotificationByIndex( $scope.getIndex(uid) );
-        // send notification to uid
     }
 
     $scope.collapse = function(uid) {

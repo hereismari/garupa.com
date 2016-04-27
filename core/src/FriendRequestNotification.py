@@ -22,7 +22,7 @@ class FriendRequestNotification(Notification):
 
         result['status'] = self.getSeen()
         result['type'] = self.getType()
-        result['date'] = int(self.getTimestamp() * 1000)
+        result['date'] = self.getReadableDate()
         result['message'] = self.getMessage()
         result['ride'] = ""
         result['associatedUser'] = self.getAssociatedUser().getPublicView()

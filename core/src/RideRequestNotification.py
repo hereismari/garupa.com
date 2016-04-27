@@ -8,6 +8,7 @@ class RideRequestNotification(Notification):
 
         self._ride = ride
         self._associatedUser = associatedUser
+        self._message = "quer participar de uma carona"
 
     def getRide(self):
         return self._ride
@@ -19,7 +20,13 @@ class RideRequestNotification(Notification):
         return 'RIDE_REQUEST'
 
     def getData(self):
-        return {
-            'ride': ride.getView(),
-            'user': associatedUser.getPublicoView()
-        }
+        result = {}
+
+        result['status'] = self.getSeen()
+        result['type'] = self.getType()
+        result['date'] = self.getReadableDate()
+        result['message'] = self.getMessage()
+        result['ride'] = ride.getView()
+        result['associatedUser'] = self.getAssociatedUser().getPublicView()
+
+        return result

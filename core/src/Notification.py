@@ -41,7 +41,4 @@ class Notification(object):
         return mktime(self.getDate().timetuple())
 
     def getView(self):
-        result = {}
-        result['data'] = self.getData()
-
-        return result
+        return self.getData()

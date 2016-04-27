@@ -7,6 +7,7 @@ class RideFoundNotification(Notification):
         Notification.__init__(self)
 
         self._ride = ride
+        self._message = "Uma carona surgiu"
 
     def getRide(self):
     	return self._ride
@@ -15,4 +16,13 @@ class RideFoundNotification(Notification):
         return 'RIDE_FOUND'
 
     def getData(self):
-        return ride.getView()
+        result = {}
+
+        result['status'] = self.getSeen()
+        result['type'] = self.getType()
+        result['date'] = self.getReadableDate()
+        result['message'] = self.getMessage()
+        result['ride'] = ride.getView()
+        result['associatedUser'] = self.ride.getDriver().getPublicView()
+
+        return result

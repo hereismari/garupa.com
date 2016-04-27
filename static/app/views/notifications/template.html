@@ -9,7 +9,7 @@
         Notifica&ccedil;&otilde;es lidas</a> </li> <br>
       <li class="lnk">Filtrar por tipo</li>
       <li class="filter-option {{ (filter == 'null') ?'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('')">
-        Recentes</a> </li>      
+        Recentes</a> </li>
       <li class="filter-option {{ (search == FRIEND_REQUEST) ? 'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('type', FRIEND_REQUEST)">
         Pedidos de Amizade</a> </li>
       <li class="filter-option {{ (search == RIDE_REQUEST) ? 'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('type', RIDE_REQUEST)">
@@ -21,14 +21,14 @@
   </div>
   <div class="notificationsList">
     <span class="lnk">Todas as notifica&ccedil;&otilde;es</span>
-    <form> 
+    <form>
       <ol class="list-group list_of_items">
-        <li class="list-group-item" ng-repeat="notification in notifications_list | filter:getFilter()" 
+        <li class="list-group-item" ng-repeat="notification in notifications_list | filter:getFilter()"
           ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-click="collapse(notification.associatedUser.uid)">
 
           <span class="fa fa-remove pull-right" ng-show="removable" ng-click="hideNotification(notification.associatedUser.uid)"
             title="Excluir notificação"></span>
-          <span class="fui-eye reading-status {{ notification.status ? '' : 'ocapacity'}}" ng-show="removable" 
+          <span class="fui-eye reading-status {{ notification.status ? '' : 'ocapacity'}}" ng-show="removable"
             ng-click="markAsReadNotification(notification.associatedUser.uid)" title="Marcar como {{ notification.status ? 'lida' : 'não lida'}}"></span>
 
           <!-- Friend request -->
@@ -72,8 +72,8 @@
                 <span> Para : <a href="#"> {{ notification.ride }} </a></span> <br>
                 <span> Semanal : {{ ride.weekly ? "Sim" : "Não" }} </span> <br>
                 <span> Passageiros :
-                  <a href="#" ng-repeat="passenger in ride.passengers"> {{ passenger.uid }} </a> 
-                </span>            
+                  <a href="#" ng-repeat="passenger in ride.passengers"> {{ passenger.uid }} </a>
+                </span>
               </div>
             </div>
             <span class="friend-request">
@@ -81,7 +81,7 @@
                 Pegar Bigu!
               </button>
             </span>
-          
+
           </div>
 
           <!-- Ride request -->
@@ -95,7 +95,7 @@
             <div ng-show="active == notification.associatedUser.uid" class="info">
               <div ng-repeat=" ride in notification.associatedUser.rides">
                 <span> Bairro : <a href="#"> {{ ride.routes[0] }} </a></span><br>
-                <span> Data e horário: <a href="#"> {{ ride.date }} </a></span><br>           
+                <span> Data e horário: <a href="#"> {{ ride.date }} </a></span><br>
               </div>
             </div>
 
