@@ -50,7 +50,7 @@ class Controller(object):
         else: return False
         return True
 
-    def add_friend(self, uid, fuid):
+    def add_friend(self, uid, fuid, nid):
         u = self.get_user(uid)
         f = self.get_user(fuid)
 
@@ -61,11 +61,11 @@ class Controller(object):
 
         if relation == 'none':
             u.addFriend(f)
-            notification = FriendRequestNotification(u)
+            notification = FriendRequestNotification(nid, u)
             f.addNotification(notification)
         elif relation == 'available':
             u.addFriend(f)
-            notification = NewFriendNotification(u)
+            notification = NewFriendNotification(nid, u)
             f.addNotification(notification)
 
         return True
@@ -88,7 +88,7 @@ class Controller(object):
 
         return [n.getView() for n in u.getNotifications()]
 
-    def request_ride(self, uid, rid, district, complement):
+    def request_ride(self, uid, rid, district, complement, nid):
         u = self.get_user(uid)
         r = self.get_ride(rid)
         d = r.getDriver()
@@ -96,12 +96,12 @@ class Controller(object):
         if u == None or r == None or d == None: return False
         if r.isFull(): return False
 
-        notification = RideRequestNotification.RideRequestNotification(r, u, district, complement)
+        notification = RideRequestNotification.RideRequestNotification(nid, r, u, district, complement)
         d.addNotification(notification)
 
         return True
 
-    def accept_ride(self, uid, rid, district, complement):
+    def accept_ride(self, uid, rid, district, complement, nid):
         u = self.get_user(uid)
         r = self.get_ride(rid)
         d = r.getDriver()
@@ -112,7 +112,7 @@ class Controller(object):
         address = Address(district, complement)
         r.addPassenger(u, address)
         u.addRide(r)
-        notification = RideRequestAcceptedNotification.RideRequestAcceptedNotification(r, d)
+        notification = RideRequestAcceptedNotification.RideRequestAcceptedNotification(nid, r, d)
         u.addNotification(notification)
 
         return True

@@ -24,12 +24,12 @@
     <form>
       <ol class="list-group list_of_items">
         <li class="list-group-item" ng-repeat="notification in notifications_list | filter:getFilter()"
-          ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-click="collapse(notification.associatedUser.uid)">
-
-          <span class="fa fa-remove pull-right" ng-show="removable" ng-click="hideNotification(notification.associatedUser.uid)"
+          ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-click="collapse(notification.nid)">
+          
+          <span class="fa fa-remove pull-right" ng-show="removable" ng-click="hideNotification(notification.nid)"
             title="Excluir notificação"></span>
           <span class="fui-eye reading-status {{ notification.status ? '' : 'ocapacity'}}" ng-show="removable"
-            ng-click="markAsReadNotification(notification.associatedUser.uid)" title="Marcar como {{ notification.status ? 'lida' : 'não lida'}}"></span>
+            ng-click="markAsReadNotification(notification.nid)" title="Marcar como {{ notification.status ? 'lida' : 'não lida'}}"></span>
 
           <!-- Friend request -->
           <div ng-if="notification.type == FRIEND_REQUEST">
@@ -40,7 +40,7 @@
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
              <span class="friend-request">
-                <button class="btn btn-block btn-lg btn-success" ng-click="acceptFriendRequest(notification.associatedUser.uid)">
+                <button class="btn btn-block btn-lg btn-success" ng-click="acceptFriendRequest(notification.associatedUser.uid, notification.nid)">
                   Adicionar aos amigos!
                 </button>
              </span>
@@ -64,7 +64,7 @@
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
-            <div ng-show="notification.associatedUser.rides.length != 0 && active == notification.associatedUser.uid" class="info">
+            <div ng-show="notification.associatedUser.rides.length != 0 && active == notification.nid" class="info">
               <div ng-repeat=" ride in notification.associatedUser.rides">
                 <span> Motorista : <a href="#"> {{ ride.driver }} </a></span><br>
                 <span> Nº de vagas : {{ ride.numberOfVacancies }} </span> <br>
@@ -77,7 +77,7 @@
               </div>
             </div>
             <span class="friend-request">
-              <button class="btn btn-block btn-lg btn-info" ng-click="acceptFriendRequest(notification.associatedUser.uid)">
+              <button class="btn btn-block btn-lg btn-info" ng-click="acceptFriendRequest(notification.associatedUser.uid, notification.nid)">
                 Pegar Bigu!
               </button>
             </span>
@@ -92,18 +92,19 @@
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }}</p>
-            <div ng-show="active == notification.associatedUser.uid" class="info">
-              <div ng-repeat=" ride in notification.associatedUser.rides">
-                <span> Bairro : <a href="#"> {{ ride.routes[0] }} </a></span><br>
-                <span> Data e horário: <a href="#"> {{ ride.date }} </a></span><br>
-              </div>
+            <div ng-show="active == notification.nid" class="info">
+			  <span> Data : <a href="#"> {{ notification.ride.readableDate }} </a></span><br>
+              <span> Destino : <a href="#"> {{ notification.ride.dest }} </a></span><br>
+              <span> Endereço : <a href="#"> {{ notification.complement }} </a></span><br>
+              <span> Bairro : <a href="#"> {{ notification.district }} </a></span><br>
             </div>
 
             <div class="info-rides">
-              <button class="btn btn-lg btn-success accept-request" ng-click="acceptRideRequest(notification.associatedUser.uid, notification.ride, notification.district, notification.complement)">
+              <button class="btn btn-lg btn-success accept-request" 
+              ng-click="acceptRideRequest(notification.associatedUser.uid, notification.ride, notification.district, notification.complement, notification.nid)">
                 Aceitar
               </button>
-              <button class="btn btn-lg btn-danger refuse-request" ng-click="refuseRideRequest(notification.associatedUser.uid)">
+              <button class="btn btn-lg btn-danger refuse-request" ng-click="refuseRideRequest(notification.nid)">
                 Recusar
               </button>
             </div>
@@ -117,6 +118,12 @@
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
+            
+            <div ng-show="active == notification.nid" class="info">
+                <span> Data : <a href="#"> {{ notification.ride.readableDate }} </a></span><br>
+                <span> Destino : <a href="#"> {{ notification.ride.dest }} </a></span><br>
+            </div>
+            
           </div>
         </li>
       </ol>

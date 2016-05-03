@@ -5,8 +5,9 @@ from datetime import datetime
 
 class Notification(object):
 
-    def __init__(self):
+    def __init__(self, nid):
         self._seen = False
+        self._nid = nid
         self._date = datetime.now()
 
     def __str__(self):
@@ -21,7 +22,10 @@ class Notification(object):
         return abs(self.getDate() - other.getDate()).total_seconds() < 10
 
     """ Set and Get functions """
-
+    
+    def getNid(self):
+		return self._nid
+	
     def getMessage(self):
         return self._message
 

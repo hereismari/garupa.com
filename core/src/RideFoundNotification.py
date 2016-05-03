@@ -3,8 +3,8 @@ from Notification import Notification
 
 class RideFoundNotification(Notification):
 
-    def __init__(self, ride):
-        Notification.__init__(self)
+    def __init__(self, nid, ride):
+        Notification.__init__(self, nid)
 
         self._ride = ride
         self._message = "Uma carona surgiu"
@@ -18,6 +18,7 @@ class RideFoundNotification(Notification):
     def getData(self):
         result = {}
 
+        result['nid'] = self.getNid()
         result['status'] = self.getSeen()
         result['type'] = self.getType()
         result['date'] = self.getReadableDate()

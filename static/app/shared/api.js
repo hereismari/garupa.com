@@ -152,7 +152,9 @@ app.service('Api', function($q, $http, Cookie) {
         return request({
             method: 'POST',
             url: '/api/users/' + uid + '/friends',
-            data: {fuid: fuid}
+            data: {
+				fuid: fuid
+			}
         });
     };
 

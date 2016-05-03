@@ -42,9 +42,9 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
         return {$: $scope.search};
     }
 
-    $scope.getIndex = function (uid) {
+    $scope.getIndex = function (nid) {
         for (var index = 0; index < $scope.notifications_list.length; index++) {
-            if (uid === $scope.notifications_list[index].associatedUser.uid)
+            if (nid === $scope.notifications_list[index].nid)
                 return index;
         }
         return null;
@@ -56,38 +56,38 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
         }
     }
 
-    $scope.hideNotification = function(uid) {
-        var index = $scope.getIndex(uid);
+    $scope.hideNotification = function(nid) {
+        var index = $scope.getIndex(nid);
         $scope.notifications_list[ index ].status = 0;
         $scope.removeNotificationByIndex( index );
     }
 
-    $scope.markAsReadNotification = function(uid) {
-        var index = $scope.getIndex(uid);
+    $scope.markAsReadNotification = function(nid) {
+        var index = $scope.getIndex(nid);
         var status = $scope.notifications_list[ index ].status;
         $scope.notifications_list[ index ].status = 1 - status;
     }
 
-    $scope.acceptFriendRequest = function(uid) {
+    $scope.acceptFriendRequest = function(uid, nid) {
         Users.logged.addFriend(uid);
-        $scope.removeNotificationByIndex( $scope.getIndex(uid) );
-        //Users.logged.removeNotification(notification);
+        $scope.removeNotificationByIndex( $scope.getIndex(nid) );
+        Users.logged.removeNotificationByID(nid);
     }
 
-    $scope.acceptRideRequest = function(uid, ride, district, complement) {
+    $scope.acceptRideRequest = function(uid, ride, district, complement, nid) {
         Api.acceptRide(Users.logged.uid, uid, ride.rid, district, complement);
-        $scope.removeNotificationByIndex( $scope.getIndex(uid) );
-        //Users.logged.removeNotification(notification);
+        $scope.removeNotificationByIndex( $scope.getIndex(nid) );
+        Users.logged.removeNotificationByID(nid);
     }
 
-    $scope.refuseRideRequest = function(uid) {
-        $scope.removeNotificationByIndex( $scope.getIndex(uid) );
-        //Users.logged.removeNotification(notification);
+    $scope.refuseRideRequest = function(nid) {
+        $scope.removeNotificationByIndex( $scope.getIndex(nid) );
+        Users.logged.removeNotificationByID(nid);
     }
 
-    $scope.collapse = function(uid) {
-        if ($scope.active != uid)
-            $scope.active = uid;
+    $scope.collapse = function(nid) {
+        if ($scope.active != nid)
+            $scope.active = nid;
         else
             $scope.active = null;
     };
@@ -100,3 +100,4 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
         this.removable = false;
     }
 });
+

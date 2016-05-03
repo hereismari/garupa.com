@@ -2,8 +2,8 @@ from core.src.Notification import Notification
 
 class RideRequestAcceptedNotification(Notification):
 
-    def __init__(self, ride, associatedUser):
-        Notification.__init__(self)
+    def __init__(self, nid, ride, associatedUser):
+        Notification.__init__(self, nid)
 
         self._ride = ride
         self._associatedUser = associatedUser
@@ -21,6 +21,7 @@ class RideRequestAcceptedNotification(Notification):
     def getData(self):
         result = {}
 
+        result['nid'] = self.getNid()
         result['status'] = self.getSeen()
         result['type'] = self.getType()
         result['date'] = self.getReadableDate()

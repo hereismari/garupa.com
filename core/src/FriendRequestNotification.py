@@ -5,8 +5,8 @@ from Notification import Notification
 
 class FriendRequestNotification(Notification):
 
-    def __init__(self, associatedUser):
-        Notification.__init__(self)
+    def __init__(self, nid, associatedUser):
+        Notification.__init__(self, nid)
 
         self._associatedUser = associatedUser
         self._message = "enviou uma solicitação de amizade"
@@ -20,6 +20,7 @@ class FriendRequestNotification(Notification):
     def getData(self):
         result = {}
 
+        result['nid'] = self.getNid()
         result['status'] = self.getSeen()
         result['type'] = self.getType()
         result['date'] = self.getReadableDate()

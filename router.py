@@ -137,12 +137,13 @@ def recover_passwd(uid):
 @app.route('/api/users/<int:uid>/friends', methods=['POST'])
 @stomach.protect
 def add_friend(uid):
-    try: fuid = request.json['fuid']
+    try: 
+		fuid = request.json['fuid']
     except: return BAD_REQUEST
 
     if uid != logged_user(): return UNAUTHORIZED
 
-    success = controller.add_friend(uid, fuid)
+    success = controller.add_friend(uid, fuid, generator.get_notification_id())
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/friends/<int:fuid>', methods=['DELETE'])
@@ -192,7 +193,7 @@ def request_ride(uid):
 
     if uid != logged_user(): return UNAUTHORIZED
 
-    success = controller.request_ride(uid, rid, district, complement)
+    success = controller.request_ride(uid, rid, district, complement, generator.get_notification_id())
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/rides/<int:uid>/accept', methods=['POST'])
@@ -208,7 +209,7 @@ def accept_ride(uid):
 
     if uid != logged_user(): return UNAUTHORIZED
 
-    success = controller.accept_ride(fuid, rid, district, complement)
+    success = controller.accept_ride(fuid, rid, district, complement, generator.get_notification_id())
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/rides/<int:rid>', methods=['DELETE'])

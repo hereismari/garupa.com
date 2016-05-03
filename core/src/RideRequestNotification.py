@@ -3,8 +3,8 @@ from Notification import Notification
 
 class RideRequestNotification(Notification):
 
-    def __init__(self, ride, associatedUser, district, complement):
-        Notification.__init__(self)
+    def __init__(self, nid, ride, associatedUser, district, complement):
+        Notification.__init__(self, nid)
 
         self._ride = ride
         self._associatedUser = associatedUser
@@ -30,6 +30,7 @@ class RideRequestNotification(Notification):
     def getData(self):
         result = {}
 
+        result['nid'] = self.getNid()
         result['status'] = self.getSeen()
         result['type'] = self.getType()
         result['date'] = self.getReadableDate()
