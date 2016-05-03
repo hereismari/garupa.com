@@ -100,13 +100,23 @@
             </div>
 
             <div class="info-rides">
-              <button class="btn btn-lg btn-success accept-request" ng-click="acceptRideRequest(notification.associatedUser.uid)">
+              <button class="btn btn-lg btn-success accept-request" ng-click="acceptRideRequest(notification.associatedUser.uid, notification.ride, notification.district, notification.complement)">
                 Aceitar
               </button>
               <button class="btn btn-lg btn-danger refuse-request" ng-click="refuseRideRequest(notification.associatedUser.uid)">
                 Recusar
               </button>
             </div>
+          </div>
+
+          <!-- Ride request successful -->
+          <div ng-if="notification.type == RIDE_ACCEPTED">
+            <div class="list-group-item-heading">
+              <img class='img-responsive img-rounded' src='{{ notification.associatedUser.photo }}'/>
+              <span> <a href="#"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
+              <br><span class="date">{{ notification.date }}</span>
+            </div>
+            <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
           </div>
         </li>
       </ol>

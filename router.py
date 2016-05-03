@@ -159,8 +159,6 @@ def get_notifications(uid):
     if uid != logged_user(): return UNAUTHORIZED
 
     notifications = controller.get_notifications(uid)
-    print notifications
-    print 'ok'
 
     if notifications == None: return NOT_FOUND
     return json.dumps(notifications)
@@ -182,9 +180,9 @@ def register_ride():
     success = controller.register_ride(**args)
     return CREATED if success else NOT_FOUND
 
-@app.route('/api/users/<int:uid>/rides', methods=['POST'])
+@app.route('/api/rides/<int:uid>/request', methods=['POST'])
 @stomach.protect
-def join_ride(uid):
+def request_ride(uid):
     try:
         rid = request.json['rid']
         district = request.json['district']
@@ -194,7 +192,23 @@ def join_ride(uid):
 
     if uid != logged_user(): return UNAUTHORIZED
 
-    success = controller.join_ride(uid, rid, district, complement)
+    success = controller.request_ride(uid, rid, district, complement)
+    return UPDATED if success else NOT_FOUND
+
+@app.route('/api/rides/<int:uid>/accept', methods=['POST'])
+@stomach.protect
+def accept_ride(uid):
+    try:
+        fuid = request.json['fuid']
+        rid = request.json['rid']
+        district = request.json['district']
+        complement = request.json['complement']
+    except:
+        return BAD_REQUEST
+
+    if uid != logged_user(): return UNAUTHORIZED
+
+    success = controller.accept_ride(fuid, rid, district, complement)
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/rides/<int:rid>', methods=['DELETE'])

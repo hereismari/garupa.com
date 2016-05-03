@@ -1,5 +1,6 @@
 from src import User, Ride, Address
-from src import FriendRequestNotification, NewFriendNotification, RideFoundNotification, RideRequestAcceptedNotification, RideRequestNotification
+from src import FriendRequestNotification, NewFriendNotification
+from src import RideFoundNotification, RideRequestAcceptedNotification, RideRequestNotification
 from datetime import datetime
 
 class Controller(object):
@@ -59,12 +60,10 @@ class Controller(object):
         relation = f.getRelationship(u)
 
         if relation == 'none':
-            print "pedido enviado"
             u.addFriend(f)
             notification = FriendRequestNotification(u)
             f.addNotification(notification)
         elif relation == 'available':
-            print "amizade aceita"
             u.addFriend(f)
             notification = NewFriendNotification(u)
             f.addNotification(notification)
@@ -89,16 +88,33 @@ class Controller(object):
 
         return [n.getView() for n in u.getNotifications()]
 
-    def join_ride(self, uid, rid, district, complement):
+    def request_ride(self, uid, rid, district, complement):
         u = self.get_user(uid)
         r = self.get_ride(rid)
+        d = r.getDriver()
 
-        if u == None or r == None: return False
+        if u == None or r == None or d == None: return False
+        if r.isFull(): return False
+
+        notification = RideRequestNotification.RideRequestNotification(r, u, district, complement)
+        d.addNotification(notification)
+
+        return True
+
+    def accept_ride(self, uid, rid, district, complement):
+        u = self.get_user(uid)
+        r = self.get_ride(rid)
+        d = r.getDriver()
+
+        if u == None or r == None or d == None: return False
         if r.isFull(): return False
 
         address = Address(district, complement)
         r.addPassenger(u, address)
         u.addRide(r)
+        notification = RideRequestAcceptedNotification.RideRequestAcceptedNotification(r, d)
+        u.addNotification(notification)
+
         return True
 
     def cancel_ride(self, uid, rid):

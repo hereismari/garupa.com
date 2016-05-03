@@ -25,7 +25,7 @@ class RideRequestAcceptedNotification(Notification):
         result['type'] = self.getType()
         result['date'] = self.getReadableDate()
         result['message'] = self.getMessage()
-        result['ride'] = ride.getView()
+        result['ride'] = self.getRide().getView()
         result['associatedUser'] = self.getAssociatedUser().getPublicView()
 
         return result

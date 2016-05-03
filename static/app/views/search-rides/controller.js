@@ -28,11 +28,11 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
             });
     };
 
-    $scope.joinRide = function(ride) {
+    $scope.requestRide = function(ride) {
         var form = $scope.form;
-        Users.logged.joinRide(ride.rid, form.district, form.complement)
+        Api.requestRide(Users.logged.uid, ride.rid, form.district, form.complement)
             .then(function() {
-                alert('Bigu aceito!');
+                alert('Pedido enviado!');
             });
     };
 

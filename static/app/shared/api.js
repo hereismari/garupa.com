@@ -171,11 +171,24 @@ app.service('Api', function($q, $http, Cookie) {
         });
     };
 
-    this.joinRide = function(uid, rid, district, complement) {
+    this.requestRide = function(uid, rid, district, complement) {
         return request({
             method: 'POST',
-            url: '/api/users/' + uid + '/rides',
+            url: '/api/rides/' + uid + '/request',
             data: {
+                rid: rid,
+                district: district,
+                complement: complement
+            }
+        });
+    };
+
+    this.acceptRide = function(uid, fuid, rid, district, complement) {
+        return request({
+            method: 'POST',
+            url: '/api/rides/' + uid + '/accept',
+            data: {
+                fuid: fuid,
                 rid: rid,
                 district: district,
                 complement: complement
@@ -198,28 +211,6 @@ app.service('Api', function($q, $http, Cookie) {
                 dest: dest, district: district,
                 date: date, weekly: weekly,
                 page: page, limit: limit
-            }
-        });
-    };
-
-    this.request_ride = function(uid, rid, district, complement) {
-        return request({
-            method: 'POST',
-            url: '/api/rides/' + uid + '/requests',
-            data: {
-                rid: rid,
-                district: district,
-                complement: complement
-            }
-        });
-    };
-
-    this.accept_ride = function(uid, rid) {
-        return request({
-            method: 'POST',
-            url: '/api/users/' + uid + '/rides',
-            data: {
-                rid: rid
             }
         });
     };
