@@ -1,4 +1,3 @@
-import os, random, string
 
 class User(object):
 
@@ -24,134 +23,93 @@ class User(object):
         return self._uid
 
     def __str__(self):
-        return self._name
+        return '<User uid=%d>' % self._uid
+        
 
-    def addFriend(self, friend):
-        self._friends.add(friend)
-
-    def removeFriend(self, friend):
-        self._friends.remove(friend)
-
-    def isFriendOf(self, user):
+    def has_friend(self, user):
         return user in self._friends
 
-    def numberOfFriends(self):
-        return len(self._friends)
+    def add_friend(self, user):
+        self._friends.add(user)
 
-    def addNotification(self, notification):
+    def remove_friend(self, user):
+        self._friends.remove(user)
+
+    def get_relationship(self, other):
+        self_has_other = self.has_friend(other)
+        other_has_self = other.has_friend(self)
+
+        if self == other: rel = 'self'
+        elif not self_has_other and not other_has_self: rel = 'none'
+        elif     self_has_other and not other_has_self: rel = 'available'
+        elif not self_has_other and     other_has_self: rel = 'pending'
+        else: rel = 'friend'
+
+        return rel
+        
+
+    def add_notification(self, notification):
         self._notifications.append(notification)
 
-    def removeNotification(self, notification):
+    def remove_notification(self, notification):
         self._notifications.remove(notification)
+        
 
-    def numberOfNotifications(self):
-        return len(self._notifications)
-
-    def numberOfUnseenNotifications(self):
-        result = 0
-        for notification in self._notifications:
-            if not notification.getSeen(): result += 1
-        return result
-
-    def addRide(self, ride):
+    def add_ride(self, ride):
         if ride not in self._rides:
             self._rides.append(ride)
 
-    def removeRide(self, ride):
+    def remove_ride(self, ride):
         self._rides.remove(ride)
 
-    def numberOfRides(self):
-        return len(self._rides)
+    def update_rides(self):
+        self._rides = [r for r in self._rides if r.update()]
+        
 
-    def generatePassword(self, length=10):
-        chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
-        random.seed = (os.urandom(1024))
-        password = ''.join(random.choice(chars) for i in range(length))
-        return password
-
-    """ Set and Get functions """
-    def getName(self):
-        return self._name
-
-    def setName(self, name):
+    def set_name(self, name):
         self._name = name
-
-    def getEmail(self):
-        return self._email
 
     def setEmail(self, email):
         self._email = email
 
-    def getUid(self):
-        return self._uid
-
-    def getPhone(self):
-        return self._phone
-
     def setPhone(self, phone):
         self._phone = phone
-
-    def getPhoto(self):
-        return self._photo
 
     def setPhoto(self, photo):
         self._photo = photo
 
+    def setPassword(self, password):
+        self._password = password
+        
+
     def getPassword(self):
         return self._password
 
-    def setPassword(self, password):
-        self._password = password
-
-    def getFriends(self):
-        return self._friends
-
-    def getNotifications(self):
+    def get_notifications(self):
         return self._notifications
+        
 
-    def getRides(self):
-        return self._rides
+    def get_view(self, other):
+        rel = self.get_relationship(other)
+        if rel not in ['self', 'friend']: result = self.get_public_view()
+        else: result = self.get_private_view()
 
-    """ getView method """
-    def getView(self, other):
-
-        relationship = self.getRelationship(other)
-        if relationship not in ['self', 'friend']: result = self.getPublicView()
-        else: result = self.getPrivateView()
-
-        result['relationship'] = relationship
+        result['relationship'] = rel
         return result
 
-    def getRelationship(self, other):
-
-        isFriendOf = self.isFriendOf(other)
-        otherIsFriendOf = other.isFriendOf(self)
-
-        if self == other: result = 'self'
-        elif not isFriendOf and not otherIsFriendOf: result = 'none'
-        elif isFriendOf and not otherIsFriendOf: result = 'available'
-        elif not isFriendOf and otherIsFriendOf: result = 'pending'
-        else: result = 'friend'
-
-        return result
-
-    def getPublicView(self):
+    def get_public_view(self):
         return {
-            'name' : self.getName(),
-            'uid' : self.getUid(),
-            'photo' : self.getPhoto()
+            'name' : self._name,
+            'uid' : self._uid,
+            'photo' : self._photo
         }
 
-    def getPrivateView(self):
-        publicView = self.getPublicView()
-        self.updateRides()
+    def get_private_view(self):
+        self.update_rides()
+        view = self.get_public_view()
 
-        return dict(publicView, **{
-            'email': self.getEmail(),
-            'phone': self.getPhone(),
-            'rides': [r.getView() for r in self.getRides()]
+        return dict(view, **{
+            'email': self._email,
+            'phone': self._phone,
+            'rides': [r.get_view() for r in self._rides]
         })
-
-    """ Update rides """
-    def updateRides(self):
-        self._rides = [r for r in self._rides if r.update()]

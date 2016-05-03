@@ -1,4 +1,5 @@
 import re
+from types import NoneType
 from numbers import Integral
 
 _required = {
@@ -24,7 +25,7 @@ _pattern = {
 
 _type = {
     'uid'   : Integral,
-    'passwd': object,
+    'passwd': (unicode, NoneType),
     'name'  : unicode,
     'email' : unicode,
     'phone' : unicode,

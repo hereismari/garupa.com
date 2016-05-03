@@ -60,11 +60,11 @@ class Controller(object):
         relation = f.getRelationship(u)
 
         if relation == 'pending':
-			notification = FriendRequestNotification(uid)
-			f.addNotification(notification)
+            notification = FriendRequestNotification(uid)
+            f.addNotification(notification)
         elif relation == 'friend':
-			notification = NewFriendNotification(uid)
-			f.addNotification(notification)
+            notification = NewFriendNotification(uid)
+            f.addNotification(notification)
 
         return True
 
