@@ -9,7 +9,7 @@ class Ride(object):
     def __init__(self, driver, date, dest, origin, route, weekly, seats):
 
         self._driver = driver
-        self._numberOfVacancies = seats
+        self._vacancies = seats
 
         self._rid = Ride.rid_counter
         Ride.rid_counter += 1
@@ -25,99 +25,79 @@ class Ride(object):
 
     def __eq__(self, other):
         if type(other) is not Ride: return False
-        return self._rid == other.getRid()
+        return self._rid == other.get_rid()
 
     def __hash__(self):
         return self._rid
 
-    def addPassenger(self, passenger, address):
+    def add_passenger(self, passenger, address):
         if not self.isFull() and not self.containsUser(passenger):
             self._passengers.append((passenger, address))
 
-    def removePassenger(self, passenger):
-        old_size = self.getNumberOfPassengers()
+    def remove_passenger(self, passenger):
+        old_size = self.get_passengers_len()
 
         self._passengers = [p for p in self._passengers if p[0] != passenger]
-        return old_size != self.getNumberOfPassengers()
+        return old_size != self.get_passengers_len()
 
-    def getNumberOfPassengers(self):
+    def get_passengers_len(self):
         return len(self._passengers)
 
-    def containsUser(self, user):
+    def contains_user(self, user):
         for passenger in self._passengers:
             if passenger[0] == user: return True
         return user == self._driver
 
-    def isFull(self):
-        return self.getNumberOfPassengers() == self.getNumberOfVacancies()
+    def is_full(self):
+        return self.get_passengers_len() == self._vacancies()
 
-    def isInTheRoute(self, district):
+    def is_in_route(self, district):
     	return district in self._route
-
-    # caso precise desses metodos
-    def addNeighborhoodToRoute(self, neighborhood):
-        if neighborhood not in self._route:
-            self._route.append(neighborhood)
-
-    def removeNeighborhoodFromRoute(self, neighborhood):
-        old_size = len(self._route)
-
-        self._passengers = [r for r in self._route if r != neighborhood]
-        return old_size != len(self._route)
 
     def update(self):
         sunday = self.getLastSunday()
-        if self.isWeekly() and self._date.date() < sunday:
+        if self.is_weekly() and self._date.date() < sunday:
             self._date += timedelta(weeks=1)
         return self._date.date() >= sunday
 
-    def getLastSunday(self):
+    def last_sunday(self):
         today = date.today()
         weekday = today.isoweekday() % 7
         return today - timedelta(weekday)
 
-    def happensOn(self, date):
+    def happens_on(self, date):
         return abs(self._date - date) <= timedelta(minutes=15)
+
+    def get_vacancies(self):
+        return self._vacancies - len(self._passengers)
 
     """ Set and Get functions """
 
-    def getDate(self):
+    def get_date(self):
         return self._date
 
-    def getTimestamp(self):
+    def get_timestamp(self):
         return mktime(self.getDate().timetuple())
 
-    def getReadableDate(self):
-        return self.getDate().strftime('%Y-%m-%d')
-
-    def getDriver(self):
+    def get_driver(self):
         return self._driver
 
-    def isWeekly(self):
+    def is_weekly(self):
         return self._weekly
 
-    def setWeekly(self, weekly):
-        self._weekly = weekly
-
-    def getNumberOfVacancies(self):
-        return self._numberOfVacancies
-
-    def setNumberOfVacancies(self, numberOfVacancies):
-        self._numberOfVacancies = numberOfVacancies
-
-    def getPassengers(self):
+    def get_passengers(self):
         return self._passengers
 
-    def getRid(self):
+    def get_rid(self):
         return self._rid
 
-    def getDestination(self):
+    def get_destination(self):
         return self._dest
 
-    def getOrigin(self):
+    def get_origin(self):
         return self._origin
 
-    def getRoute(self):
+    def get_route(self):
         return self._route
 
     """ Get view """
@@ -126,20 +106,20 @@ class Ride(object):
         return {
             'date': int(self.getTimestamp() * 1000),
 
-            'rid': self.getRid(),
-            'driver': self.getDriver().getPublicView(),
-            'dest': self.getDestination(),
-            'origin': self.getOrigin(),
-            'route': self.getRoute(),
-            'weekly': self.isWeekly(),
-            'seats': self.getNumberOfVacancies() - self.getNumberOfPassengers(),
+            'rid': self.get_rid(),
+            'driver': self.get_driver().get_public_view(),
+            'dest': self.get_destination(),
+            'origin': self.get_origin(),
+            'route': self.get_route(),
+            'weekly': self.is_weekly(),
+            'seats': self.get_vacancies(),
 
             'passengers': [{
-                'name': p[0].getName(),
-                'uid': p[0].getUid(),
+                'name': p[0].get_name(),
+                'uid': p[0].get_uid(),
                 'address': {
-                    'district': p[1].getDistrict(),
-                    'complement': p[1].getComplement()
+                    'district': p[1].get_district(),
+                    'complement': p[1].get_complement()
                 }
-            } for p in self.getPassengers()]
+            } for p in self.get_passengers()]
         }

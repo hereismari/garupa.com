@@ -10,14 +10,14 @@ class Address(object):
 
     """ Set and Get functions """
 
-    def getDistrict(self):
+    def get_district(self):
         return self._district
 
-    def setDistrict(self, district):
+    def set_district(self, district):
         self._district = district
 
-    def getComplement(self):
+    def get_complement(self):
         return self._complement
 
-    def setComplement(self, complement):
+    def set_complement(self, complement):
         self._complement = complement
