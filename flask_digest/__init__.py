@@ -1,1 +1,0 @@
-from stomach import Stomach
