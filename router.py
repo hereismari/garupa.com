@@ -163,6 +163,14 @@ def get_notifications(uid):
 
     if notifications == None: return NOT_FOUND
     return json.dumps(notifications)
+    
+@app.route('/api/users/<int:uid>/notifications/<int:nid>', methods=['DELETE'])
+@stomach.protect
+def remove_notification(uid, nid):
+    if uid != logged_user(): return UNAUTHORIZED
+
+    success = controller.remove_notification(uid, nid)
+    return UPDATED if success else NOT_FOUND
 
 @app.route('/api/rides', methods=['POST'])
 @stomach.protect
@@ -251,6 +259,4 @@ def search_ride():
 
 if __name__ == '__main__':
     logging.basicConfig(filename='info.log', level=logging.DEBUG)
-    register_credentials(114110428, "123" , "casfasfh", "safsafasf@gmail.com")
-    register_credentials(114110429, "123", "casfsadfsaf", "safsafgfgfdsf@gmail.com")
     app.run(host='0.0.0.0', port=8000)

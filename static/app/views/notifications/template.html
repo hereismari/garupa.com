@@ -2,11 +2,11 @@
 <div class="container" id="notification">
   <div class="notificationsNav">
     <ul>
-      <li class="lnk"> Notifica&ccedil;&otilde;es</li>
+      <li class="lnk"> Notificações</li>
       <li class="filter-option {{ (filter == '') ?'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('')">
-        Todas as notifica&ccedil;&otilde;es</a> </li>
+        Todas as notificações</a> </li>
       <li class="filter-option {{ (filter == 'status') ?'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('status', VIEWED)">
-        Notifica&ccedil;&otilde;es lidas</a> </li> <br>
+        Notificações lidas</a> </li> <br>
       <li class="lnk">Filtrar por tipo</li>
       <li class="filter-option {{ (filter == 'null') ?'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('')">
         Recentes</a> </li>
@@ -16,11 +16,11 @@
         Pedidos de Carona</a> </li>
       <li class="filter-option {{ (search == RIDE_FOUND) ? 'selected' : ''}}"> <a href="#" ng-click="changeFilterTo('type', RIDE_FOUND)">
         Caronas encontradas</a> </li>
-      <!--<li class="filter-option"> <a href="#">Avalia&ccedil;&otilde;es</a> </li>-->
+      <!--<li class="filter-option"> <a href="#">Avaliações</a> </li>-->
     </ul>
   </div>
   <div class="notificationsList">
-    <span class="lnk">Todas as notifica&ccedil;&otilde;es</span>
+    <span class="lnk">Todas as notificações</span>
     <form>
       <ol class="list-group list_of_items">
         <li class="list-group-item" ng-repeat="notification in notifications_list | filter:getFilter()"
@@ -28,14 +28,14 @@
           
           <span class="fa fa-remove pull-right" ng-show="removable" ng-click="hideNotification(notification.nid)"
             title="Excluir notificação"></span>
-          <span class="fui-eye reading-status {{ notification.status ? '' : 'ocapacity'}}" ng-show="removable"
+          <span class="fui-eye reading-status {{ notification.status ? 'ocapacity' : ''}}" ng-show="removable"
             ng-click="markAsReadNotification(notification.nid)" title="Marcar como {{ notification.status ? 'lida' : 'não lida'}}"></span>
 
           <!-- Friend request -->
           <div ng-if="notification.type == FRIEND_REQUEST">
             <div class="list-group-item-heading">
               <img class='img-responsive img-rounded' src='{{ notification.associatedUser.photo }}'/>
-              <span> <a href="#"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
+              <span> <a href="./perfil/{{notification.associatedUser.uid}}"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
@@ -50,7 +50,7 @@
           <div ng-if="notification.type == NEW_FRIEND">
             <div class="list-group-item-heading">
               <img class='img-responsive img-rounded' src='{{ notification.associatedUser.photo }}'/>
-              <span> <a href="#"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
+              <span> <a href="./perfil/{{notification.associatedUser.uid}}"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
@@ -65,30 +65,22 @@
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>
             <div ng-show="notification.associatedUser.rides.length != 0 && active == notification.nid" class="info">
-              <div ng-repeat=" ride in notification.associatedUser.rides">
-                <span> Motorista : <a href="#"> {{ ride.driver }} </a></span><br>
-                <span> Nº de vagas : {{ ride.numberOfVacancies }} </span> <br>
-                <span> Data : <a href="#"> {{ ride.date }} </a></span> <br>
-                <span> Para : <a href="#"> {{ notification.ride }} </a></span> <br>
-                <span> Semanal : {{ ride.weekly ? "Sim" : "Não" }} </span> <br>
-                <span> Passageiros :
-                  <a href="#" ng-repeat="passenger in ride.passengers"> {{ passenger.uid }} </a>
-                </span>
-              </div>
+              <span> Motorista : <a href="./perfil/{{notification.associatedUser.uid}}"> {{ notification.associatedUser.name }} </a></span><br>
+              <span> Nº de vagas : {{ notification.ride.seats }} </span> <br>
+              <span> Data : <a href="#"> {{ notification.ride.readableDate }} </a></span> <br>
+              <span> Para : <a href="#"> {{ notification.ride.dest }} </a></span> <br>
+              <span> Semanal : {{ notification.ride.weekly ? "Sim" : "Não" }} </span> <br>
+              <span> Passageiros :
+                <a href="./perfil/{{passenger.uid}}" ng-repeat="passenger in notification.ride.passengers"> {{ passenger.uid }} </a>
+              </span>
             </div>
-            <span class="friend-request">
-              <button class="btn btn-block btn-lg btn-info" ng-click="acceptFriendRequest(notification.associatedUser.uid, notification.nid)">
-                Pegar Bigu!
-              </button>
-            </span>
-
           </div>
 
           <!-- Ride request -->
           <div ng-if="notification.type == RIDE_REQUEST">
             <div class="list-group-item-heading">
               <img class='img-responsive img-rounded' src='{{ notification.associatedUser.photo }}'/>
-              <span> <a href="#"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
+              <span> <a href="./perfil/{{notification.associatedUser.uid}}"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }}</p>
@@ -114,7 +106,7 @@
           <div ng-if="notification.type == RIDE_ACCEPTED">
             <div class="list-group-item-heading">
               <img class='img-responsive img-rounded' src='{{ notification.associatedUser.photo }}'/>
-              <span> <a href="#"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
+              <span> <a href="./perfil/{{notification.associatedUser.uid}}"> {{ notification.associatedUser.name }} </a> {{ notification.message }}</span>
               <br><span class="date">{{ notification.date }}</span>
             </div>
             <p class="list-group-item-text">{{ notification.associatedUser.message }} </p>

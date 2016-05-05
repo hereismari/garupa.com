@@ -87,6 +87,15 @@ class Controller(object):
             return None
 
         return [n.getView() for n in u.getNotifications()]
+        
+    def remove_notification(self, uid, nid):
+        u = self.get_user(uid)
+        
+        if u == None:
+            return False
+        
+        u.removeNotificationByID(nid)
+        return True
 
     def request_ride(self, uid, rid, district, complement, nid):
         u = self.get_user(uid)
@@ -96,7 +105,7 @@ class Controller(object):
         if u == None or r == None or d == None: return False
         if r.isFull(): return False
 
-        notification = RideRequestNotification.RideRequestNotification(nid, r, u, district, complement)
+        notification = RideRequestNotification(nid, r, u, district, complement)
         d.addNotification(notification)
 
         return True
@@ -112,7 +121,7 @@ class Controller(object):
         address = Address(district, complement)
         r.addPassenger(u, address)
         u.addRide(r)
-        notification = RideRequestAcceptedNotification.RideRequestAcceptedNotification(nid, r, d)
+        notification = RideRequestAcceptedNotification(nid, r, d)
         u.addNotification(notification)
 
         return True

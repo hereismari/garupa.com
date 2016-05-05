@@ -234,7 +234,7 @@ app.service('Api', function($q, $http, Cookie) {
         });
     };
 
-    this.remove_notification = function(uid, nid) {
+    this.removeNotification = function(uid, nid) {
          return request({
             method: 'DELETE',
             url: '/api/users/' + uid + '/notifications/' + nid,

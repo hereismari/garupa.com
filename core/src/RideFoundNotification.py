@@ -23,7 +23,7 @@ class RideFoundNotification(Notification):
         result['type'] = self.getType()
         result['date'] = self.getReadableDate()
         result['message'] = self.getMessage()
-        result['ride'] = ride.getView()
-        result['associatedUser'] = self.ride.getDriver().getPublicView()
+        result['ride'] = self.getRide().getView()
+        result['associatedUser'] = self.getRide().getDriver().getPublicView()
 
         return result

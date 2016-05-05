@@ -51,6 +51,7 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
     }
 
     $scope.removeNotificationByIndex = function(index) {
+		Users.logged.removeNotification($scope.notifications_list[index].nid);
         if (index != null) {
             $scope.notifications_list.splice(index, 1);
         }
@@ -71,18 +72,15 @@ app.controller('notifications', function($scope, $state, $stateParams, Api, User
     $scope.acceptFriendRequest = function(uid, nid) {
         Users.logged.addFriend(uid);
         $scope.removeNotificationByIndex( $scope.getIndex(nid) );
-        Users.logged.removeNotificationByID(nid);
     }
 
     $scope.acceptRideRequest = function(uid, ride, district, complement, nid) {
-        Api.acceptRide(Users.logged.uid, uid, ride.rid, district, complement);
+        Users.logged.acceptRide(uid, ride.rid, district, complement);
         $scope.removeNotificationByIndex( $scope.getIndex(nid) );
-        Users.logged.removeNotificationByID(nid);
     }
 
     $scope.refuseRideRequest = function(nid) {
         $scope.removeNotificationByIndex( $scope.getIndex(nid) );
-        Users.logged.removeNotificationByID(nid);
     }
 
     $scope.collapse = function(nid) {
