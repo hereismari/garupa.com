@@ -8,11 +8,8 @@ class NewFriendNotification(Notification):
 
         self._associatedUser = associatedUser
 
-    def getType(self):
+    def get_type(self):
         return 'NEW_FRIEND'
 
-    def getAssociatedUser(self):
-    	return self._associatedUser
-
-    def getData(self):
-        return associatedUser.getPublicView()
+    def get_data(self):
+        return self._associatedUser.get_public_view()

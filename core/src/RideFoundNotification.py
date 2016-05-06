@@ -8,11 +8,8 @@ class RideFoundNotification(Notification):
 
         self._ride = ride
 
-    def getRide(self):
-    	return self._ride
-
-    def getType(self):
+    def get_type(self):
         return 'RIDE_FOUND'
 
-    def getData(self):
-        return ride.getView()
+    def get_data(self):
+        return self._ride.get_view()

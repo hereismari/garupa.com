@@ -10,42 +10,29 @@ class Notification(object):
         self._date = datetime.now()
 
     def __str__(self):
-        result = 'Notification\n'
-        result += 'date: ' + self._date + '\n'
-        result += 'status: ' + ('seen' if self._seen else 'unseen') + '\n'
-        result += 'message: ' + str(self._message) + '\n'
-        return result
+        return '<Notification data: %s status: %s>' % (self.get_date(), self._seen)
 
     def __eq__(self, other):
         if isinstance(other, Notification): return False
-        return abs(self.getDate() - other.getDate()).total_seconds() < 10
+        return abs(self.get_date() - other.get_date()).total_seconds() < 10
 
     """ Set and Get functions """
 
-    def getMessage(self):
-        return self._message
-
-    def getDate(self):
+    def get_date(self):
         return self._date
 
-    def getReadableDate(self):
-        return self._date.strftime('%d-%m-%Y')
-
-    def getSeen(self):
-        return self._seen
-
-    def setSeen(self, seen):
+    def set_seen(self, seen):
         self._seen = seen
 
-    def getTimestamp(self):
-        return mktime(self.getDate().timetuple())
+    def get_time_stamp(self):
+        return mktime(self._date.timetuple())
 
-    def getView(self):
+    def get_view(self):
         result = {}
 
-        result['status'] = self.getSeen()
-        result['data'] = self.getData()
-        result['type'] = self.getType()
-        result['date'] = int(self.getTimestamp() * 1000)
+        result['status'] = self._seen()
+        result['data'] = self.get_data()
+        result['type'] = self.get_type()
+        result['date'] = int(self.get_time_stamp() * 1000)
 
         return result
