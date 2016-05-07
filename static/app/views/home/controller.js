@@ -1,7 +1,11 @@
 
-app.controller('home', function($scope, $state, Api) {
+app.controller('home', function($scope, $translate, $state, Api) {
 
-	$scope.form = new Object();
+	$scope.changeLanguage = function(key) {
+        $translate.use(key);
+    };
+    
+    $scope.form = new Object();
 
 	$scope.toggleForm = function() {
 		$('#welcome').fadeOut('slow', function() {

@@ -6,7 +6,12 @@ app.directive('navigationBar', function() {
         templateUrl: '/app/directives/navigation-bar/template.html',
         css: '/app/directives/navigation-bar/style.css',
 
-        controller: function($scope, $state, $location, Users) {
+        controller: function($scope, $translate, $state, $location, Users) {
+
+            $scope.changeLanguage = function(key) {
+                $translate.use(key);
+            };
+
             $scope.Users = Users;
             $scope.form = new Object();
 

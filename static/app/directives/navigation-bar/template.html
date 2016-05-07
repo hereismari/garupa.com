@@ -1,6 +1,6 @@
 
 <div class='navbar navbar-default navbar-fixed-top'>
-  <div class='container'><div class='col-md-10 col-md-offset-1'>
+  <div class='container'><div class='col-md-12'>
 
     <div class='navbar-header'>
       <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
@@ -38,7 +38,20 @@
             <input type='password' placeholder='Senha' ng-model='form.passwd' class='form-control'></div>
           <button type='submit' class='btn btn-primary'> Entrar </button>
       </form></ul>
-    </div>
+      
+      <ul class='nav navbar-nav navbar-right' ng-if='showForm() || Users.logged'>
+       <li class='dropdown'>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
+            <span><i class='fa fa-language fa-lg'></i></span>
+            <b class='caret'></b>
+          </a>
 
+          <ul class='dropdown-menu'>
+            <li><a href='#' ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></a></li>
+            <li><a href='#' ng-click="changeLanguage('pt')" translate="BUTTON_LANG_PT"></a></li>
+          </ul></li>
+      </ul>
+      
+    </div>
   </div></div>
-</div>
+</div>   
