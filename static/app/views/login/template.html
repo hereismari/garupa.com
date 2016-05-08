@@ -2,19 +2,20 @@
 
 <div class='col-md-6 col-md-offset-3'>
   <form ng-submit='login()'>
-    <label> Matrícula </label>
+    <label>{{'ENROLLMENT' | translate}}</label>
     <input ng-model='uid' type='text'
       class='form-control' spellcheck='false' required>
     <br>
 
-    <label> Senha </label>
+    <label>{{'PASSWORD' | translate}}</label>
     <input ng-model='passwd' type='password'
       class='form-control' spellcheck='false' required>
     <br>
 
     <button type='submit' class='btn btn-primary'> Entrar </button>
     <a href='#' class='pull-right small' ng-click='recuperarSenha()'>
-      Esqueci minha senha </a>
+	  {{'FORGOT_PASSWORD' | translate}}
+	</a>
 </form></div>
 
 </span>

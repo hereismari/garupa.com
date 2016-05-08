@@ -5,16 +5,13 @@
 
     <!-- texto/imagem e botao -->
     <div class='col-md-6'>
-      <h3 class='turquoise'> Ache a carona perfeita para voce! </h3>
+      <h3 class='turquoise'>{{'FIND_THE_RIDE' | translate}}</h3>
 
-      <p class='text-justify'>
-          Está indo para a UFCG ou voltando para casa e tem medo de ser assaltado
-          se for andando ou então dos outros males que nos cercam diariamente?
-          Calma! Temos a carona perfeita para você! </p>
+      <p class='text-justify'>{{'SEARCH_TEXT' | translate}}</p>
 
       <div class='form-group vert-offset-top-2'>
-        <button class='btn btn-primary' type='submit'> Procure seu bigu! </button>
-        <a href='./perfil' class='btn btn-danger'> Cancelar </a>
+        <button class='btn btn-primary' type='submit'>{{'SEARCH_RIDE' | translate}}</button>
+        <a href='./perfil' class='btn btn-danger'>{{'CANCEL' | translate}}</a>
       </div>
     </div>
 
@@ -22,12 +19,12 @@
     <div class='col-md-5 col-md-offset-1 vert-offset-top-2'>
 
       <div class='form-group'>
-        <label> Destino <div class='bootstrap-switch-square'>
-          <input id='destination' type='checkbox' data-on-text='UFCG' data-off-text='Casa' checked />
+        <label>{{'TO' | translate}}<div class='bootstrap-switch-square'>
+          <input id='destination' type='checkbox' data-on-text='UFCG' data-off-text='{{"HOME" | translate}}' checked />
       </div></label></div>
 
       <div class='form-group'>
-        <label> Seu endereço </label>
+        <label>{{'YOUR_ADDRESS' | translate}}</label>
         <input type='text' class='form-control vert-offset-bottom-1' ng-model='form.complement'
             pattern='.{12,}' placeholder='eg. Rua Almirante Barbosa, 438' required />
         <select id='district' class='select select-primary' ng-model='form.district'
@@ -35,12 +32,12 @@
       </div>
 
       <div class='form-group'>
-        <label> Quando? </label>
+        <label>{{'DATE' | translate}}</label>
         <input type='text' class='calendar-input form-control' placeholder='Escolha uma data' readonly required />
       </div>
 
       <div class='form-group'>
-        <label class='checkbox'> Toda semana?
+        <label class='checkbox'> {{'WEEKLY' | translate}}
           <input type='checkbox' ng-model='form.weekly' class='custom-checkbox'>
           <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
       </label></div>
@@ -55,7 +52,7 @@
   <div class='row' ng-if='search_result != null'><div class='col-md-12'>
 
     <div class='panel panel-default'>
-      <div class='panel-heading'> Resultados </div>
+      <div class='panel-heading'>{{'RESULTS' | translate}}</div>
 
       <ul class='list-group'>
         <li class='list-group-item text-muted text-center'

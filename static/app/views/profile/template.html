@@ -8,10 +8,10 @@
     <span class='action' ng-switch='user.relationship'>
       <span ng-switch-when='self'>
         <image-input btn-style='btn btn-primary btn-block' ng-model='form.photo'>
-          <span engrave='pencil'> Trocar Foto </span></image-input></span>
+          <span engrave='pencil'>{{'CHANGE_PHOTO' | translate}}</span></image-input></span>
       <span ng-switch-when='friend'>
         <button class='btn btn-danger btn-block' engrave='user-times'
-            ng-click='removeFriend()'> Remover Amigo </button></span>
+            ng-click='removeFriend()'>{{'REMOVE_FRIEND' | translate}}</button></span>
   </span></div></div>
 
   <div class='col-md-8 col-md-offset-1'>
@@ -24,23 +24,23 @@
 
 <div class='row'>
   <div class='col-md-6'> <div class='panel panel-primary'>
-    <div class='panel-heading'> Caronas Agendadas </div>
+    <div class='panel-heading'>{{'SCHEDULED_RIDES' | translate}}</div>
 
     <div class='panel-body text-center' ng-if='rides.length == 0'>
-      <span class='text-muted'> NENHUM BIGU AGENDADO </span>
+      <span class='text-muted'>{{'NO_SCHEDULED_RIDE' | translate}}</span>
     </div>
 
     <div class='list-group'>
       <a href='#' class='list-group-item' ng-repeat='ride in rides | orderBy: "date"'
           engrave='{{ride.dest == Destination.HOME? "home" : "graduation-cap"}}'
-          ng-click='showRide(ride)'> {{ ride.date | date: "dd 'de' MMM HH:mm" }}
+          ng-click='showRide(ride)'> {{ride.date | date : "dd"}} {{'OF' | translate}} {{ride.date | date : "MMM HH:mm"}}
           &nbsp; <small class='text-muted'> {{ride.driver.name}} </small></a>
     </div>
   </div></div>
 
   <div class='col-md-6'>
-    <a class='btn btn-primary btn-block vert-offset-bottom-1' href='./procurar-bigu'> Procurar um Bigu </a>
-    <a class='btn btn-primary btn-block' href='./oferecer-bigu'> Oferecer um Bigu </a>
+    <a class='btn btn-primary btn-block vert-offset-bottom-1' href='./procurar-bigu'>{{'SEARCH_RIDE' | translate}}</a>
+    <a class='btn btn-primary btn-block' href='./oferecer-bigu'>{{'OFFER_RIDE' | translate}}</a>
   </div>
 </div>
 
