@@ -1,6 +1,6 @@
 
 <div class='navbar navbar-default navbar-fixed-top'>
-  <div class='container'><div class='col-md-12'>
+  <div class='container'><div class='col-md-10 col-md-offset-1'>
 
     <div class='navbar-header'>
       <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
@@ -25,33 +25,19 @@
           </a>
 
           <ul class='dropdown-menu'>
-            <li><a href='./perfil'> Meu perfil </a></li>
-            <li><a href='#'> Configurações </a></li>
-            <li><a href='#' ng-click='logout()'> Sair </a></li>
+            <li><a href='./perfil' translate='MY_PROFILE'></a></li>
+            <li><a href='#' translate='SETTINGS'></a></li>
+            <li><a href='#' ng-click='logout()' translate='SIGN_OUT'></a></li>
         </ul></li>
       </ul>
 
       <ul class='nav navbar-nav navbar-right' ng-if='showForm()'>
         <form class='navbar-form navbar-right' ng-submit='login(form)'>
           <div class='form-group'>
-            <input type='text' placeholder='Matrícula' ng-model='form.uid' class='form-control'>
-            <input type='password' placeholder='Senha' ng-model='form.passwd' class='form-control'></div>
-          <button type='submit' class='btn btn-primary'> Entrar </button>
+            <input type='text' placeholder='{{ "ENROLLMENT" | translate }}' ng-model='form.uid' class='form-control'>
+            <input type='password' placeholder='{{ "PASSWORD" | translate }}' ng-model='form.passwd' class='form-control'></div>
+          <button type='submit' class='btn btn-primary' translate='SIGN_IN'></button>
       </form></ul>
-      
-      <ul class='nav navbar-nav navbar-right' ng-if='showForm() || Users.logged'>
-       <li class='dropdown'>
-          <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
-            <span><i class='fa fa-language fa-lg'></i></span>
-            <b class='caret'></b>
-          </a>
-
-          <ul class='dropdown-menu'>
-            <li><a href='#' ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></a></li>
-            <li><a href='#' ng-click="changeLanguage('pt')" translate="BUTTON_LANG_PT"></a></li>
-          </ul></li>
-      </ul>
-      
     </div>
   </div></div>
 </div>   

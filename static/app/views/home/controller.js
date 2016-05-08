@@ -1,10 +1,6 @@
 
-app.controller('home', function($scope, $translate, $state, Api) {
+app.controller('home', function($scope, $state, Api) {
 
-	$scope.changeLanguage = function(key) {
-        $translate.use(key);
-    };
-    
     $scope.form = new Object();
 
 	$scope.toggleForm = function() {

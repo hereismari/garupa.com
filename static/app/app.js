@@ -2,37 +2,16 @@ var app = angular.module('app', [
     'ui.router', 'door3.css', 'ngCookies', 'angular-loading-bar', 'pascalprecht.translate'
 ]);
 
-var translationsEN = {
-    
-    BUTTON_LANG_EN: 'english',
-    BUTTON_LANG_PT: 'portuguese',
-    
-    HELLO: 'Welcome to Garupa.com!',
-    HOME_DESCRIPTION: 'Offer rides or search for rides to UFCG and make new friends!',
-
-    SIGN-UP: 'Sign-up'
-};
-
-var translationsPT = {
-    
-    BUTTON_LANG_EN: 'inglês',
-    BUTTON_LANG_PT: 'português',
-    
-    HELLO: 'Bem-vindo ao Garupa.com!',
-    HOME_DESCRIPTION: 'Consiga ou ofereça carona para a Universidade e faça novas amizades!',
-
-    SIGN-UP: 'Cadastre-se'
-
-};
-
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider, $translateProvider) {
 
-    $translateProvider.translations('en', translationsEN);
-    $translateProvider.translations('pt', translationsPT);
-   
-    $translateProvider.preferredLanguage('pt');
-    $translateProvider.fallbackLanguage('pt');
+	$translateProvider.useStaticFilesLoader({
+		prefix: '/languages/',
+		suffix: '.json'
+	});
 
+	$translateProvider.preferredLanguage('pt-br');
+    $translateProvider.fallbackLanguage('pt-br');
+    
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider
