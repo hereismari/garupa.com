@@ -23,7 +23,7 @@
     "ENROLLMENT": "Enrollment",
     "FIND_THE_RIDE": "Find the perfect ride for you!",
     "FORGOT_PASSWORD": "I forgot my password",
-    "FRIEND_REQUEST_MUST_BE_ACCEPTED": "sent you a friend request. If you accept it you'll be able to acces this profile"
+    "FRIEND_REQUEST_MUST_BE_ACCEPTED": "sent you a friend request. If you accept it you'll be able to acces this profile",
 	"GENERATE_PASSWORD": "Generate random password",
 	"GO_TO_HOME_PAGE": "Go to home page",
     "HELLO": "Welcome to Garupa.com!",
@@ -34,8 +34,8 @@
 	"NAME": "Name",
     "NO": "No",
     "NO_PASSANGERS": "No Passangers", 
-    "NO_RIDE_THIS_WEEK": "NO RIDE THI
-    "NO_SCHEDULED_RIDE": "NO SCHEDULED RIDE",S WEEK",
+    "NO_RIDE_THIS_WEEK": "NO RIDE THIS WEEK",
+    "NO_SCHEDULED_RIDE": "NO SCHEDULED RIDE",
     "NOT_FRIENDS_MESSAGE": "aren't friends, so this profile isn't available for you",
 	"OF": "of",
     "OFFER_RIDE": "Offer ride",
@@ -51,9 +51,7 @@
     "ROUTE": "Route",
     "SCHEDULED_RIDES": "Scheduled rides",
     "SEARCH_RIDE": "Search ride",
-    "SEARCH_TEXT": "Going to UFCG or going back home,
-		but afraid walking alone or afraid of other evils that surround
-		us daily? Calm down, mate! We have the perfect ride for you!",
+    "SEARCH_TEXT": "Going to UFCG or going back home, but afraid walking alone or afraid of other evils that surround us daily? Calm down, mate! We have the perfect ride for you!",
     "SEND_FRIEND_REQUEST": "Send friend request",
     "SETTINGS": "Settings",
     "SIGN_IN": "Sign in",

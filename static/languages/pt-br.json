@@ -23,7 +23,7 @@
     "ENROLLMENT": "Matrícula",
 	"FIND_THE_RIDE": "Ache a carona perfeita para você!",
     "FORGOT_PASSWORD": "Esqueci minha senha",
-    "FRIEND_REQUEST_MUST_BE_ACCEPTED": "convidou você para adicioná-lo a sua lista de amigos. Para ver seu perfil, aceite sua requisição de amizade"
+    "FRIEND_REQUEST_MUST_BE_ACCEPTED": "convidou você para adicioná-lo a sua lista de amigos. Para ver seu perfil, aceite sua requisição de amizade",
     "GENERATE_PASSWORD": "Gerar senha aleatória",
     "GO_TO_HOME_PAGE" : "Ir para a página inicial",
     "HELLO": "Bem-vindo ao Garupa.com!",
@@ -51,9 +51,7 @@
     "ROUTE": "Rota",
     "SCHEDULED_RIDES": "Caronas agendadas",
     "SEARCH_RIDE": "Procurar um Bigu",
-    "SEARCH_TEXT": "Está indo para a UFCG ou voltando para casa e tem medo de ser assaltado
-          se for andando ou então dos outros males que nos cercam diariamente?
-          Calma! Temos a carona perfeita para você!",
+    "SEARCH_TEXT": "Está indo para a UFCG ou voltando para casa e tem medo de ser assaltado se for andando ou então dos outros males que nos cercam diariamente? Calma! Temos a carona perfeita para você!",
     "SETTINGS": "Configurações",
     "SEND_FRIEND_REQUEST": "Requisitar Amizade",
     "SIGN_IN": "Entrar",
@@ -67,5 +65,5 @@
     "WEEKLY": "Semanal",
     "YES": "Sim",
     "YOU_AND": "Você e",
-    "YOUR_ADDRESS" : "Seu endereço",
+    "YOUR_ADDRESS" : "Seu endereço"
 }
