@@ -52,7 +52,7 @@ class Ride(object):
         return self.getNumberOfPassengers() == self.getNumberOfVacancies()
 
     def isInTheRoute(self, district):
-    	return district in self._route
+        return district in self._route
 
     # caso precise desses metodos
     def addNeighborhoodToRoute(self, neighborhood):
@@ -88,7 +88,7 @@ class Ride(object):
         return mktime(self.getDate().timetuple())
 
     def getReadableDate(self):
-        return self.getDate().strftime('%d-%m-%Y')
+        return self.getDate().strftime('%Y-%m-%d')
 
     def getDriver(self):
         return self._driver
@@ -125,7 +125,6 @@ class Ride(object):
     def getView(self):
         return {
             'date': int(self.getTimestamp() * 1000),
-			'readableDate': self.getReadableDate(),
             'rid': self.getRid(),
             'driver': self.getDriver().getPublicView(),
             'dest': self.getDestination(),

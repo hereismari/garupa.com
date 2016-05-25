@@ -34,6 +34,10 @@ app.service('Users', function($q, Api, Cookie) {
 			return Api.removeNotification(self.uid, nid);
 		}
 
+		this.markNotification = function(nid) {
+			return Api.markNotification(self.uid, nid);
+		}
+
         this.update = function(attr, value) {
             return Api.updateUser(self.uid, attr, value).then(self.sync);
         };
@@ -43,7 +47,7 @@ app.service('Users', function($q, Api, Cookie) {
         };
 
         this.acceptRide = function(uid, rid, district, complement) {
-            return Api.acceptRide(self.uid, uid, rid, district, complement).then(self.sync);
+            return Api.acceptRide(uid, rid, district, complement).then(self.sync);
         };
 
         this.cancelRide = function(rid) {

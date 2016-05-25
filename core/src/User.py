@@ -41,16 +41,9 @@ class User(object):
     def addNotification(self, notification):
         self._notifications.append(notification)
 
-    def removeNotification(self, notification):
-        self._notifications.remove(notification)
-    
-    def removeNotificationByID(self, nid):
-        aux = None
-        for notification in self._notifications:
-            if nid == notification.getNid():
-                aux = notification
-        self.removeNotification(aux)
-    
+    def removeNotification(self, nid):
+        self._notifications = [n for n in self._notifications if n.getNid() != nid]
+
     def numberOfNotifications(self):
         return len(self._notifications)
 

@@ -5,9 +5,8 @@ from flask import Flask, request, redirect
 from flask_digest import Stomach
 from flask_digest.hasher import hash_all
 
-from core import Controller
+from core import Controller, generator
 from core.mailing import Email
-from core.generator import Generator
 
 #----------------------------------CONFIG---------------------------------------
 
@@ -29,7 +28,6 @@ app.config.update(
 
 email_manager = Email(app)
 controller = Controller()
-generator = Generator()
 
 @app.after_request
 def add_header(response):
@@ -137,13 +135,12 @@ def recover_passwd(uid):
 @app.route('/api/users/<int:uid>/friends', methods=['POST'])
 @stomach.protect
 def add_friend(uid):
-    try: 
-		fuid = request.json['fuid']
+    try: fuid = request.json['fuid']
     except: return BAD_REQUEST
 
     if uid != logged_user(): return UNAUTHORIZED
 
-    success = controller.add_friend(uid, fuid, generator.get_notification_id())
+    success = controller.add_friend(uid, fuid)
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/friends/<int:fuid>', methods=['DELETE'])
@@ -163,13 +160,21 @@ def get_notifications(uid):
 
     if notifications == None: return NOT_FOUND
     return json.dumps(notifications)
-    
+
 @app.route('/api/users/<int:uid>/notifications/<int:nid>', methods=['DELETE'])
 @stomach.protect
 def remove_notification(uid, nid):
     if uid != logged_user(): return UNAUTHORIZED
 
     success = controller.remove_notification(uid, nid)
+    return UPDATED if success else NOT_FOUND
+
+@app.route('/api/users/<int:uid>/notifications/<int:nid>/seen', methods=['PUT'])
+@stomach.protect
+def mark_notification(uid, nid):
+    if uid != logged_user(): return UNAUTHORIZED
+
+    success = controller.mark_notification(uid, nid)
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/rides', methods=['POST'])
@@ -189,11 +194,11 @@ def register_ride():
     success = controller.register_ride(**args)
     return CREATED if success else NOT_FOUND
 
-@app.route('/api/rides/<int:uid>/request', methods=['POST'])
+@app.route('/api/rides/<int:rid>/requests', methods=['POST'])
 @stomach.protect
-def request_ride(uid):
+def request_ride(rid):
     try:
-        rid = request.json['rid']
+        uid = request.json['uid']
         district = request.json['district']
         complement = request.json['complement']
     except:
@@ -201,23 +206,26 @@ def request_ride(uid):
 
     if uid != logged_user(): return UNAUTHORIZED
 
-    success = controller.request_ride(uid, rid, district, complement, generator.get_notification_id())
+    success = controller.request_ride(uid, rid, district, complement)
     return UPDATED if success else NOT_FOUND
 
-@app.route('/api/rides/<int:uid>/accept', methods=['POST'])
+@app.route('/api/rides/<int:rid>/passengers', methods=['POST'])
 @stomach.protect
-def accept_ride(uid):
+def accept_ride(rid):
     try:
-        fuid = request.json['fuid']
-        rid = request.json['rid']
+        uid = request.json['uid']
         district = request.json['district']
         complement = request.json['complement']
     except:
         return BAD_REQUEST
 
-    if uid != logged_user(): return UNAUTHORIZED
+    try: driver = controller.get_ride(rid).getDriver()
+    except: return NOT_FOUND
 
-    success = controller.accept_ride(fuid, rid, district, complement, generator.get_notification_id())
+    if driver.getUid() != logged_user():
+        return UNAUTHORIZED
+
+    success = controller.accept_ride(uid, rid, district, complement)
     return UPDATED if success else NOT_FOUND
 
 @app.route('/api/users/<int:uid>/rides/<int:rid>', methods=['DELETE'])

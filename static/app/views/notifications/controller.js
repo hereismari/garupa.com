@@ -1,101 +1,63 @@
 
-app.controller('notifications', function($scope, $state, $stateParams, Api, Users) {
+app.controller('notifications', function($scope, Api, Users) {
 
-    $scope.uid = Api.getCache().uid;
+    var uid = Api.getCache().uid;
+    var notifications = undefined;
 
-    // notifications types
-    $scope.FRIEND_REQUEST  = "FRIEND_REQUEST";
-    $scope.NEW_FRIEND      = "NEW_FRIEND";
-    $scope.RIDE_FOUND      = "RIDE_FOUND";
-    $scope.RIDE_REQUEST    = "RIDE_REQUEST";
-    $scope.RIDE_ACCEPTED    = "RIDE_ACCEPTED";
-
-    // notification status
-    $scope.VIEWED = 0;
-
-    // notification selected
-    $scope.active = null;
-
-    // notification actions
-    $scope.filter = "$";
-    $scope.search = "";
-
-    // Notification list
-    Api.get_notifications($scope.uid).then(
-        function(resp) {
-            $scope.notifications_list = resp.data;
-        }
-    );
-
-    $scope.changeFilterTo = function(pr, attr) {
-        $scope.filter = pr;
-        $scope.search = attr;
+    function sync() {
+        return Api.getNotifications(uid).then(function(resp) {
+            notifications = resp.data;
+        });
     }
 
-    $scope.getFilter = function() {
-        if ($scope.filter == 'uid')
-            return {uid: $scope.search};
-        else if ($scope.filter == 'status')
-            return {status: $scope.search};
-        else if ($scope.filter == 'type')
-            return {type: $scope.search};
-        return {$: $scope.search};
-    }
-
-    $scope.getIndex = function (nid) {
-        for (var index = 0; index < $scope.notifications_list.length; index++) {
-            if (nid === $scope.notifications_list[index].nid)
-                return index;
-        }
-        return null;
-    }
-
-    $scope.removeNotificationByIndex = function(index) {
-		Users.logged.removeNotification($scope.notifications_list[index].nid);
-        if (index != null) {
-            $scope.notifications_list.splice(index, 1);
-        }
-    }
-
-    $scope.hideNotification = function(nid) {
-        var index = $scope.getIndex(nid);
-        $scope.notifications_list[ index ].status = 0;
-        $scope.removeNotificationByIndex( index );
-    }
-
-    $scope.markAsReadNotification = function(nid) {
-        var index = $scope.getIndex(nid);
-        var status = $scope.notifications_list[ index ].status;
-        $scope.notifications_list[ index ].status = 1 - status;
-    }
-
-    $scope.acceptFriendRequest = function(uid, nid) {
-        Users.logged.addFriend(uid);
-        $scope.removeNotificationByIndex( $scope.getIndex(nid) );
-    }
-
-    $scope.acceptRideRequest = function(uid, ride, district, complement, nid) {
-        Users.logged.acceptRide(uid, ride.rid, district, complement);
-        $scope.removeNotificationByIndex( $scope.getIndex(nid) );
-    }
-
-    $scope.refuseRideRequest = function(nid) {
-        $scope.removeNotificationByIndex( $scope.getIndex(nid) );
-    }
-
-    $scope.collapse = function(nid) {
-        if ($scope.active != nid)
-            $scope.active = nid;
-        else
-            $scope.active = null;
+    $scope.filter = {
+        seen: false,
+        type: undefined
     };
 
-    $scope.hoverIn = function() {
-        this.removable = true;
+    function applyFilter(notification) {
+        if(notification.seen != $scope.filter.seen)
+            return false;
+
+        var mode = {
+            'FRIEND': ['FRIEND_REQUEST', 'NEW_FRIEND'],
+            'RIDE': ['RIDE_REQUEST', 'RIDE_ACCEPTED']
+        };
+
+        if($scope.filter.type != undefined)
+            if(_.contains(mode[$scope.filter.type], notification.type) == false)
+                return false;
+
+        return true;
     }
 
-    $scope.hoverOut = function() {
-        this.removable = false;
-    }
+    $scope.filtered = function() {
+        var list = _.filter(notifications, applyFilter);
+
+        return _.sortBy(list, function(notification) {
+            return -notification.timestamp;
+        });
+    };
+
+    $scope.remove = function(notification) {
+		Users.logged.removeNotification(notification.nid).then(sync);
+    };
+
+    $scope.archive = function(notification) {
+        Users.logged.markNotification(notification.nid).then(sync);
+    };
+
+    $scope.acceptFriend = function(notification) {
+        Users.logged.addFriend(notification.data.user.uid);
+        $scope.archive(notification);
+    };
+
+    $scope.acceptRide = function(notification) {
+        Users.logged.acceptRide(
+            notification.data.user.uid, notification.data.ride.rid,
+            notification.data.district, notification.data.complement);
+        $scope.archive(notification);
+    };
+
+    sync();
 });
-
