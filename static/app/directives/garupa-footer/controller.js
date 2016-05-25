@@ -10,7 +10,7 @@ app.directive('garupaFooter', function() {
 			
             $scope.changeLanguage = function(key) {
                 $translate.use(key);
-            };
+	    };
         }
     };
 });

@@ -1,4 +1,4 @@
-app.controller('search-rides', function($scope, Api, Users, Districts, Destination) {
+app.controller('search-rides', function($scope, $filter, Api, Users, Districts, Destination) {
 
     $scope.Districts = Districts;
     $scope.search_result = null;
@@ -10,8 +10,8 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
     };
 
     var ModalMessage = {
-        SEND_INVITATION : { title: 'Enviar solicitacao de carona', message: 'O usuario sera notificado que voce quer essa carona!'},
-        NOTIFY_ME : { title: 'Quero ser notificado', message: 'Voce sera notificado assim que uma carona desse tipo surgir!'}
+        SEND_INVITATION : { title: $filter('translate')('SEND_RIDE_REQUEST'), message: $filter('translate')('NOTIFY_USER') },
+        NOTIFY_ME : { title: $filter('translate')('NOTIFY_ME'), message: $filter('translate')('YOU_WILL_BE_NOTIFIED') }
     };
 
     $scope.setPage = function(page) {
@@ -32,7 +32,7 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
         var form = $scope.form;
         Users.logged.joinRide(ride.rid, form.district, form.complement)
             .then(function() {
-                alert('Bigu aceito!');
+                alert($filter('translate')('RIDE_ACCEPTED'));
             });
     };
 
@@ -66,8 +66,8 @@ app.controller('search-rides', function($scope, Api, Users, Districts, Destinati
         });
 
         $('#district').select2({
-            placeholder: 'Bairro',
-            formatNoMatches: 'Nenhum bairro encontrado',
+            placeholder: $filter('translate')('DISTRICT'),
+            formatNoMatches: $filter('translate')('NO_DISTRICT_FOUND'),
             dropdownCssClass: 'show-select-search'
         });
     };

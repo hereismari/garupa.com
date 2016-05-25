@@ -57,7 +57,7 @@
       <ul class='list-group'>
         <li class='list-group-item text-muted text-center'
             style='padding: 60px 0px' ng-if='search_result.length == 0'>
-            <h6> Nenhum bigu encontrado </h6></li>
+            <h6>{{'NO_RIDE' | translate}}</h6></li>
 
         <li class='list-group-item' ng-repeat='ride in search_result'><div class='row'>
 
@@ -68,10 +68,10 @@
           <div class='vert-offset-top-1 small'>
 
             <div class='col-md-2'>
-              <b> Motorista <br>
-                  Hora <br>
-                  Passageiros <br>
-                  Vagas <br>
+              <b>{{'DRIVER' | translate}}<br>
+                  {{'TIME' | translate}}<br>
+                  {{'PASSENGERS' | translate}}<br>
+                  {{'AVAILABLE_SEATS' | translate}}<br>
             </b></div>
 
             <div class='col-md-4'>
@@ -85,19 +85,19 @@
 
           <div class='col-md-3'>
             <button ng-click='joinRide(ride)' class='btn btn-md btn-primary pull-right'>
-              Pedir carona </button>
+              {{'ASK_RIDE' | translate}}</button>
           </div>
 
         </div></li></ul>
 
         <div class='panel-footer'><div class='row'>
           <div class='col-md-8 small'>
-            Caso você não encontre nenhuma carona que lhe agrade, podemos avisar
-            assim que uma nova carona do jeito que você pediu surja. </div>
+            {{'NOTIFY_ME_MESSAGE' | translate}}.
+          </div>
 
           <div class='col-md-4'>
             <button class='btn btn-md btn-default btn-block'>
-              Me notifique </button></div>
+              {{'NOTIFY_ME' | translate}}</button></div>
         </div></div>
     </div>
 
@@ -120,14 +120,14 @@
         <div class='modal-body'>
           <p>{{modal_message}}</p>
 
-          <p>Tem certeza a respeito disso?</p>
-          <button class='btn btn-md btn-success btn-md' data-dismiss='modal'> Confirmar ação </button>
-          <button class='btn btn-md btn-danger btn-md' data-dismiss='modal'> Cancelar </button>
+          <p>{{'ARE_YOU_SURE' | translate}}</p>
+          <button class='btn btn-md btn-success btn-md' data-dismiss='modal'> {{'CONFIRM' | translate}} </button>
+          <button class='btn btn-md btn-danger btn-md' data-dismiss='modal'> {{'CANCEL' |translate}} </button>
 
         </div>
 
         <div class='modal-footer'>
-          <a class='btn btn-default' data-dismiss='modal'>Fechar</a>
+          <a class='btn btn-default' data-dismiss='modal'>{{'CLOSE' | translate}}</a>
         </div>
       </form>
     </div>
