@@ -8,9 +8,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssP
 		prefix: '/languages/',
 		suffix: '.json'
 	});
-
-    $translateProvider.preferredLanguage('pt-br');
     
+    $translateProvider.preferredLanguage('pt-br');
+    $translateProvider.useCookieStorage();
+
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider

@@ -1,4 +1,3 @@
-
 app.directive('garupaFooter', function() {
     return {
         restrict: 'E',
@@ -8,9 +7,11 @@ app.directive('garupaFooter', function() {
 
         controller: function($scope, $translate) {
 			
+
             $scope.changeLanguage = function(key) {
                 $translate.use(key);
-	    };
+                location.reload();
+            };
         }
     };
 });
