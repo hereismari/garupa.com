@@ -17,14 +17,11 @@ class User(object):
 
     def __eq__(self, other):
         if type(other) is not User: return False
-        return self._uid == other.getUid()
+        return self._uid == other.get_uid()
 
     def __hash__(self):
         return self._uid
 
-    def __str__(self):
-        return '<User uid=%d>' % self._uid
-        
 
     def has_friend(self, user):
         return user in self._friends
@@ -46,14 +43,14 @@ class User(object):
         else: rel = 'friend'
 
         return rel
-        
+
 
     def add_notification(self, notification):
         self._notifications.append(notification)
 
-    def remove_notification(self, notification):
-        self._notifications.remove(notification)
-        
+    def remove_notification(self, nid):
+        self._notifications = [n for n in self._notifications if n.get_nid() != nid]
+
 
     def add_ride(self, ride):
         if ride not in self._rides:
@@ -64,30 +61,36 @@ class User(object):
 
     def update_rides(self):
         self._rides = [r for r in self._rides if r.update()]
-        
+
 
     def set_name(self, name):
         self._name = name
 
-    def setEmail(self, email):
+    def set_email(self, email):
         self._email = email
 
-    def setPhone(self, phone):
+    def set_phone(self, phone):
         self._phone = phone
 
-    def setPhoto(self, photo):
+    def se_photo(self, photo):
         self._photo = photo
 
-    def setPassword(self, password):
+    def set_password(self, password):
         self._password = password
-        
 
-    def getPassword(self):
+
+    def get_uid(self):
+        return self._uid
+
+    def get_name(self):
+        return self._name
+
+    def get_password(self):
         return self._password
 
     def get_notifications(self):
         return self._notifications
-        
+
 
     def get_view(self, other):
         rel = self.get_relationship(other)

@@ -1,7 +1,6 @@
-from datetime import datetime
-from Notification import Notification
+from core.notifications import Notification
 
-class RideFoundNotification(Notification):
+class RideFound(Notification):
 
     def __init__(self, ride):
         Notification.__init__(self)
@@ -12,4 +11,6 @@ class RideFoundNotification(Notification):
         return 'RIDE_FOUND'
 
     def get_data(self):
-        return self._ride.get_view()
+        return {
+            'ride': self._ride.get_view()
+        }

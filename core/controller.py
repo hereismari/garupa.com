@@ -1,5 +1,5 @@
-from src import User, Ride, Address
-from src import FriendRequestNotification, NewFriendNotification
+import notifications
+from elements import User, Ride, Address
 from datetime import datetime
 
 class Controller(object):
@@ -10,8 +10,16 @@ class Controller(object):
     def get_user(self, uid):
         return self.users.get(uid, None)
 
-    def get_ride(self, uid):
-        return self.rides.get(uid, None)
+    def get_ride(self, rid):
+        return self.rides.get(rid, None)
+
+    def get_notification(self, uid, nid):
+        u = self.get_user(uid)
+        if u == None: return None
+
+        for n in u.get_notifications():
+            if n.get_nid() == nid: return n
+        return None
 
     def recover_passwd(self, uid, new_passwd):
         u = self.get_user(uid)
@@ -56,15 +64,14 @@ class Controller(object):
         if u == None or f == None:
             return False
 
-        u.add_friend(f)
         relation = f.get_relationship(u)
 
-        if relation == 'pending':
-            notification = FriendRequestNotification(uid)
-            f.add_notification(notification)
-        elif relation == 'friend':
-            notification = NewFriendNotification(uid)
-            f.add_notification(notification)
+        if   relation == 'none':      nt = notifications.FriendRequest(u)
+        elif relation == 'available': nt = notifications.FriendAccepted(u)
+        else:                         nt = None
+
+        if nt: f.add_notification(nt)
+        u.add_friend(f)
 
         return True
 
@@ -86,7 +93,38 @@ class Controller(object):
 
         return [n.get_view() for n in u.get_notifications()]
 
-    def join_ride(self, uid, rid, district, complement):
+    def remove_notification(self, uid, nid):
+        u = self.get_user(uid)
+
+        if u == None:
+            return False
+
+        u.remove_notification(nid)
+        return True
+
+    def mark_notification(self, uid, nid):
+        n = self.get_notification(uid, nid)
+
+        if n == None:
+            return False
+
+        n.set_seen()
+        return True
+
+    def request_ride(self, uid, rid, district, complement):
+        u = self.get_user(uid)
+        r = self.get_ride(rid)
+
+        if u == None or r == None: return False
+        if r.is_full(): return False
+
+        d = r.get_driver()
+        nt = notifications.RideRequest(r, u, district, complement)
+        d.add_notification(nt)
+
+        return True
+
+    def accept_ride(self, uid, rid, district, complement):
         u = self.get_user(uid)
         r = self.get_ride(rid)
 
@@ -96,6 +134,11 @@ class Controller(object):
         address = Address(district, complement)
         r.add_passenger(u, address)
         u.add_ride(r)
+
+        d = r.get_driver()
+        notification = notifications.RideAccepted(r, d)
+        u.add_notification(notification)
+
         return True
 
     def cancel_ride(self, uid, rid):
@@ -105,8 +148,8 @@ class Controller(object):
         if u == None or r == None:
             return False
 
-        u.removeRide(r)
-        if r.getDriver() == u:
+        u.remove_ride(r)
+        if r.get_driver() == u:
             del self.rides[rid]
             for p in r.get_passengers():
                 p[0].remove_ride(r)
@@ -133,10 +176,10 @@ class Controller(object):
 
         self.update_rides()
 
-        return [r.getView() for r in self.rides.itervalues() if
+        return [r.get_view() for r in self.rides.itervalues() if
             r.get_destination() == dest and
-            district in r.getRoute() and
+            district in r.get_route() and
             r.happens_on(date) and
-            r.isWeekly() == weekly and
-            not r.containsUser(u)
+            r.is_weekly() == weekly and
+            not r.contains_user(u)
         ]

@@ -42,8 +42,8 @@
 
   <div class='modal-footer'>
     <button class='btn btn-default' data-dismiss='modal'> Fechar </button>
-    <button class='btn btn-danger' data-dismiss='modal' ng-click='cancelRide()'>
-      Cancelar bigu </button>
+    <button class='btn btn-danger' data-dismiss='modal'
+        ng-click='cancelRide()' ng-if='!frozen'> Cancelar bigu </button>
   </div>
 
 </div></div></div>

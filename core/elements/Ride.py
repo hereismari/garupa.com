@@ -9,7 +9,7 @@ class Ride(object):
     def __init__(self, driver, date, dest, origin, route, weekly, seats):
 
         self._driver = driver
-        self._vacancies = seats
+        self._seats = seats
 
         self._rid = Ride.rid_counter
         Ride.rid_counter += 1
@@ -31,17 +31,14 @@ class Ride(object):
         return self._rid
 
     def add_passenger(self, passenger, address):
-        if not self.isFull() and not self.containsUser(passenger):
+        if not self.is_full() and not self.contains_user(passenger):
             self._passengers.append((passenger, address))
 
     def remove_passenger(self, passenger):
-        old_size = self.get_passengers_len()
+        old_size = self.get_vacancies()
 
         self._passengers = [p for p in self._passengers if p[0] != passenger]
-        return old_size != self.get_passengers_len()
-
-    def get_passengers_len(self):
-        return len(self._passengers)
+        return old_size != self.get_vacancies()
 
     def contains_user(self, user):
         for passenger in self._passengers:
@@ -49,13 +46,10 @@ class Ride(object):
         return user == self._driver
 
     def is_full(self):
-        return self.get_passengers_len() == self._vacancies()
-
-    def is_in_route(self, district):
-    	return district in self._route
+        return self.get_vacancies() == 0
 
     def update(self):
-        sunday = self.getLastSunday()
+        sunday = self.last_sunday()
         if self.is_weekly() and self._date.date() < sunday:
             self._date += timedelta(weeks=1)
         return self._date.date() >= sunday
@@ -69,15 +63,13 @@ class Ride(object):
         return abs(self._date - date) <= timedelta(minutes=15)
 
     def get_vacancies(self):
-        return self._vacancies - len(self._passengers)
-
-    """ Set and Get functions """
+        return self._seats - len(self._passengers)
 
     def get_date(self):
         return self._date
 
     def get_timestamp(self):
-        return mktime(self.getDate().timetuple())
+        return mktime(self.get_date().timetuple())
 
     def get_driver(self):
         return self._driver
@@ -100,18 +92,16 @@ class Ride(object):
     def get_route(self):
         return self._route
 
-    """ Get view """
-
-    def getView(self):
+    def get_view(self):
         return {
-            'date': int(self.getTimestamp() * 1000),
+            'date': int(self.get_timestamp() * 1000),
 
-            'rid': self.get_rid(),
-            'driver': self.get_driver().get_public_view(),
-            'dest': self.get_destination(),
-            'origin': self.get_origin(),
-            'route': self.get_route(),
-            'weekly': self.is_weekly(),
+            'rid': self._rid,
+            'driver': self._driver.get_public_view(),
+            'dest': self._dest,
+            'origin': self._origin,
+            'route': self._route,
+            'weekly': self._weekly,
             'seats': self.get_vacancies(),
 
             'passengers': [{
