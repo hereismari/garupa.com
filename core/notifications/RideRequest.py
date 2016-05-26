@@ -1,6 +1,6 @@
-from Notification import Notification
+from core.notifications import Notification
 
-class RideRequestNotification(Notification):
+class RideRequest(Notification):
 
     def __init__(self, ride, user, district, complement):
         Notification.__init__(self)
@@ -10,13 +10,13 @@ class RideRequestNotification(Notification):
         self._district = district
         self._complement = complement
 
-    def getType(self):
+    def get_type(self):
         return 'RIDE_REQUEST'
 
-    def getData(self):
+    def get_data(self):
         return {
-            'ride': self._ride.getView(),
-            'user': self._user.getPublicView(),
+            'ride': self._ride.get_view(),
+            'user': self._user.get_public_view(),
             'district': self._district,
             'complement': self._complement
         }

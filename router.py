@@ -5,8 +5,7 @@ from flask import Flask, request, redirect
 from flask_digest import Stomach
 from flask_digest.hasher import hash_all
 
-from core import Controller, generator
-from core.mailing import Email
+from core import Controller, Email, generator
 
 #----------------------------------CONFIG---------------------------------------
 
@@ -219,10 +218,10 @@ def accept_ride(rid):
     except:
         return BAD_REQUEST
 
-    try: driver = controller.get_ride(rid).getDriver()
+    try: driver = controller.get_ride(rid).get_driver()
     except: return NOT_FOUND
 
-    if driver.getUid() != logged_user():
+    if driver.get_uid() != logged_user():
         return UNAUTHORIZED
 
     success = controller.accept_ride(uid, rid, district, complement)
