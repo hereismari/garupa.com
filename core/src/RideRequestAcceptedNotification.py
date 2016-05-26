@@ -1,25 +1,18 @@
-from core.src.Notification import Notification
+from Notification import Notification
 
 class RideRequestAcceptedNotification(Notification):
 
-    def __init__(self, ride, associatedUser):
+    def __init__(self, ride, user):
         Notification.__init__(self)
 
         self._ride = ride
-        self._associatedUser = associatedUser
-
-    def getRide(self):
-        return self._ride
-
-    def getAssociatedUser(self):
-        return self._associatedUser
+        self._user = user
 
     def getType(self):
-        return 'RIDEREQUESTACCEPTEDNOTIFICATION'
+        return 'RIDE_ACCEPTED'
 
     def getData(self):
         return {
-		'ride' : ride.getView()
-                'user' : associatedUser.getPublicoView()
-	}
-
+            'user': self._user.getPublicView(),
+            'ride': self._ride.getView()
+        }

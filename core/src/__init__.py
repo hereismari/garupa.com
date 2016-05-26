@@ -4,3 +4,6 @@ from Address import Address
 
 from FriendRequestNotification import FriendRequestNotification
 from NewFriendNotification import NewFriendNotification
+from RideFoundNotification import RideFoundNotification
+from RideRequestAcceptedNotification import RideRequestAcceptedNotification
+from RideRequestNotification import RideRequestNotification

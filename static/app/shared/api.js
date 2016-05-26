@@ -171,12 +171,24 @@ app.service('Api', function($q, $http, Cookie) {
         });
     };
 
-    this.joinRide = function(uid, rid, district, complement) {
+    this.requestRide = function(uid, rid, district, complement) {
         return request({
             method: 'POST',
-            url: '/api/users/' + uid + '/rides',
+            url: '/api/rides/' + rid + '/requests',
             data: {
-                rid: rid,
+                uid: uid,
+                district: district,
+                complement: complement
+            }
+        });
+    };
+
+    this.acceptRide = function(uid, rid, district, complement) {
+        return request({
+            method: 'POST',
+            url: '/api/rides/' + rid + '/passengers',
+            data: {
+                uid: uid,
                 district: district,
                 complement: complement
             }
@@ -202,50 +214,25 @@ app.service('Api', function($q, $http, Cookie) {
         });
     };
 
-    this.request_ride = function(uid, rid, district, complement) {
-        return request({
-            method: 'POST',
-            url: '/api/rides/' + uid + '/requests',
-            data: {
-                rid: rid,
-                district: district,
-                complement: complement
-            }
-        });
-    };
-
-    this.accept_ride = function(uid, rid) {
-        return request({
-            method: 'POST',
-            url: '/api/users/' + uid + '/rides',
-            data: {
-                rid: rid
-            }
-        });
-    };
-    
-    this.get_notifications = function(uid) {
+    this.getNotifications = function(uid) {
         return request({
             method: 'GET',
             url: '/api/users/' + uid + '/notifications',
         });
     };
 
-    this.mark_notification = function(uid, nid) {
-        return request({
-            method: 'POST',
-            url: '/api/users/' + uid + '/notifications/' + nid + '/seen',
-            data: {
-                status: 1
-            }
-        });
-    };
-
-    this.remove_notification = function(uid, nid) {
+    this.removeNotification = function(uid, nid) {
          return request({
             method: 'DELETE',
             url: '/api/users/' + uid + '/notifications/' + nid,
-         });   
+         });
+    };
+
+    this.markNotification = function(uid, nid) {
+         return request({
+            method: 'PUT',
+            url: '/api/users/' + uid + '/notifications/' + nid + '/seen',
+         });
     };
 
 });

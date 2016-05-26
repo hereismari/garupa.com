@@ -1,4 +1,3 @@
-from datetime import datetime
 from Notification import Notification
 
 class RideFoundNotification(Notification):
@@ -8,11 +7,10 @@ class RideFoundNotification(Notification):
 
         self._ride = ride
 
-    def getRide(self):
-    	return self._ride
-
     def getType(self):
         return 'RIDE_FOUND'
 
     def getData(self):
-        return ride.getView()
+        return {
+            'ride': self._ride.getView()
+        }

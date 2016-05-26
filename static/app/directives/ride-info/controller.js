@@ -2,7 +2,7 @@
 app.directive('rideInfo', function($location, Users, Destination) {
     return {
         restrict: 'E',
-        scope: { show: '=' },
+        scope: { show: '=', frozen: '=' },
         templateUrl: '/app/directives/ride-info/template.html',
         css: '/app/directives/ride-info/style.css',
         replace: true,
