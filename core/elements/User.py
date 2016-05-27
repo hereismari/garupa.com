@@ -1,19 +1,29 @@
+from core.database import db
 
-class User(object):
+class User(db.Model):
+
+    _uid = db.Column('uid', db.Integer, primary_key=True)
+    _password = db.Column('password', db.String(30))
+    
+    _name = db.Column('name', db.String(30))
+    _email = db.Column('email', db.String(30))
+    _phone = db.Column('phone', db.String(30))
+    
+    _photo = db.Column('photo', db.Text)
+    
+    _friends = db.relationship('User')
+    _notifications = db.relationship('Notification')
+    _rides = db.relationship('Ride')
 
     def __init__(self, uid, passwd, name, email):
 
-        self._name = name
         self._uid = uid
-        self._email = email
         self._password = passwd
+        self._name = name
+        self._email = email
 
         self._photo = '/assets/img/default-profile-pic.png'
         self._phone = 'N/A'
-
-        self._friends = set()
-        self._notifications = []
-        self._rides = []
 
     def __eq__(self, other):
         if type(other) is not User: return False

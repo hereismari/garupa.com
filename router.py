@@ -5,7 +5,8 @@ from flask import Flask, request, redirect
 from flask_digest import Stomach
 from flask_digest.hasher import hash_all
 
-from core import Controller, Email, generator
+from core import Controller, Email
+from core import generator, database
 
 #----------------------------------CONFIG---------------------------------------
 
@@ -22,11 +23,16 @@ app.config.update(
     MAIL_DEFAULT_SENDER = 'sitegarupa@gmail.com',
 
     MAX_CONTENT_LENGTH = 1024 * 1024,
-    DEBUG = True
+    DEBUG = True,
+    
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///garupa.db',
+    SQLALCHEMY_TRACK_MODIFICATIONS = False,
+    SQLALCHEMY_POOL_RECYCLE = 280
 )
 
 email_manager = Email(app)
 controller = Controller()
+database.init(app)
 
 @app.after_request
 def add_header(response):
@@ -265,5 +271,5 @@ def search_ride():
 #-----------------------------------MAIN----------------------------------------
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='info.log', level=logging.DEBUG)
+    #logging.basicConfig(filename='info.log', level=logging.DEBUG)
     app.run(host='0.0.0.0', port=8000)

@@ -1,18 +1,25 @@
 from time import mktime
 from datetime import date, timedelta
+from core.database import db
 
-class Ride(object):
+class Ride(db.Model):
 
-    # variavel estatica
-    rid_counter = 1
+    _rid = db.Column('rid', db.Integer, primary_key=True)
+    
+    _driver = db.Column('driver', db.Integer, db.ForeignKey('user.uid'))
+    _seats = db.Column('seats', db.Integer)
+    
+    _date = db.Column('date', db.DateTime)
+    _weekly = db.Column('weekly', db.Boolean)
+    
+    _dest = db.Column('dest', db.String(10))
+    _origin = db.Column('origin', db.String(30))
+    _route = db.Column('route', db.PickleType)
 
     def __init__(self, driver, date, dest, origin, route, weekly, seats):
 
         self._driver = driver
         self._seats = seats
-
-        self._rid = Ride.rid_counter
-        Ride.rid_counter += 1
 
         self._date = date
         self._weekly = weekly
@@ -20,8 +27,6 @@ class Ride(object):
         self._dest = dest
         self._origin = origin
         self._route = route
-
-        self._passengers = []
 
     def __eq__(self, other):
         if type(other) is not Ride: return False
