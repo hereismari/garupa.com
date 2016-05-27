@@ -9,17 +9,17 @@ class Email(object):
 
     def send_welcome(self, user, passwd):
         subject = 'Bem vindo ao garupa.com!'
-        recipients = [user.getEmail()]
-        body = 'Oi %s,\n' % user.getName()
+        recipients = [user.get_email()]
+        body = 'Oi %s,\n' % user.get_name()
         body += 'Sua conta no garupa.com foi criada com sucesso!\n\n'
-        body += 'Sua matricula: %s\n' % user.getUid()
+        body += 'Sua matricula: %s\n' % user.get_uid()
         body += 'Sua senha: %s (nao va perder em?)\n' % passwd
         self.send(subject, recipients, body)
 
     def send_recover_passwd(self, user, passwd):
         subject = 'Tua senha! Criatura esquecida!'
-        recipients = [user.getEmail()]
-        body = 'Oi %s,\n' % user.getName()
+        recipients = [user.get_email()]
+        body = 'Oi %s,\n' % user.get_name()
         body += 'Esquecesse tua senha num foi?\n'
         body += 'Sua senha nova: %s (nao vai esquecer de novo em?)' % passwd
         self.send(subject, recipients, body)

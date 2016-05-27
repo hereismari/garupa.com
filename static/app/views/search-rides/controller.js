@@ -28,9 +28,9 @@ app.controller('search-rides', function($scope, $filter, Api, Users, Districts, 
             });
     };
 
-    $scope.joinRide = function(ride) {
+    $scope.requestRide = function(ride) {
         var form = $scope.form;
-        Users.logged.joinRide(ride.rid, form.district, form.complement)
+        Api.requestRide(Users.logged.uid, ride.rid, form.district, form.complement)
             .then(function() {
                 alert($filter('translate')('RIDE_ACCEPTED'));
             });

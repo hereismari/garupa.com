@@ -11,6 +11,13 @@ na UFCG.
 
 ### Para rodar localmente
 
-python router.py 
+python router.py
 
 *importante* : sudo pip install flask, flask_digest
+
+
+### Executando os testes
+
+Para executar os testes basta rodar o seguinte comando:
+
+     python -m unittest discover -s tests -p '*Test.py'

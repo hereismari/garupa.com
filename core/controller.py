@@ -1,5 +1,5 @@
-from src import User, Ride, Address
-from src import FriendRequestNotification, NewFriendNotification
+import notifications
+from elements import User, Ride, Address
 from datetime import datetime
 
 class Controller(object):
@@ -10,14 +10,22 @@ class Controller(object):
     def get_user(self, uid):
         return self.users.get(uid, None)
 
-    def get_ride(self, uid):
-        return self.rides.get(uid, None)
+    def get_ride(self, rid):
+        return self.rides.get(rid, None)
+
+    def get_notification(self, uid, nid):
+        u = self.get_user(uid)
+        if u == None: return None
+
+        for n in u.get_notifications():
+            if n.get_nid() == nid: return n
+        return None
 
     def recover_passwd(self, uid, new_passwd):
         u = self.get_user(uid)
         if u == None: return False
 
-        u.setPassword(new_passwd)
+        u.set_password(new_passwd)
         return True
 
     def register_user(self, uid, passwd, name, email):
@@ -28,23 +36,23 @@ class Controller(object):
     def get_credentials(self, uid):
         u = self.get_user(uid)
         if u == None: return None
-        return u.getPassword()
+        return u.get_password()
 
     def view_user(self, uid, vuid):
         u = self.get_user(uid)
         v = self.get_user(vuid)
 
         if u == None or v == None: return None
-        return u.getView(v)
+        return u.get_view(v)
 
     def update_user(self, uid, attr, value):
         u = self.get_user(uid)
         if u == None: return False
 
-        if attr == 'name': u.setName(value)
-        elif attr == 'email': u.setEmail(value)
-        elif attr == 'photo': u.setPhoto(value)
-        elif attr == 'phone': u.setPhone(value)
+        if attr == 'name': u.set_name(value)
+        elif attr == 'email': u.set_email(value)
+        elif attr == 'photo': u.set_photo(value)
+        elif attr == 'phone': u.set_phone(value)
 
         else: return False
         return True
@@ -56,15 +64,14 @@ class Controller(object):
         if u == None or f == None:
             return False
 
-        u.addFriend(f)
-        relation = f.getRelationship(u)
+        relation = f.get_relationship(u)
 
-        if relation == 'pending':
-			notification = FriendRequestNotification(uid)
-			f.addNotification(notification)
-        elif relation == 'friend':
-			notification = NewFriendNotification(uid)
-			f.addNotification(notification)
+        if   relation == 'none':      nt = notifications.FriendRequest(u)
+        elif relation == 'available': nt = notifications.FriendAccepted(u)
+        else:                         nt = None
+
+        if nt: f.add_notification(nt)
+        u.add_friend(f)
 
         return True
 
@@ -75,7 +82,7 @@ class Controller(object):
         if u == None or f == None:
             return False
 
-        u.removeFriend(f)
+        u.remove_friend(f)
         return True
 
     def get_notifications(self, uid):
@@ -84,18 +91,54 @@ class Controller(object):
         if u == None:
             return None
 
-        return [n.getView() for n in u.getNotifications()]
+        return [n.get_view() for n in u.get_notifications()]
 
-    def join_ride(self, uid, rid, district, complement):
+    def remove_notification(self, uid, nid):
+        u = self.get_user(uid)
+
+        if u == None:
+            return False
+
+        u.remove_notification(nid)
+        return True
+
+    def mark_notification(self, uid, nid):
+        n = self.get_notification(uid, nid)
+
+        if n == None:
+            return False
+
+        n.set_seen()
+        return True
+
+    def request_ride(self, uid, rid, district, complement):
         u = self.get_user(uid)
         r = self.get_ride(rid)
 
         if u == None or r == None: return False
-        if r.isFull(): return False
+        if r.is_full(): return False
+
+        d = r.get_driver()
+        nt = notifications.RideRequest(r, u, district, complement)
+        d.add_notification(nt)
+
+        return True
+
+    def accept_ride(self, uid, rid, district, complement):
+        u = self.get_user(uid)
+        r = self.get_ride(rid)
+
+        if u == None or r == None: return False
+        if r.is_full(): return False
 
         address = Address(district, complement)
-        r.addPassenger(u, address)
-        u.addRide(r)
+        r.add_passenger(u, address)
+        u.add_ride(r)
+
+        d = r.get_driver()
+        notification = notifications.RideAccepted(r, d)
+        u.add_notification(notification)
+
         return True
 
     def cancel_ride(self, uid, rid):
@@ -105,12 +148,12 @@ class Controller(object):
         if u == None or r == None:
             return False
 
-        u.removeRide(r)
-        if r.getDriver() == u:
+        u.remove_ride(r)
+        if r.get_driver() == u:
             del self.rides[rid]
-            for p in r.getPassengers():
-                p[0].removeRide(r)
-        else: r.removePassenger(u)
+            for p in r.get_passengers():
+                p[0].remove_ride(r)
+        else: r.remove_passenger(u)
         return True
 
     def register_ride(self, driver, date, dest, origin, route, weekly, seats):
@@ -120,8 +163,8 @@ class Controller(object):
         date = datetime.fromtimestamp(date / 1000)
         r = Ride(u, date, dest, origin, route, weekly, seats)
 
-        u.addRide(r)
-        self.rides[r.getRid()] = r
+        u.add_ride(r)
+        self.rides[r.get_rid()] = r
         return True
 
     def update_rides(self):
@@ -133,10 +176,10 @@ class Controller(object):
 
         self.update_rides()
 
-        return [r.getView() for r in self.rides.itervalues() if
-            r.getDestination() == dest and
-            district in r.getRoute() and
-            r.happensOn(date) and
-            r.isWeekly() == weekly and
-            not r.containsUser(u)
+        return [r.get_view() for r in self.rides.itervalues() if
+            r.get_destination() == dest and
+            district in r.get_route() and
+            r.happens_on(date) and
+            r.is_weekly() == weekly and
+            not r.contains_user(u)
         ]
