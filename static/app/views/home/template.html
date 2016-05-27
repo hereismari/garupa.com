@@ -12,19 +12,19 @@
     <div class='form-group'>
       <label>{{'NAME' | translate}}</label>
       <input ng-model='form.name' type='text' class='form-control'
-          placeholder='eg. Fulaninho da Silva' spellcheck='false' required>
+          placeholder='eg. Fulaninho da Silva' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     </div>
 
     <div class='form-group'>
       <label>{{'ENROLLMENT' | translate}}</label>
       <input ng-model='form.uid' pattern='[1-7,9][0-1][0-6][0-1][1-4][0-9]{4}' type='text' class='form-control'
-          placeholder='eg. 114110376' spellcheck='false' required>
+          placeholder='eg. 114110376' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     </div>
 
     <div class='form-group'>
       <label>{{'EMAIL' | translate}}</label>
       <input ng-model='form.email' type='text' pattern='.+@.+\..+$' class='form-control'
-          placeholder='eg. fulano.silva@email.com' spellcheck='false' required>
+          placeholder='eg. fulano.silva@email.com' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     </div>
 
     <div class='form-group'>
@@ -38,16 +38,16 @@
     <span ng-if='!generate'>
 	    <div class='form-group'>
 	      <label>{{'PASSWORD' | translate}}</label>
-	      <input ng-model='form.passwd' type='password' class='form-control' required></div>
+          <input ng-model='form.passwd' type='password' class='form-control' required title='{{"INVALID_FIELD" | translate}}'></div>
 
 	    <div class='form-group'>
 	      <label>{{'CONFIRM_PASSWORD' | translate}}</label>
-	      <input type='password' class='form-control' required></div>
+	      <input type='password' class='form-control' required title='{{"INVALID_FIELD" | translate}}'></div>
     </span>
 
     <div class='form-group'>
       <label class='checkbox'>
-        <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' required>
+        <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' required title='{{"INVALID_FIELD" | translate}}'>
         <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
         <b>{{'I_ACCEPT' | translate}}</b> {{'TERMS_MESSAGE' | translate}}. <a href='#'>{{'TERMS_OF_SERVICE' | translate}}</a>
       </label>

@@ -4,12 +4,12 @@
   <form ng-submit='login()'>
     <label>{{'ENROLLMENT' | translate}}</label>
     <input ng-model='uid' type='text'
-      class='form-control' spellcheck='false' required>
+      class='form-control' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     <br>
 
     <label>{{'PASSWORD' | translate}}</label>
     <input ng-model='passwd' type='password'
-      class='form-control' spellcheck='false' required>
+      class='form-control' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     <br>
 
     <button type='submit' class='btn btn-primary'> Entrar </button>
