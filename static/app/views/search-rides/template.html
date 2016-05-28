@@ -26,7 +26,7 @@
       <div class='form-group'>
         <label>{{'YOUR_ADDRESS' | translate}}</label>
         <input type='text' class='form-control vert-offset-bottom-1' ng-model='form.complement'
-            pattern='.{12,}' placeholder='eg. Rua Almirante Barbosa, 438' required title='{{"INVALID_FIELD" | translate}}'/>
+            pattern='.{12,}' placeholder='eg. Rua Almirante Barbosa, 438' required/>
         <select id='district' class='select select-primary' ng-model='form.district'
             ng-options='d for d in Districts' oninvalid='$scope.invalid_field(this)' required><option></option></select>
       </div>

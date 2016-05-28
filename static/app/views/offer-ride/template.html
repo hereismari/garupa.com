@@ -21,14 +21,14 @@
 	  <div class='form-group'>
         <label>{{'AVAILABLE_SEATS' | translate}}</label>
         <select id='seats' class='select select-primary' ng-model='form.seats'
-            ng-options='num for num in seats' required title='{{"INVALID_FIELD" | translate}}'>
+            ng-options='num for num in seats' required>
             <option></option></select>
       </div>
 
       <div class='form-group'>
         <label>{{'DATE' | translate}}</label>
         <input type='text' class='calendar-input form-control'
-            placeholder='{{"PICK_A_DATE" | translate}}' readonly required title='{{"INVALID_FIELD" | translate}}' />
+            placeholder='{{"PICK_A_DATE" | translate}}' readonly required />
       </div>
 
       <div class='form-group'>
@@ -45,13 +45,13 @@
       <div class='form-group'>
         <label>{{'YOUR_ADDRESS' | translate}} </label>
         <input type='text' class='form-control' ng-model='form.origin' pattern='.{12,}'
-            placeholder='eg. Rua Almirante Barbosa, 438' required title='{{"INVALID_FIELD" | translate}}' />
+            placeholder='eg. Rua Almirante Barbosa, 438' required />
       </div>
 
       <div class='form-group'>
         <label>{{'ROUTE' | translate}}</label>
         <select id='route' class='form-control multiselect multiselect-primary'
-            ng-model='form.route' ng-options='d for d in Districts' multiple required title='{{"INVALID_FIELD" | translate}}'></select>
+            ng-model='form.route' ng-options='d for d in Districts' multiple required></select>
       </div>
 
       <div class='form-group vert-offset-top-2'>

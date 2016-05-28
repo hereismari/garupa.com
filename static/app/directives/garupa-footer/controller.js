@@ -6,7 +6,6 @@ app.directive('garupaFooter', function() {
         css: '/app/directives/garupa-footer/style.css',
 
         controller: function($scope, $translate) {
-			
 
             $scope.changeLanguage = function(key) {
                 $translate.use(key);
