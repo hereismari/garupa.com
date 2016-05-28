@@ -32,7 +32,7 @@ app.controller('search-rides', function($scope, $filter, Api, Users, Districts, 
         var form = $scope.form;
         Api.requestRide(Users.logged.uid, ride.rid, form.district, form.complement)
             .then(function() {
-                alert($filter('translate')('RIDE_ACCEPTED'));
+                alert($filter('translate')('RIDE_REQUEST_SENT'));
             });
     };
 
