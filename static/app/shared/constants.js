@@ -1,12 +1,12 @@
 
 app.constant('Day', {
-    SUN: {short: 'dom', index: 0},
-    MON: {short: 'seg', index: 1},
-    TUE: {short: 'ter', index: 2},
-    WED: {short: 'qua', index: 3},
-    THU: {short: 'qui', index: 4},
-    FRI: {short: 'sex', index: 5},
-    SAT: {short: 'sab', index: 6}
+    SUN: {short: 'SUN', index: 0},
+    MON: {short: 'MON', index: 1},
+    TUE: {short: 'TUE', index: 2},
+    WED: {short: 'WED', index: 3},
+    THU: {short: 'THU', index: 4},
+    FRI: {short: 'FRI', index: 5},
+    SAT: {short: 'SAT', index: 6}
 });
 
 app.constant('NextWeek', (function() {

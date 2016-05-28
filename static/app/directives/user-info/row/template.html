@@ -5,10 +5,10 @@
   <span ng-switch-when='view'> {{ user[row.data] }} </span>
   <form ng-switch-when='edit' ng-submit='submit()' name='form'>
     <input class='form-control' ng-model='$parent.input' name='input' type='text' placeholder='{{row.placeholder}}' pattern='{{row.pattern}}' required>
-    <button class='btn btn-primary btn-sm' ng-disabled='form.input.$invalid' type='submit'> Salvar </button>
-    <button class='btn btn-danger btn-sm' ng-click='return()'> Cancelar </button>
+    <button class='btn btn-primary btn-sm' ng-disabled='form.input.$invalid' type='submit'>{{ 'SAVE' | translate }}</button>
+    <button class='btn btn-danger btn-sm' ng-click='return()'>{{ 'CANCEL' | translate }}</button>
   </form>
 </td>
 
 <td><a engrave='pencil' ng-hide='!canEdit.value || !row.pattern' ng-click='edit()'>
-  Editar </a></td>
+  {{ 'EDIT' | translate }}</a></td>

@@ -2,58 +2,56 @@
 <div id='welcome' class='col-md-8 col-md-offset-2 text-center'>
   <img src='/assets/img/logo.png'>
 
-  <h3> Bem-vindo ao Garupa.com! </h3>
-  <p class='lead vert-offset-bottom-2'>
-    Consiga ou ofereça carona para a Universidade e faça novas amizades! </p>
+  <h3>{{'HELLO' | translate}}</h3>
+  <p class='lead vert-offset-bottom-2'>{{'HOME_DESCRIPTION' | translate}}</p>
 
-  <button class='btn btn-primary btn-lg' ng-click='toggleForm()'>
-    Cadastre-se </button>
+  <button class='btn btn-primary btn-lg' ng-click='toggleForm()'>{{'SIGN_UP' | translate}}</button>
 </div>
 
 <div class='col-md-6 col-md-offset-3'><form style='display: none' ng-submit='submit()'>
     <div class='form-group'>
-      <label> Nome </label>
+      <label>{{'NAME' | translate}}</label>
       <input ng-model='form.name' type='text' class='form-control'
-          placeholder='eg. Fulaninho da Silva' spellcheck='false' required>
+          placeholder='eg. Fulaninho da Silva' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     </div>
 
     <div class='form-group'>
-      <label> Matrícula </label>
+      <label>{{'ENROLLMENT' | translate}}</label>
       <input ng-model='form.uid' pattern='[1-7,9][0-1][0-6][0-1][1-4][0-9]{4}' type='text' class='form-control'
-          placeholder='eg. 114110376' spellcheck='false' required>
+          placeholder='eg. 114110376' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     </div>
 
     <div class='form-group'>
-      <label> E-mail </label>
+      <label>{{'EMAIL' | translate}}</label>
       <input ng-model='form.email' type='text' pattern='.+@.+\..+$' class='form-control'
-          placeholder='eg. fulano.silva@email.com' spellcheck='false' required>
+          placeholder='eg. fulano.silva@email.com' spellcheck='false' required title='{{"INVALID_FIELD" | translate}}'>
     </div>
 
     <div class='form-group'>
       <label class='checkbox'>
         <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' ng-model='generate'>
         <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
-        <span> Gerar senha aleatória </span>
+        <span>{{'GENERATE_PASSWORD' | translate}}</span>
       </label>
     </div>
 
     <span ng-if='!generate'>
 	    <div class='form-group'>
-	      <label> Senha </label>
-	      <input ng-model='form.passwd' type='password' class='form-control' required></div>
+	      <label>{{'PASSWORD' | translate}}</label>
+          <input ng-model='form.passwd' type='password' class='form-control' required title='{{"INVALID_FIELD" | translate}}'></div>
 
 	    <div class='form-group'>
-	      <label> Confirmar Senha </label>
-	      <input type='password' class='form-control' required></div>
+	      <label>{{'CONFIRM_PASSWORD' | translate}}</label>
+	      <input type='password' class='form-control' required title='{{"INVALID_FIELD" | translate}}'></div>
     </span>
 
     <div class='form-group'>
       <label class='checkbox'>
-        <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' required>
+        <input type='checkbox' data-toggle='checkbox' class='custom-checkbox' required title='{{"INVALID_FIELD" | translate}}'>
         <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
-        <b>Eu aceito</b> os termos de uso e tal. <a href='#'> Termo de uso. </a>
+        <b>{{'I_ACCEPT' | translate}}</b> {{'TERMS_MESSAGE' | translate}}. <a href='#'>{{'TERMS_OF_SERVICE' | translate}}</a>
       </label>
     </div>
 
-    <button class='btn btn-primary' type='submit'> Sign Up </a>
+    <button class='btn btn-primary' type='submit'>{{'SIGN_UP' | translate}}</a>
 </form></div>

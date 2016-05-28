@@ -3,7 +3,7 @@
 <div class='col-md-8 col-md-offset-2'>
 
   <div class='vert-offset-bottom-2'>
-    <h4 class='turquoise'> Detalhes da carona </h4>
+    <h4 class='turquoise'>{{'RIDE_DETAILS' | translate}}</h4>
   </div>
 
   <form class='row' ng-submit='submit()'>
@@ -12,27 +12,27 @@
     <div class='col-md-4'>
 
       <div class='form-group'>
-        <label> Destino </label>
+        <label>{{'TO' | translate}}</label>
         <div class='bootstrap-switch-square'>
           <input type='checkbox' id='destination' data-on-text='UFCG'
-              data-off-text='Casa' checked /></div>
+              data-off-text='HOME' checked /></div>
       </div>
 
 	  <div class='form-group'>
-        <label> Número de vagas </label>
+        <label>{{'AVAILABLE_SEATS' | translate}}</label>
         <select id='seats' class='select select-primary' ng-model='form.seats'
-            ng-options='num for num in seats' required>
+            ng-options='num for num in seats' required title='{{"INVALID_FIELD" | translate}}'>
             <option></option></select>
       </div>
 
       <div class='form-group'>
-        <label> Quando? </label>
+        <label>{{'DATE' | translate}}</label>
         <input type='text' class='calendar-input form-control'
-            placeholder='Escolha uma data' readonly required />
+            placeholder='{{"PICK_A_DATE" | translate}}' readonly required title='{{"INVALID_FIELD" | translate}}' />
       </div>
 
       <div class='form-group'>
-        <label class='checkbox'> Toda semana?
+        <label class='checkbox'> {{'WEEKLY' | translate}} ?
           <input type='checkbox' ng-model='form.weekly' class='custom-checkbox'>
           <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
       </label></div>
@@ -43,20 +43,20 @@
     <div class='col-md-7 col-md-offset-1'>
 
       <div class='form-group'>
-        <label> Seu endereço </label>
+        <label>{{'YOUR_ADDRESS' | translate}} </label>
         <input type='text' class='form-control' ng-model='form.origin' pattern='.{12,}'
-            placeholder='eg. Rua Almirante Barbosa, 438' required />
+            placeholder='eg. Rua Almirante Barbosa, 438' required title='{{"INVALID_FIELD" | translate}}' />
       </div>
 
       <div class='form-group'>
-        <label> Por onde você passa? </label>
+        <label>{{'ROUTE' | translate}}</label>
         <select id='route' class='form-control multiselect multiselect-primary'
-            ng-model='form.route' ng-options='d for d in Districts' multiple required></select>
+            ng-model='form.route' ng-options='d for d in Districts' multiple required title='{{"INVALID_FIELD" | translate}}'></select>
       </div>
 
       <div class='form-group vert-offset-top-2'>
-        <button type='submit' class='btn btn-primary'> Oferece o teu bigu! </button>
-        <a href='./perfil' class='btn btn-danger'> Cancelar </a>
+        <button type='submit' class='btn btn-primary'>{{'OFFER_RIDE' | translate}}!</button>
+        <a href='./perfil' class='btn btn-danger'>{{'CANCEL' | translate}}</a>
       </div>
 
     </div>

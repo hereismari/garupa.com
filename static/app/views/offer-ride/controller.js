@@ -1,5 +1,5 @@
 
-app.controller('offer-ride', function($scope, $location, Users, Districts, Destination) {
+app.controller('offer-ride', function($scope, $filter, $location, Users, Districts, Destination) {
 
     $scope.Districts = Districts;
     $scope.seats = _.range(1, 8, 1)
@@ -37,7 +37,7 @@ app.controller('offer-ride', function($scope, $location, Users, Districts, Desti
         });
 
         $('#seats').select2({
-            placeholder: 'Escolha um valor'
+            placeholder: $filter('translate')('CHOOSE_A_VALUE')
         });
     };
 });

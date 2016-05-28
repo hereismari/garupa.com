@@ -6,7 +6,7 @@ app.directive('userInfo', function() {
         templateUrl: '/app/directives/user-info/template.html',
         css: '/app/directives/user-info/style.css',
 
-        controller: function($scope, Users) {
+        controller: function($scope, $filter, Users) {
 
             function Row(name, data, placeholder, pattern) {
                 this.name = name;
@@ -16,10 +16,10 @@ app.directive('userInfo', function() {
             }
 
             $scope.table = [
-                new Row('Matrícula', 'uid'),
-                new Row('Nome',      'name',    'eg. Fulaninho da Silva',     '.{3,}'),
-                new Row('Telefone',  'phone',   'eg. (83) 99988-1122',        '\\(\\d\\d\\) \\d{4,5}-\\d{4}'),
-                new Row('E-mail',    'email',   'eg. fulano.silva@email.com', '.+@.+\\..+')
+                new Row($filter('translate')('ENROLLMENT'), 'uid'),
+                new Row($filter('translate')('NAME'),      'name',    'eg. Fulaninho da Silva',     '.{3,}'),
+                new Row($filter('translate')('PHONE'),  'phone',   'eg. (83) 99988-1122',        '\\(\\d\\d\\) \\d{4,5}-\\d{4}'),
+                new Row($filter('translate')('EMAIL'),    'email',   'eg. fulano.silva@email.com', '.+@.+\\..+')
             ];
         }
     };

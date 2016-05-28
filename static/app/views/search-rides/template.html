@@ -5,16 +5,13 @@
 
     <!-- texto/imagem e botao -->
     <div class='col-md-6'>
-      <h3 class='turquoise'> Ache a carona perfeita para voce! </h3>
+      <h3 class='turquoise'>{{'FIND_THE_RIDE' | translate}}</h3>
 
-      <p class='text-justify'>
-          Está indo para a UFCG ou voltando para casa e tem medo de ser assaltado
-          se for andando ou então dos outros males que nos cercam diariamente?
-          Calma! Temos a carona perfeita para você! </p>
+      <p class='text-justify'>{{'SEARCH_TEXT' | translate}}</p>
 
       <div class='form-group vert-offset-top-2'>
-        <button class='btn btn-primary' type='submit'> Procure seu bigu! </button>
-        <a href='./perfil' class='btn btn-danger'> Cancelar </a>
+        <button class='btn btn-primary' type='submit'>{{'SEARCH_RIDE' | translate}}</button>
+        <a href='./perfil' class='btn btn-danger'>{{'CANCEL' | translate}}</a>
       </div>
     </div>
 
@@ -22,25 +19,25 @@
     <div class='col-md-5 col-md-offset-1 vert-offset-top-2'>
 
       <div class='form-group'>
-        <label> Destino <div class='bootstrap-switch-square'>
-          <input id='destination' type='checkbox' data-on-text='UFCG' data-off-text='Casa' checked />
+        <label>{{'TO' | translate}}<div class='bootstrap-switch-square'>
+          <input id='destination' type='checkbox' data-on-text='UFCG' data-off-text='HOME' checked />
       </div></label></div>
 
       <div class='form-group'>
-        <label> Seu endereço </label>
+        <label>{{'YOUR_ADDRESS' | translate}}</label>
         <input type='text' class='form-control vert-offset-bottom-1' ng-model='form.complement'
-            pattern='.{12,}' placeholder='eg. Rua Almirante Barbosa, 438' required />
+            pattern='.{12,}' placeholder='eg. Rua Almirante Barbosa, 438' required title='{{"INVALID_FIELD" | translate}}'/>
         <select id='district' class='select select-primary' ng-model='form.district'
-            ng-options='d for d in Districts' required><option></option></select>
+            ng-options='d for d in Districts' oninvalid='$scope.invalid_field(this)' required><option></option></select>
       </div>
 
       <div class='form-group'>
-        <label> Quando? </label>
-        <input type='text' class='calendar-input form-control' placeholder='Escolha uma data' readonly required />
+        <label>{{'DATE' | translate}}</label>
+        <input type='text' class='calendar-input form-control' placeholder= '{{"CHOOSE_DATE" | translate}}' data readonly oninvalid='$scope.invalid_field(this)' required />
       </div>
 
       <div class='form-group'>
-        <label class='checkbox'> Toda semana?
+        <label class='checkbox'> {{'WEEKLY' | translate}}
           <input type='checkbox' ng-model='form.weekly' class='custom-checkbox'>
           <span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>
       </label></div>
@@ -55,12 +52,12 @@
   <div class='row' ng-if='search_result != null'><div class='col-md-12'>
 
     <div class='panel panel-default'>
-      <div class='panel-heading'> Resultados </div>
+      <div class='panel-heading'>{{'RESULTS' | translate}}</div>
 
       <ul class='list-group'>
         <li class='list-group-item text-muted text-center'
             style='padding: 60px 0px' ng-if='search_result.length == 0'>
-            <h6> Nenhum bigu encontrado </h6></li>
+            <h6>{{'NO_RIDE' | translate}}</h6></li>
 
         <li class='list-group-item' ng-repeat='ride in search_result'><div class='row'>
 
@@ -71,10 +68,10 @@
           <div class='vert-offset-top-1 small'>
 
             <div class='col-md-2'>
-              <b> Motorista <br>
-                  Hora <br>
-                  Passageiros <br>
-                  Vagas <br>
+              <b>{{'DRIVER' | translate}}<br>
+                  {{'TIME' | translate}}<br>
+                  {{'PASSENGERS' | translate}}<br>
+                  {{'AVAILABLE_SEATS' | translate}}<br>
             </b></div>
 
             <div class='col-md-4'>
@@ -88,19 +85,19 @@
 
           <div class='col-md-3'>
             <button ng-click='requestRide(ride)' class='btn btn-md btn-primary pull-right'>
-              Pedir carona </button>
+              {{'ASK_RIDE' | translate}}</button>
           </div>
 
         </div></li></ul>
 
         <div class='panel-footer'><div class='row'>
           <div class='col-md-8 small'>
-            Caso você não encontre nenhuma carona que lhe agrade, podemos avisar
-            assim que uma nova carona do jeito que você pediu surja. </div>
+            {{'NOTIFY_ME_MESSAGE' | translate}}.
+          </div>
 
           <div class='col-md-4'>
             <button class='btn btn-md btn-default btn-block'>
-              Me notifique </button></div>
+              {{'NOTIFY_ME' | translate}}</button></div>
         </div></div>
     </div>
 
@@ -123,14 +120,14 @@
         <div class='modal-body'>
           <p>{{modal_message}}</p>
 
-          <p>Tem certeza a respeito disso?</p>
-          <button class='btn btn-md btn-success btn-md' data-dismiss='modal'> Confirmar ação </button>
-          <button class='btn btn-md btn-danger btn-md' data-dismiss='modal'> Cancelar </button>
+          <p>{{'ARE_YOU_SURE' | translate}}</p>
+          <button class='btn btn-md btn-success btn-md' data-dismiss='modal'> {{'CONFIRM' | translate}} </button>
+          <button class='btn btn-md btn-danger btn-md' data-dismiss='modal'> {{'CANCEL' |translate}} </button>
 
         </div>
 
         <div class='modal-footer'>
-          <a class='btn btn-default' data-dismiss='modal'>Fechar</a>
+          <a class='btn btn-default' data-dismiss='modal'>{{'CLOSE' | translate}}</a>
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
 
 <div class='wrapper'>
   <div class='column' ng-repeat='day in Day'>
-    <div class='day'> {{day.short}} </div>
+    <div class='day' translate='{{day.short}}'></div>
     <div class='event bg-primary' ng-repeat='ride in rides | orderBy:"date"'
         ng-click='show(ride)' ng-if='check(ride.date, day)'>
       <div> {{ride.date | date : 'H:mm'}} &nbsp;
@@ -9,6 +9,5 @@
       <div class='driver'> {{ride.driver.name}} </div>
 </div></div></div>
 
-<h5 ng-if='rides.length == 0' class='vert-offset-top-3 vert-offset-bottom-3'>
-  NENHUM BIGU ESSA SEMANA
+<h5 ng-if='rides.length == 0' class='vert-offset-top-3 vert-offset-bottom-3' traslate='NO_RIDE_THIS_WEEK'> 
 </h5>

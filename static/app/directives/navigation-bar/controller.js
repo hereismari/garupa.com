@@ -7,6 +7,7 @@ app.directive('navigationBar', function() {
         css: '/app/directives/navigation-bar/style.css',
 
         controller: function($scope, $state, $location, Users) {
+
             $scope.Users = Users;
             $scope.form = new Object();
 

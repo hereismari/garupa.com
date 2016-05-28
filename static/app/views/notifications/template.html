@@ -4,39 +4,36 @@
 <div class='row'>
   <div class='filters col-md-3'>
     <ul>
-      <li class='title'> Filtrar por relevância </li>
+      <li class='title'>{{'FILTER_IMPORTANCE' | translate}}</li>
 
       <li class='option' ng-class="filter.seen == false? 'selected' : null">
-        <a href='#' ng-click='filter.seen = false'>
-          Notificações recentes </a></li>
+        <a href='#' ng-click='filter.seen = false'>{{'RECENT_NOTIFICATIONS' | translate}}</a></li>
 
       <li class='option' ng-class="filter.seen == true? 'selected' : null">
-        <a href='#' ng-click='filter.seen = true'>
-          Notificações arquivadas </a></li>
+        <a href='#' ng-click='filter.seen = true'>{{'FILED_NOTIFICATIONS' | translate}}</a></li>
     </ul>
 
     <ul>
-      <li class='title'> Filtrar por tipo </li>
+      <li class='title'>{{'FILTER_TYPE' | translate}}</li>
 
       <li class='option' ng-class="filter.type == undefined? 'selected' : null">
-        <a href='#' ng-click='filter.type = undefined'>
-          Todas </a></li>
+        <a href='#' ng-click='filter.type = undefined'>{{'ALL' | translate}}</a></li>
 
       <li class='option' ng-class="filter.type == 'FRIEND'? 'selected' : null">
         <a href='#' ng-click="filter.type = 'FRIEND'">
-          Novos amigos </a></li>
+          {{'NEW_FRIEND' | translate}}</a></li>
 
       <li class='option' ng-class="filter.type == 'RIDE'? 'selected' : null">
         <a href='#' ng-click="filter.type = 'RIDE'">
-          Novas caronas </a></li>
+          {{'NEW_RIDE' | translate}}</a></li>
     </ul>
   </div>
 
   <div class='list col-md-9'>
-    <div class='title'> Suas notificações </div>
+    <div class='title'>{{'NOTIFICATIONS' | translate}}</div>
 
     <div class='element empty' ng-if='filtered().length == 0'>
-      NENHUMA NOTIFICAÇÃO
+      {{'NO_NOTIFICATION' | translate}}
     </div>
 
     <div class='element' ng-repeat="notification in filtered()">
@@ -49,14 +46,14 @@
 
           <div class='col-md-5'>
             <a href='./perfil/{{notification.data.user.uid}}'>
-              {{notification.data.user.name}} </a> enviou uma solicitação de amizade <br>
-            <span class='date'> {{notification.timestamp | date: "d 'de' MMMM, H:mm"}} </span>
+              {{notification.data.user.name}} </a> {{'HAS_SENT_A_FRIEND_REQUEST' | translate}} <br>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
 
           <div class='col-md-4'>
             <button class='btn btn-sm btn-wide btn-success'
                 ng-if='!notification.seen' ng-click='acceptFriend(notification)'>
-              Adicionar aos amigos </button>
+              {{'ADD_FRIEND' | translate}} </button>
           </div>
         </span>
 
@@ -67,8 +64,8 @@
 
           <div class='col-md-9'>
             <a href='./perfil/{{notification.data.user.uid}}'>
-              {{notification.data.user.name}} </a> aceitou seu pedido de amizade <br>
-            <span class='date'> {{notification.timestamp | date: "d 'de' MMMM, H:mm"}} </span>
+              {{notification.data.user.name}} </a> {{'HAS_ACCEPTED_YOUR' | translate}} {{'FRIEND_REQUEST' | translate}} <br>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
         </span>
 
@@ -97,21 +94,21 @@
 
           <div class='col-md-5'>
             <a href='./perfil/{{notification.data.user.uid}}'>
-              {{notification.data.user.name}} </a> quer participar de uma
-            <a href='#' ng-click='showRide(notification.data.ride)'> carona </a>
+              {{notification.data.user.name}} </a> {{'WANTS_TO_JOIN' | translate}}
+            <a href='#' ng-click='showRide(notification.data.ride)'> {{'RIDE' | translate}} </a>
 
             <div class='address'>
-              Bairro: &nbsp {{notification.data.district}} <br>
-              Complemento: &nbsp {{notification.data.complement}}
+              {{'DISTRICT' | translate}}: &nbsp {{notification.data.district}} <br>
+              {{'ADDRESS' | translate}}: &nbsp {{notification.data.complement}}
             </div>
 
-            <span class='date'> {{notification.timestamp | date: "d 'de' MMMM, H:mm"}} </span>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
 
           <div class='col-md-4'>
             <button class='btn btn-sm btn-success'
                 ng-if='!notification.seen' ng-click='acceptRide(notification)'>
-              Aceitar passageiro </button>
+              {{'ACCEPT' | translate}}</button>
           </div>
         </span>
 
@@ -122,18 +119,18 @@
 
           <div class='col-md-9'>
             <a href='./perfil/{{notification.data.user.uid}}'>
-              {{notification.data.user.name}} </a> aceitou seu pedido de
-            <a href='#' ng-click='showRide(notification.data.ride)'> carona </a><br>
-            <span class='date'> {{notification.timestamp | date: "d 'de' MMMM, H:mm"}} </span>
+              {{notification.data.user.name}} </a> {{'HAS_ACCEPTED_YOUR' | translate}}
+            <a href='#' ng-click='showRide(notification.data.ride)'> {{'RIDE' | translate}} </a><br>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
         </span>
 
         <div class='icons col-md-2' align='right'>
           <span class='fa fa-eye' ng-if='!notification.seen' ng-click='archive(notification)'
-              title='Arquivar notificação'></span>
+              title='{{"FILE" | translate}}'></span>
 
           <span class='fa fa-remove' ng-click='remove(notification)'
-              title='Excluir notificação'></span>
+              title='{{"REMOVE" | translate}}'></span>
         </div>
 
       </div>

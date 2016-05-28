@@ -1,9 +1,17 @@
-
 var app = angular.module('app', [
-    'ui.router', 'door3.css', 'ngCookies', 'angular-loading-bar'
+    'ui.router', 'door3.css', 'ngCookies', 'angular-loading-bar', 'pascalprecht.translate'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $cssProvider, $translateProvider) {
+
+	$translateProvider.useStaticFilesLoader({
+		prefix: '/languages/',
+		suffix: '.json'
+	});
+    
+    $translateProvider.preferredLanguage('pt-br');
+    $translateProvider.useCookieStorage();
+
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider

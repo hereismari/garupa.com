@@ -1,7 +1,7 @@
 
 app.controller('home', function($scope, $state, Api) {
 
-	$scope.form = new Object();
+    $scope.form = new Object();
 
 	$scope.toggleForm = function() {
 		$('#welcome').fadeOut('slow', function() {
