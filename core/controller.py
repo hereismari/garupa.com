@@ -1,37 +1,36 @@
 import notifications
-from elements import User, Ride, Address
+from elements import User, Ride, Passenger
 from datetime import datetime
+from database import db
 
 class Controller(object):
 
-    users = dict()
-    rides = dict()
-
     def get_user(self, uid):
-        return self.users.get(uid, None)
+        return User.query.get(uid)
 
     def get_ride(self, rid):
-        return self.rides.get(rid, None)
+        return Ride.query.get(rid)
 
     def get_notification(self, uid, nid):
-        u = self.get_user(uid)
-        if u == None: return None
-
-        for n in u.get_notifications():
-            if n.get_nid() == nid: return n
-        return None
+        return notifications.Notification.query.get(nid)
 
     def recover_passwd(self, uid, new_passwd):
         u = self.get_user(uid)
         if u == None: return False
 
         u.set_password(new_passwd)
+        db.session.commit()
         return True
 
     def register_user(self, uid, passwd, name, email):
-        if uid in self.users: return None
-        self.users[uid] = User(uid, passwd, name, email)
-        return self.get_user(uid)
+        if self.get_user(uid): return None
+
+        user = User(uid, passwd, name, email)
+
+        db.session.add(user)
+        db.session.commit()
+
+        return user
 
     def get_credentials(self, uid):
         u = self.get_user(uid)
@@ -53,8 +52,10 @@ class Controller(object):
         elif attr == 'email': u.set_email(value)
         elif attr == 'photo': u.set_photo(value)
         elif attr == 'phone': u.set_phone(value)
-
         else: return False
+
+        db.session.commit()
+
         return True
 
     def add_friend(self, uid, fuid):
@@ -72,6 +73,7 @@ class Controller(object):
 
         if nt: f.add_notification(nt)
         u.add_friend(f)
+        db.session.commit()
 
         return True
 
@@ -83,6 +85,8 @@ class Controller(object):
             return False
 
         u.remove_friend(f)
+        db.session.commit()
+
         return True
 
     def get_notifications(self, uid):
@@ -95,11 +99,14 @@ class Controller(object):
 
     def remove_notification(self, uid, nid):
         u = self.get_user(uid)
+        n = self.get_notification(uid, nid)
 
-        if u == None:
+        if u == None or n == None:
             return False
 
-        u.remove_notification(nid)
+        db.session.delete(n)
+        db.session.commit()
+
         return True
 
     def mark_notification(self, uid, nid):
@@ -109,6 +116,8 @@ class Controller(object):
             return False
 
         n.set_seen()
+        db.session.commit()
+
         return True
 
     def request_ride(self, uid, rid, district, complement):
@@ -122,6 +131,8 @@ class Controller(object):
         nt = notifications.RideRequest(r, u, district, complement)
         d.add_notification(nt)
 
+        db.session.commit()
+
         return True
 
     def accept_ride(self, uid, rid, district, complement):
@@ -131,13 +142,14 @@ class Controller(object):
         if u == None or r == None: return False
         if r.is_full(): return False
 
-        address = Address(district, complement)
-        r.add_passenger(u, address)
+        r.add_passenger(u, district, complement)
         u.add_ride(r)
 
         d = r.get_driver()
         notification = notifications.RideAccepted(r, d)
         u.add_notification(notification)
+
+        db.session.commit()
 
         return True
 
@@ -150,10 +162,13 @@ class Controller(object):
 
         u.remove_ride(r)
         if r.get_driver() == u:
-            del self.rides[rid]
+            db.session.delete(r)
             for p in r.get_passengers():
-                p[0].remove_ride(r)
+                p.get_user().remove_ride(r)
         else: r.remove_passenger(u)
+
+        db.session.commit()
+
         return True
 
     def register_ride(self, driver, date, dest, origin, route, weekly, seats):
@@ -164,11 +179,17 @@ class Controller(object):
         r = Ride(u, date, dest, origin, route, weekly, seats)
 
         u.add_ride(r)
-        self.rides[r.get_rid()] = r
+
+        db.session.add(r)
+        db.session.commit()
+
         return True
 
     def update_rides(self):
-        self.rides = { rid: r for rid, r in self.rides.iteritems() if r.update() }
+        for r in Ride.query.all():
+            if not r.update():
+                db.session.delete(r)
+        db.session.commit()
 
     def search_rides(self, dest, district, date, weekly, uid):
         u = self.get_user(uid)
@@ -176,10 +197,12 @@ class Controller(object):
 
         self.update_rides()
 
-        return [r.get_view() for r in self.rides.itervalues() if
+        result = [r for r in Ride.query.all() if
             r.get_destination() == dest and
             district in r.get_route() and
             r.happens_on(date) and
             r.is_weekly() == weekly and
             not r.contains_user(u)
         ]
+
+        return [r.get_view() for r in result]

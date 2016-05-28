@@ -1,14 +1,25 @@
 from time import mktime
 from datetime import datetime, timedelta
 from core.database import db
-from core import generator
 
 class Notification(db.Model):
 
     _nid = db.Column('nid', db.Integer, primary_key=True)
-    
-    _date = db.Column('date', db.DateTime)
-    _seen = db.Column('seen', db.Boolean)
+    _owner = db.Column(db.ForeignKey('user.uid'))
+
+    _date = db.Column(db.DateTime)
+    _seen = db.Column(db.Boolean)
+
+    _type = db.Column(db.String(30))
+
+
+    __tablename__ = 'notification'
+
+    __mapper_args__ = {
+        'polymorphic_on': _type,
+        'polymorphic_identity': 'base'
+    }
+
 
     def __init__(self):
         self._date = datetime.now()

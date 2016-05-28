@@ -24,8 +24,8 @@ app.config.update(
 
     MAX_CONTENT_LENGTH = 1024 * 1024,
     DEBUG = True,
-    
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///garupa.db',
+
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://garupa:peguemeubigu@garupa.mysql.pythonanywhere-services.com/garupa$default',
     SQLALCHEMY_TRACK_MODIFICATIONS = False,
     SQLALCHEMY_POOL_RECYCLE = 280
 )
@@ -271,5 +271,5 @@ def search_ride():
 #-----------------------------------MAIN----------------------------------------
 
 if __name__ == '__main__':
-    #logging.basicConfig(filename='info.log', level=logging.DEBUG)
+    logging.basicConfig(filename='info.log', level=logging.DEBUG)
     app.run(host='0.0.0.0', port=8000)
