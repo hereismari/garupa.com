@@ -11,13 +11,15 @@ na UFCG.
 
 ### Para rodar localmente
 
+python create.py (só uma vez, para a criação do BD)
+
 python router.py
 
-*importante* : sudo pip install flask, flask_digest
+*importante* : sudo pip install flask, flask-digest, flask-sqlalchemy, flask-mail
 
 
 ### Executando os testes
 
-Para executar os testes basta rodar o seguinte comando:
+Os testes não foram atualizados para a última entrega, então...
+Não execute, HUE
 
-     python -m unittest discover -s tests -p '*Test.py'
