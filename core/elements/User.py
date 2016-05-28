@@ -13,7 +13,7 @@ user_ride = db.Table('user_ride',
 class User(db.Model):
 
     _uid = db.Column('uid', db.Integer, primary_key=True)
-    _password = db.Column(db.String(30))
+    _password = db.Column(db.String(50))
 
     _name = db.Column(db.String(30))
     _email = db.Column(db.String(30))

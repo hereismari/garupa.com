@@ -162,10 +162,11 @@ class Controller(object):
 
         u.remove_ride(r)
         if r.get_driver() == u:
-            db.session.delete(r)
             for p in r.get_passengers():
                 p.get_user().remove_ride(r)
-        else: r.remove_passenger(u)
+                db.session.delete(p)
+        else:
+            r.remove_passenger(u)
 
         db.session.commit()
 
