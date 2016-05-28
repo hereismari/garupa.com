@@ -21,7 +21,7 @@
 
       <li class='option' ng-class="filter.type == 'FRIEND'? 'selected' : null">
         <a href='#' ng-click="filter.type = 'FRIEND'">
-          {{'NEW_FRIENDS' | translate}}</a></li>
+          {{'NEW_FRIEND' | translate}}</a></li>
 
       <li class='option' ng-class="filter.type == 'RIDE'? 'selected' : null">
         <a href='#' ng-click="filter.type = 'RIDE'">
@@ -47,7 +47,7 @@
           <div class='col-md-5'>
             <a href='./perfil/{{notification.data.user.uid}}'>
               {{notification.data.user.name}} </a> {{'HAS_SENT_A_FRIEND_REQUEST' | translate}} <br>
-            <span class='date'> {{notification.timestamp | date: "d {{'OF' | translate}} MMMM, H:mm"}} </span>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
 
           <div class='col-md-4'>
@@ -65,7 +65,7 @@
           <div class='col-md-9'>
             <a href='./perfil/{{notification.data.user.uid}}'>
               {{notification.data.user.name}} </a> {{'HAS_ACCEPTED_YOUR' | translate}} {{'FRIEND_REQUEST' | translate}} <br>
-            <span class='date'> {{notification.timestamp | date: "d {{'OF' | translate}} MMMM, H:mm"}} </span>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
         </span>
 
@@ -102,7 +102,7 @@
               {{'ADDRESS' | translate}}: &nbsp {{notification.data.complement}}
             </div>
 
-            <span class='date'> {{notification.timestamp | date: "d {{'OF' | translate}} MMMM, H:mm"}} </span>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
 
           <div class='col-md-4'>
@@ -121,7 +121,7 @@
             <a href='./perfil/{{notification.data.user.uid}}'>
               {{notification.data.user.name}} </a> {{'HAS_ACCEPTED_YOUR' | translate}}
             <a href='#' ng-click='showRide(notification.data.ride)'> {{'RIDE' | translate}} </a><br>
-            <span class='date'> {{notification.timestamp | date: "d {{'OF' | translate}} MMMM, H:mm"}} </span>
+            <span class='date'> {{notification.timestamp | date: "d, MMMM, H:mm"}} </span>
           </div>
         </span>
 
