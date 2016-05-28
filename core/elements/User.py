@@ -1,19 +1,45 @@
+from core.database import db
 
-class User(object):
+friendship = db.Table('friendship',
+    db.Column('uid_a', db.Integer, db.ForeignKey('user.uid')),
+    db.Column('uid_b', db.Integer, db.ForeignKey('user.uid'))
+)
+
+user_ride = db.Table('user_ride',
+    db.Column('uid', db.Integer, db.ForeignKey('user.uid')),
+    db.Column('rid', db.Integer, db.ForeignKey('ride.rid'))
+)
+
+class User(db.Model):
+
+    _uid = db.Column('uid', db.Integer, primary_key=True)
+    _password = db.Column(db.String(50))
+
+    _name = db.Column(db.String(30))
+    _email = db.Column(db.String(30))
+    _phone = db.Column(db.String(30))
+
+    _photo = db.Column(db.Text)
+
+    _friends = db.relationship('User',
+        secondary='friendship',
+        primaryjoin=_uid==friendship.c.uid_a,
+        secondaryjoin=_uid==friendship.c.uid_b
+    )
+
+    _rides = db.relationship('Ride', secondary='user_ride')
+    _notifications = db.relationship('Notification')
+
 
     def __init__(self, uid, passwd, name, email):
 
-        self._name = name
         self._uid = uid
-        self._email = email
         self._password = passwd
+        self._name = name
+        self._email = email
 
         self._photo = '/assets/img/default-profile-pic.png'
         self._phone = 'N/A'
-
-        self._friends = set()
-        self._notifications = []
-        self._rides = []
 
     def __eq__(self, other):
         if type(other) is not User: return False
@@ -27,7 +53,7 @@ class User(object):
         return user in self._friends
 
     def add_friend(self, user):
-        self._friends.add(user)
+        self._friends.append(user)
 
     def remove_friend(self, user):
         self._friends.remove(user)
@@ -48,19 +74,21 @@ class User(object):
     def add_notification(self, notification):
         self._notifications.append(notification)
 
-    def remove_notification(self, nid):
-        self._notifications = [n for n in self._notifications if n.get_nid() != nid]
+    def remove_notification(self, notification):
+        self._notifications.remove(notification)
 
 
     def add_ride(self, ride):
-        if ride not in self._rides:
-            self._rides.append(ride)
+        self._rides.append(ride)
 
     def remove_ride(self, ride):
         self._rides.remove(ride)
 
     def update_rides(self):
-        self._rides = [r for r in self._rides if r.update()]
+        for r in self._rides:
+            if not r.update():
+                db.session.delete(r)
+        db.session.commit()
 
 
     def set_name(self, name):
@@ -72,7 +100,7 @@ class User(object):
     def set_phone(self, phone):
         self._phone = phone
 
-    def se_photo(self, photo):
+    def set_photo(self, photo):
         self._photo = photo
 
     def set_password(self, password):

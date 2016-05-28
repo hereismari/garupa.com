@@ -1,18 +1,29 @@
 from time import mktime
 from datetime import datetime, timedelta
-from core import generator
+from core.database import db
 
-class Notification(object):
+class Notification(db.Model):
 
-    # variavel estatica
-    nid_counter = 1
+    _nid = db.Column('nid', db.Integer, primary_key=True)
+    _owner = db.Column(db.ForeignKey('user.uid'))
+
+    _date = db.Column(db.DateTime)
+    _seen = db.Column(db.Boolean)
+
+    _type = db.Column(db.String(30))
+
+
+    __tablename__ = 'notification'
+
+    __mapper_args__ = {
+        'polymorphic_on': _type,
+        'polymorphic_identity': 'base'
+    }
+
 
     def __init__(self):
-        self._nid = Notification.nid_counter
         self._date = datetime.now()
         self._seen = False
-
-        Notification.nid_counter += 1
 
     def __eq__(self, other):
         if not isinstance(other, Notification): return False

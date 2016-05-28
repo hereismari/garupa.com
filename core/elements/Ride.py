@@ -1,18 +1,30 @@
 from time import mktime
 from datetime import date, timedelta
+from core.database import db
+from Passenger import Passenger
 
-class Ride(object):
+class Ride(db.Model):
 
-    # variavel estatica
-    rid_counter = 1
+    _rid = db.Column('rid', db.Integer, primary_key=True)
+
+    _driver = db.relationship('User')
+    _driver_id = db.Column(db.ForeignKey('user.uid'))
+
+    _seats = db.Column(db.Integer)
+
+    _date = db.Column(db.DateTime)
+    _weekly = db.Column(db.Boolean)
+
+    _dest = db.Column(db.String(10))
+    _origin = db.Column(db.String(30))
+    _route = db.Column(db.PickleType)
+
+    _passengers = db.relationship('Passenger')
 
     def __init__(self, driver, date, dest, origin, route, weekly, seats):
 
         self._driver = driver
         self._seats = seats
-
-        self._rid = Ride.rid_counter
-        Ride.rid_counter += 1
 
         self._date = date
         self._weekly = weekly
@@ -21,8 +33,6 @@ class Ride(object):
         self._origin = origin
         self._route = route
 
-        self._passengers = []
-
     def __eq__(self, other):
         if type(other) is not Ride: return False
         return self._rid == other.get_rid()
@@ -30,19 +40,18 @@ class Ride(object):
     def __hash__(self):
         return self._rid
 
-    def add_passenger(self, passenger, address):
-        if not self.is_full() and not self.contains_user(passenger):
-            self._passengers.append((passenger, address))
+    def add_passenger(self, user, district, complement):
+        passenger = Passenger(user, district, complement)
+
+        if not self.is_full() and not self.contains_user(user):
+            self._passengers.append(passenger)
 
     def remove_passenger(self, passenger):
-        old_size = self.get_vacancies()
-
-        self._passengers = [p for p in self._passengers if p[0] != passenger]
-        return old_size != self.get_vacancies()
+        self._passengers.remove(passenger)
 
     def contains_user(self, user):
         for passenger in self._passengers:
-            if passenger[0] == user: return True
+            if passenger.get_user() == user: return True
         return user == self._driver
 
     def is_full(self):
@@ -105,11 +114,11 @@ class Ride(object):
             'seats': self.get_vacancies(),
 
             'passengers': [{
-                'name': p[0].get_name(),
-                'uid': p[0].get_uid(),
+                'name': p.get_user().get_name(),
+                'uid': p.get_user().get_uid(),
                 'address': {
-                    'district': p[1].get_district(),
-                    'complement': p[1].get_complement()
+                    'district': p.get_district(),
+                    'complement': p.get_complement()
                 }
-            } for p in self.get_passengers()]
+            } for p in self._passengers]
         }
